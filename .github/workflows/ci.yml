@@ -25,11 +25,13 @@ jobs:
         with:
           python-version: '3.9'
           
-      - name: Download Cocos2d-x dependencies
+      - name: Apply Python 3 compatibility patch
         run: |
-          # Temporarily modify the Python version check to allow Python 3
-          (Get-Content cocos2d/download-deps.py) -replace 'if major_ver > 2:', 'if major_ver > 3:' | Set-Content cocos2d/download-deps.py
-          python cocos2d/download-deps.py --r no
+          python .github/scripts/patch-download-deps.py
+        shell: powershell
+        
+      - name: Download Cocos2d-x dependencies
+        run: python cocos2d/download-deps.py --r no
         shell: powershell
         
       - name: Configure CMake (Win32)
@@ -68,11 +70,13 @@ jobs:
         with:
           python-version: '3.9'
           
-      - name: Download Cocos2d-x dependencies
+      - name: Apply Python 3 compatibility patch
         run: |
-          # Temporarily modify the Python version check to allow Python 3
-          (Get-Content cocos2d/download-deps.py) -replace 'if major_ver > 2:', 'if major_ver > 3:' | Set-Content cocos2d/download-deps.py
-          python cocos2d/download-deps.py --r no
+          python .github/scripts/patch-download-deps.py
+        shell: powershell
+        
+      - name: Download Cocos2d-x dependencies
+        run: python cocos2d/download-deps.py --r no
         shell: powershell
         
       - name: Configure CMake (x64)
@@ -118,11 +122,11 @@ jobs:
         with:
           python-version: '3.9'
           
+      - name: Apply Python 3 compatibility patch
+        run: python .github/scripts/patch-download-deps.py
+        
       - name: Download Cocos2d-x dependencies
-        run: |
-          # Temporarily modify the Python version check to allow Python 3
-          sed -i 's/if major_ver > 2:/if major_ver > 3:/' cocos2d/download-deps.py
-          python cocos2d/download-deps.py --r no
+        run: python cocos2d/download-deps.py --r no
         
       - name: Configure CMake
         run: |
@@ -158,11 +162,11 @@ jobs:
         with:
           python-version: '3.9'
           
+      - name: Apply Python 3 compatibility patch
+        run: python .github/scripts/patch-download-deps.py
+        
       - name: Download Cocos2d-x dependencies
-        run: |
-          # Temporarily modify the Python version check to allow Python 3
-          sed -i 's/if major_ver > 2:/if major_ver > 3:/' cocos2d/download-deps.py
-          python cocos2d/download-deps.py --r no
+        run: python cocos2d/download-deps.py --r no
         
       - name: Configure CMake
         run: |
@@ -210,12 +214,12 @@ jobs:
         with:
           python-version: '3.9'
           
-      - name: Download Cocos2d-x dependencies
-        run: |
-          # Temporarily modify the Python version check to allow Python 3
-          sed -i 's/if major_ver > 2:/if major_ver > 3:/' cocos2d/download-deps.py
-          python cocos2d/download-deps.py --r no
+      - name: Apply Python 3 compatibility patch
+        run: python .github/scripts/patch-download-deps.py
         
+      - name: Download Cocos2d-x dependencies
+        run: python cocos2d/download-deps.py --r no
+
       - name: Build Android APK
         run: |
           cd proj.android

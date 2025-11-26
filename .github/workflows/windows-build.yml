@@ -30,11 +30,15 @@ jobs:
         with:
           vs-version: '17.0'
           
+      - name: Apply Python 3 compatibility patch
+        run: |
+          Write-Host "Applying Python 3 compatibility patches..."
+          python .github/scripts/patch-download-deps.py
+        shell: powershell
+        
       - name: Download Cocos2d-x dependencies
         run: |
           Write-Host "Downloading Cocos2d-x dependencies..."
-          # Temporarily modify the Python version check to allow Python 3
-          (Get-Content cocos2d/download-deps.py) -replace 'if major_ver > 2:', 'if major_ver > 3:' | Set-Content cocos2d/download-deps.py
           python cocos2d/download-deps.py --r no
         shell: powershell
         
