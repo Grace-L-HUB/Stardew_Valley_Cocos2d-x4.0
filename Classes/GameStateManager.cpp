@@ -1,6 +1,7 @@
 #include "GameStateManager.h"
 
 #include "cocos2d.h"
+#include "EventManager.h"
 
 #include <algorithm>
 
@@ -38,6 +39,9 @@ bool GameStateManager::changeState(GameStateType newStateType,
     StateTransitionInfo transition(getCurrentStateType(), newStateType, transitionType, duration, savePrevious);
     transition.parameters = parameters;
 
+    // Publish state changed event
+    EventManager::getInstance().publishStateChanged(getCurrentStateType(), newStateType, transitionType, duration);
+    
     return applyState(std::move(nextState), transition, true);
 }
 
@@ -52,6 +56,9 @@ void GameStateManager::pushState(GameStateType newStateType,
 
     StateTransitionInfo transition(getCurrentStateType(), newStateType, transitionType, duration, false);
     transition.parameters = parameters;
+
+    // Publish state changed event
+    EventManager::getInstance().publishStateChanged(getCurrentStateType(), newStateType, transitionType, duration);
 
     if (_currentState) {
         _currentState->pause();
@@ -80,6 +87,11 @@ void GameStateManager::popState(const std::string& transitionType, float duratio
     _pausedStates.pop_back();
 
     previous->resume();
+
+    // Publish state changed event for pop operation
+    GameStateType oldState = _currentState->getType();
+    GameStateType newState = previous->getType();
+    EventManager::getInstance().publishStateChanged(oldState, newState, transitionType, duration);
 
     if (_transitionCallback) {
         _transitionCallback(GameStateType::PAUSED, previous->getType());
@@ -214,6 +226,9 @@ bool GameStateManager::applyState(std::unique_ptr<IGameState> nextState,
     if (_transitionCallback) {
         _transitionCallback(transition.fromState, newType);
     }
+
+    // Publish state changed event
+    EventManager::getInstance().publishStateChanged(transition.fromState, newType, transition.transitionType, transition.duration);
 
     recordStateChange(newType);
     _currentState = std::move(nextState);

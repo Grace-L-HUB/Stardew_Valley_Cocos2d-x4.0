@@ -1,201 +1,225 @@
 #include "Player.h"
 
-USING_NS_CC;  // Ê¹ÓÃ Cocos2d-x ÃüÃû¿Õ¼ä
+USING_NS_CC;  // Ê¹ï¿½ï¿½ Cocos2d-x ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
 
-// Player ÀàµÄ¹¹Ôìº¯Êý
+// Player ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½
 Player::Player() : speed(10.0f),pic_path("character1 / player_down3.png") {}
 
-// Player ÀàµÄÎö¹¹º¯Êý
+// Player ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Player::~Player() {}
 
-// Player ÀàµÄ³õÊ¼»¯º¯Êý
+// Player ï¿½ï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 bool Player::init()
 {
-    if (!Sprite::init())  // ³õÊ¼»¯¸¸Àà Sprite£¬¼ì²éÊÇ·ñ³É¹¦
+    if (!Sprite::init())  // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Spriteï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½É¹ï¿½
     {
-        return false;  // Èç¹û³õÊ¼»¯Ê§°Ü£¬·µ»Ø false
+        return false;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ê§ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½ false
     }
 
-    // ¼ÓÔØ½ÇÉ«µÄÍ¼Æ¬£¨Íæ¼Ò³¯ÏÂµÄÕ¾Á¢Í¼Æ¬£©
+    // å…ˆä¿å­˜å½“å‰èƒ½é‡å€¼
+
+
+    // ï¿½ï¿½ï¿½Ø½ï¿½É«ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Âµï¿½Õ¾ï¿½ï¿½Í¼Æ¬ï¿½ï¿½
     this->initWithFile("character1/player_down3.png");
 
-    // ´´½¨¼üÅÌÊÂ¼þ¼àÌýÆ÷
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     auto keyboardListener = EventListenerKeyboard::create();
 
-    // °´ÏÂ¼üÅÌÊ±¸üÐÂ·½Ïò
+    // ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½
     keyboardListener->onKeyPressed = CC_CALLBACK_2(Player::onKeyPressed, this);
 
-    // °´¼üÊÍ·ÅÊ±Í£Ö¹ÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ê±Í£Ö¹ï¿½Æ¶ï¿½
     keyboardListener->onKeyReleased = CC_CALLBACK_2(Player::onKeyReleased, this);
 
-    // ½«¼àÌýÆ÷Ìí¼Óµ½ÊÂ¼þÅÉ·¢Æ÷ÖÐ£¬¼àÌýÊÂ¼þ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Â¼ï¿½ï¿½É·ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
     _eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
-    // Ã¿ 0.05 Ãëµ÷ÓÃÒ»´Î player1_move() º¯Êý£¬¿ØÖÆÍæ¼ÒÒÆ¶¯
+    // Ã¿ 0.05 ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ player1_move() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     this->schedule([this](float dt) {
         this->player1_move();
         }, 0.05f, "player1_move");
 
-    // Ã¿ 0.3 Ãëµ÷ÓÃÒ»´Î player_change() º¯Êý£¬¿ØÖÆÍæ¼Ò¶¯»­ÇÐ»»
+    // Ã¿ 0.3 ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ player_change() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Ð»ï¿½
     this->schedule([this](float dt) {
         this->player_change();
         }, 0.3f, "player_change");
 
-    return true;  // ³õÊ¼»¯³É¹¦£¬·µ»Ø true
+    return true;  // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true
 }
 
-// Player ÀàµÄ¾²Ì¬´´½¨·½·¨
+// Player ï¿½ï¿½Ä¾ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Player* Player::create()
 {
-    Player* player = new Player();  // ´´½¨ Player ¶ÔÏó
-    if (player && player->init())  // Èç¹û´´½¨²¢³õÊ¼»¯³É¹¦
+    Player* player = new Player();  // ï¿½ï¿½ï¿½ï¿½ Player ï¿½ï¿½ï¿½ï¿½
+    if (player && player->init())  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½É¹ï¿½
     {
-        player->autorelease();  // ×Ô¶¯ÊÍ·ÅÄÚ´æ
-        return player;  // ·µ»ØÐÂ´´½¨µÄ Player ¶ÔÏó
+        player->autorelease();  // ï¿½Ô¶ï¿½ï¿½Í·ï¿½ï¿½Ú´ï¿½
+        return player;  // ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ Player ï¿½ï¿½ï¿½ï¿½
     }
-    CC_SAFE_DELETE(player);  // Èç¹û´´½¨Ê§°Ü£¬É¾³ý player ¶ÔÏó
-    return nullptr;  // ·µ»Ø¿ÕÖ¸Õë
+    CC_SAFE_DELETE(player);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½É¾ï¿½ï¿½ player ï¿½ï¿½ï¿½ï¿½
+    return nullptr;  // ï¿½ï¿½ï¿½Ø¿ï¿½Ö¸ï¿½ï¿½
 }
 
-// °´¼ü°´ÏÂÊ±µÄ»Øµ÷º¯Êý
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-    float X = this->getPositionX();  // »ñÈ¡µ±Ç°Íæ¼ÒµÄ X ×ø±ê
-    float Y = this->getPositionY();  // »ñÈ¡µ±Ç°Íæ¼ÒµÄ Y ×ø±ê
+    float X = this->getPositionX();  // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Òµï¿½ X ï¿½ï¿½ï¿½ï¿½
+    float Y = this->getPositionY();  // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Òµï¿½ Y ï¿½ï¿½ï¿½ï¿½
 
-    // ÅÐ¶Ï°´ÏÂµÄ·½Ïò¼ü£¬²¢¸üÐÂ½ÇÉ«µÄÒÆ¶¯×´Ì¬
-    if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW && !uppressed)  // ÉÏ¼ýÍ·
+    // ï¿½Ð¶Ï°ï¿½ï¿½ÂµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½É«ï¿½ï¿½ï¿½Æ¶ï¿½×´Ì¬
+    if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW && !uppressed)  // ï¿½Ï¼ï¿½Í·
     {
-        uppressed = true;  // ±ê¼ÇÉÏ¼üÒÑ°´ÏÂ
+        uppressed = true;  // ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW && !downpressed)  // ÏÂ¼ýÍ·
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW && !downpressed)  // ï¿½Â¼ï¿½Í·
     {
-        downpressed = true;  // ±ê¼ÇÏÂ¼üÒÑ°´ÏÂ
+        downpressed = true;  // ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW && !leftpressed)  // ×ó¼ýÍ·
+    else if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW && !leftpressed)  // ï¿½ï¿½ï¿½Í·
     {
-        leftpressed = true;  // ±ê¼Ç×ó¼üÒÑ°´ÏÂ
+        leftpressed = true;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW && !rightpressed)  // ÓÒ¼ýÍ·
+    else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW && !rightpressed)  // ï¿½Ò¼ï¿½Í·
     {
-        rightpressed = true;  // ±ê¼ÇÓÒ¼üÒÑ°´ÏÂ
+        rightpressed = true;  // ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½
     }
 }
 
-// °´¼üÊÍ·ÅÊ±µÄ»Øµ÷º¯Êý
+void Player::setEnergy(int energy) {
+    // ç¡®ä¿èƒ½é‡å€¼åœ¨æœ‰æ•ˆèŒƒå›´å†…
+    current_energy = std::max(0, std::min(energy, energy_limit));
+    
+    // å‘å¸ƒèƒ½é‡å˜åŒ–äº‹ä»¶
+    EventManager::getInstance().publishPlayerEnergyChanged(current_energy);
+}
+
+void Player::changeEnergy(int delta) {
+    // å…ˆä¿å­˜å½“å‰èƒ½é‡å€¼
+    int oldEnergy = current_energy;
+    
+    // æ”¹å˜èƒ½é‡å€¼å¹¶é™åˆ¶åœ¨æœ‰æ•ˆèŒƒå›´å†…
+    current_energy = std::max(0, std::min(current_energy + delta, energy_limit));
+    
+    // å¦‚æžœèƒ½é‡å€¼ç¡®å®žå‘ç”Ÿäº†å˜åŒ–ï¼Œå‘å¸ƒäº‹ä»¶
+    if (current_energy != oldEnergy) {
+        EventManager::getInstance().publishPlayerEnergyChanged(current_energy);
+    }
+}
+
+// ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ê±ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
-    // ÅÐ¶ÏËÉ¿ªµÄ·½Ïò¼ü£¬²¢¸üÐÂ½ÇÉ«µÄÒÆ¶¯×´Ì¬
-    if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)  // ÉÏ¼ýÍ·
+    // ï¿½Ð¶ï¿½ï¿½É¿ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½É«ï¿½ï¿½ï¿½Æ¶ï¿½×´Ì¬
+    if (keyCode == EventKeyboard::KeyCode::KEY_UP_ARROW)  // ï¿½Ï¼ï¿½Í·
     {
-        this->look_state = 0;  // ¸´Î» look_state ×´Ì¬
-        this->setTexture("character1/player_up3.png");  // ÉèÖÃÍæ¼Ò³¯ÉÏµÄÍ¼Æ¬
+        this->look_state = 0;  // ï¿½ï¿½Î» look_state ×´Ì¬
+        this->setTexture("character1/player_up3.png");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Ïµï¿½Í¼Æ¬
         this->pic_path = "character1/player_up3.png";
-        uppressed = false;  // ±ê¼ÇÉÏ¼üÒÑËÉ¿ª
+        uppressed = false;  // ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ï¿½É¿ï¿½
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)  // ÏÂ¼ýÍ·
+    else if (keyCode == EventKeyboard::KeyCode::KEY_DOWN_ARROW)  // ï¿½Â¼ï¿½Í·
     {
-        this->look_state = 0;  // ¸´Î» look_state ×´Ì¬
-        this->setTexture("character1/player_down3.png");  // ÉèÖÃÍæ¼Ò³¯ÏÂµÄÍ¼Æ¬
+        this->look_state = 0;  // ï¿½ï¿½Î» look_state ×´Ì¬
+        this->setTexture("character1/player_down3.png");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Âµï¿½Í¼Æ¬
         this->pic_path = "character1/player_down3.png";
-        downpressed = false;  // ±ê¼ÇÏÂ¼üÒÑËÉ¿ª
+        downpressed = false;  // ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½É¿ï¿½
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)  // ×ó¼ýÍ·
+    else if (keyCode == EventKeyboard::KeyCode::KEY_LEFT_ARROW)  // ï¿½ï¿½ï¿½Í·
     {
-        this->look_state = 0;  // ¸´Î» look_state ×´Ì¬
-        this->setTexture("character1/player_left3.png");  // ÉèÖÃÍæ¼Ò³¯×óµÄÍ¼Æ¬
+        this->look_state = 0;  // ï¿½ï¿½Î» look_state ×´Ì¬
+        this->setTexture("character1/player_left3.png");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
         this->pic_path = "character1/player_left3.png";
-        leftpressed = false;  // ±ê¼Ç×ó¼üÒÑËÉ¿ª
+        leftpressed = false;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½
     }
-    else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)  // ÓÒ¼ýÍ·
+    else if (keyCode == EventKeyboard::KeyCode::KEY_RIGHT_ARROW)  // ï¿½Ò¼ï¿½Í·
     {
-        this->look_state = 0;  // ¸´Î» look_state ×´Ì¬
-        this->setTexture("character1/player_right3.png");  // ÉèÖÃÍæ¼Ò³¯ÓÒµÄÍ¼Æ¬
+        this->look_state = 0;  // ï¿½ï¿½Î» look_state ×´Ì¬
+        this->setTexture("character1/player_right3.png");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½Òµï¿½Í¼Æ¬
         this->pic_path = "character1/player_right3.png";
-        rightpressed = false;  // ±ê¼ÇÓÒ¼üÒÑËÉ¿ª
+        rightpressed = false;  // ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½É¿ï¿½
     }
 }
 
-// Íæ¼ÒÒÆ¶¯µÄÂß¼­
+// ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 void Player::player1_move() {
 
-    // Èç¹û°´ÏÂ×ó¼ýÍ·²¢ÇÒÔÊÐíÏò×óÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     if (this->leftpressed && this->moveLeft) {
         if (this->look_state == 0) {
-            this->look_state++;  // Èç¹ûÍæ¼Ò¾²Ö¹×´Ì¬£¬¸üÐÂ×´Ì¬
+            this->look_state++;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½Ö¹×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
             return;
         }
-        this->setPositionX(this->getPositionX() - speed);  // Ïò×óÒÆ¶¯
+        this->setPositionX(this->getPositionX() - speed);  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     }
-    // Èç¹û°´ÏÂÏÂ¼ýÍ·²¢ÇÒÔÊÐíÏòÏÂÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     else if (this->downpressed && this->moveDown) {
         if (this->look_state == 0) {
-            this->look_state++;  // Èç¹ûÍæ¼Ò¾²Ö¹×´Ì¬£¬¸üÐÂ×´Ì¬
+            this->look_state++;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½Ö¹×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
             return;
         }
-        this->setPositionY(this->getPositionY() - speed);  // ÏòÏÂÒÆ¶¯
+        this->setPositionY(this->getPositionY() - speed);  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     }
-    // Èç¹û°´ÏÂÉÏ¼ýÍ·²¢ÇÒÔÊÐíÏòÉÏÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     else if (this->uppressed && this->moveUp) {
         if (this->look_state == 0) {
-            this->look_state++;  // Èç¹ûÍæ¼Ò¾²Ö¹×´Ì¬£¬¸üÐÂ×´Ì¬
+            this->look_state++;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½Ö¹×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
             return;
         }
-        this->setPositionY(this->getPositionY() + speed);  // ÏòÉÏÒÆ¶¯
+        this->setPositionY(this->getPositionY() + speed);  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     }
-    // Èç¹û°´ÏÂÓÒ¼ýÍ·²¢ÇÒÔÊÐíÏòÓÒÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     else if (this->rightpressed && this->moveRight) {
         if (this->look_state == 0) {
-            this->look_state++;  // Èç¹ûÍæ¼Ò¾²Ö¹×´Ì¬£¬¸üÐÂ×´Ì¬
+            this->look_state++;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ò¾ï¿½Ö¹×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
             return;
         }
-        this->setPositionX(this->getPositionX() + speed);  // ÏòÓÒÒÆ¶¯
+        this->setPositionX(this->getPositionX() + speed);  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     }
 }
 
-// Íæ¼Ò×´Ì¬±ä»¯µÄÂß¼­£¨ÇÐ»»¶¯»­£©
+// ï¿½ï¿½ï¿½×´Ì¬ï¿½ä»¯ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Player::player_change() {
 
-    // Èç¹û°´ÏÂ×ó¼ýÍ·²¢ÇÒÔÊÐíÏò×óÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     if (this->leftpressed && this->moveLeft) {
-        if (this->look_state % 2 == 1) {  // Èç¹ûÊÇÆæÊýÖ¡£¬ÇÐ»»ÎªµÚÒ»¸ö¶¯»­
+        if (this->look_state % 2 == 1) {  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_left1.png");
         }
-        else {  // Èç¹ûÊÇÅ¼ÊýÖ¡£¬ÇÐ»»ÎªµÚ¶þ¸ö¶¯»­
+        else {  // ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_left2.png");
         }
     }
-    // Èç¹û°´ÏÂÏÂ¼ýÍ·²¢ÇÒÔÊÐíÏòÏÂÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     else if (this->downpressed && this->moveDown) {
-        if (this->look_state % 2 == 1) {  // Èç¹ûÊÇÆæÊýÖ¡£¬ÇÐ»»ÎªµÚÒ»¸ö¶¯»­
+        if (this->look_state % 2 == 1) {  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_down1.png");
         }
-        else {  // Èç¹ûÊÇÅ¼ÊýÖ¡£¬ÇÐ»»ÎªµÚ¶þ¸ö¶¯»­
+        else {  // ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_down2.png");
         }
     }
-    // Èç¹û°´ÏÂÉÏ¼ýÍ·²¢ÇÒÔÊÐíÏòÉÏÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     else if (this->uppressed && this->moveUp) {
-        if (this->look_state % 2 == 1) {  // Èç¹ûÊÇÆæÊýÖ¡£¬ÇÐ»»ÎªµÚÒ»¸ö¶¯»­
+        if (this->look_state % 2 == 1) {  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_up1.png");
         }
-        else {  // Èç¹ûÊÇÅ¼ÊýÖ¡£¬ÇÐ»»ÎªµÚ¶þ¸ö¶¯»­
+        else {  // ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_up2.png");
         }
     }
-    // Èç¹û°´ÏÂÓÒ¼ýÍ·²¢ÇÒÔÊÐíÏòÓÒÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
     else if (this->rightpressed && this->moveRight) {
-        if (this->look_state % 2 == 1) {  // Èç¹ûÊÇÆæÊýÖ¡£¬ÇÐ»»ÎªµÚÒ»¸ö¶¯»­
+        if (this->look_state % 2 == 1) {  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_right1.png");
         }
-        else {  // Èç¹ûÊÇÅ¼ÊýÖ¡£¬ÇÐ»»ÎªµÚ¶þ¸ö¶¯»­
+        else {  // ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½Ð»ï¿½Îªï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             this->look_state++;
             this->setTexture("character1/player_right2.png");
         }

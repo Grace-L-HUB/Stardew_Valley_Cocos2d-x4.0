@@ -1,20 +1,21 @@
 #include "NpcRelationship.h"  
+#include "EventManager.h"
 #include <iostream>  
 
-// ¹¹Ôìº¯Êý  
+// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½  
 NpcRelationship::NpcRelationship() {}
 
-// Îö¹¹º¯Êý  
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 NpcRelationship::~NpcRelationship() {}
 
-// Ìí¼Ó NPC  
+// ï¿½ï¿½ï¿½ï¿½ NPC  
 void NpcRelationship::add_npc(const std::string& npcName) {
     if (relationships.find(npcName) == relationships.end()) {
         relationships[npcName] = std::unordered_map<std::string, double>();
     }
 }
 
-// ÒÆ³ý NPC  
+// ï¿½Æ³ï¿½ NPC  
 void NpcRelationship::remove_npc(const std::string& npcName) {
     relationships.erase(npcName);
     for (auto& pair : relationships) {
@@ -22,27 +23,28 @@ void NpcRelationship::remove_npc(const std::string& npcName) {
     }
 }
 
-// ÉèÖÃ NPC Ö®¼äµÄ¹ØÏµ  
+// ï¿½ï¿½ï¿½ï¿½ NPC Ö®ï¿½ï¿½Ä¹ï¿½Ïµ  
 void NpcRelationship::setRelationship(const std::string& npcA, const std::string& npcB, double value) {
     add_npc(npcA);
     add_npc(npcB);
     relationships[npcA][npcB] = value;
-    relationships[npcB][npcA] = value; // ¹ØÏµÊÇË«ÏòµÄ  
+    relationships[npcB][npcA] = value; // ï¿½ï¿½Ïµï¿½ï¿½Ë«ï¿½ï¿½ï¿½  
+    EventManager::getInstance().publishRelationshipChanged(npcA, npcB, value);
 }
 
-// Ôö¼Ó NPC Ö®¼äµÄ¹ØÏµ  
+// ï¿½ï¿½ï¿½ï¿½ NPC Ö®ï¿½ï¿½Ä¹ï¿½Ïµ  
 void NpcRelationship::increaseRelationship(const std::string& npcA, const std::string& npcB, double amount) {
     double newValue = getRelationship(npcA, npcB) + amount;
     setRelationship(npcA, npcB, newValue);
 }
 
-// ¼õÉÙ NPC Ö®¼äµÄ¹ØÏµ  
+// ï¿½ï¿½ï¿½ï¿½ NPC Ö®ï¿½ï¿½Ä¹ï¿½Ïµ  
 void NpcRelationship::decreaseRelationship(const std::string& npcA, const std::string& npcB, double amount) {
     double newValue = getRelationship(npcA, npcB) - amount;
     setRelationship(npcA, npcB, newValue);
 }
 
-// »ñÈ¡ NPC Ö®¼äµÄ¹ØÏµ  
+// ï¿½ï¿½È¡ NPC Ö®ï¿½ï¿½Ä¹ï¿½Ïµ  
 double NpcRelationship::getRelationship(const std::string& npcA, const std::string& npcB) const {
     auto itA = relationships.find(npcA);
     if (itA != relationships.end()) {
@@ -51,27 +53,27 @@ double NpcRelationship::getRelationship(const std::string& npcA, const std::stri
             return itB->second;
         }
     }
-    return 0; // Ä¬ÈÏ¹ØÏµÖµ  
+    return 0; // Ä¬ï¿½Ï¹ï¿½ÏµÖµ  
 }
 
-// »ñÈ¡¹ØÏµ²ã¼¶  
+// ï¿½ï¿½È¡ï¿½ï¿½Ïµï¿½ã¼¶  
 std::string NpcRelationship::getRelationshipLevel(const std::string& npcA, const std::string& npcB) const {
     int value = getRelationship(npcA, npcB);
     if (value < -50) {
-        return "·Ç³£²î";
+        return "ï¿½Ç³ï¿½ï¿½ï¿½";
     }
     else if (value < 0) {
-        return "Ò»°ã";
+        return "Ò»ï¿½ï¿½";
     }
     else if (value < 50) {
-        return "ÓÑºÃ";
+        return "ï¿½Ñºï¿½";
     }
     else {
-        return "Ç×ÃÜ";
+        return "ï¿½ï¿½ï¿½ï¿½";
     }
 }
 
-// ´òÓ¡ËùÓÐ NPC Ö®¼äµÄ¹ØÏµ  
+// ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ NPC Ö®ï¿½ï¿½Ä¹ï¿½Ïµ  
 void NpcRelationship::printRelationships() const {
     for (const auto& npcA : relationships) {
         for (const auto& npcB : npcA.second) {
@@ -80,26 +82,26 @@ void NpcRelationship::printRelationships() const {
     }
 }
 
-// Ôö¼ÓÀñÎï½ÓÊÜ´ÎÊý  
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½  
 void NpcRelationship::AddGiftTime ( const std::string& npc ) {
     add_npc ( npc );
-    // ÕÒµ½¸Ã NPC£¬²¢Ôö¼Ó½ÓÊÜÀñÎïµÄ´ÎÊý  
+    // ï¿½Òµï¿½ï¿½ï¿½ NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½  
     GiftTime[npc]++;
 }
 
-// »ñÈ¡¸Ã NPC ½ÓÊÜµÄÀñÎï´ÎÊý  
+// ï¿½ï¿½È¡ï¿½ï¿½ NPC ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 int NpcRelationship::NpcGiftTIme ( const std::string& npc ) {
-    // ²éÕÒ²¢·µ»ØÀñÎï´ÎÊý£¬Î´¼ÇÂ¼Ôò·µ»Ø 0  
+    // ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½Â¼ï¿½ò·µ»ï¿½ 0  
     return GiftTime[npc];
 }
 
 void NpcRelationship::updateGiftTime () {
-    // ¼ì²éÊÇ·ñÒÑ¾­¹ýÁËÆßÌì  
+    // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     if ((day - lastUpdateDay) >= 7) {
-        // ÖØÖÃËùÓÐNPCµÄGiftTime  
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½GiftTime  
         for (auto& entry : GiftTime) {
             entry.second = 0; 
         }
-        lastUpdateDay = day; // ¸üÐÂ×îºóÒ»´Î¸üÐÂµÄÌìÊý  
+        lastUpdateDay = day; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î¸ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½  
     }
 }

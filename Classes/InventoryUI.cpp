@@ -4,8 +4,16 @@
 #include "Item.h"  
 #include "AppDelegate.h"
 #include "quitUI.h"
+#include "EventManager.h"
 
 USING_NS_CC;
+
+InventoryUI::~InventoryUI() {
+    if (_eventObserver) {
+        EventManager::getInstance().removeObserver(_eventObserver);
+        _eventObserver.reset();
+    }
+}
 
 
 static void problemLoading ( const char* filename )
@@ -85,10 +93,10 @@ void InventoryUI::backgroundcreate(){
     Vec2 position = player1->getPosition ();
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );   
-    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
+    // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½Äºï¿½É«ï¿½ï¿½ï¿½ï¿½
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 5 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 5 * visibleSize.width , 5 * visibleSize.height );  // ï¿½ï¿½É«ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½Îª120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize );// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Î»ï¿½ï¿½
     this->addChild ( darkLayer , 0 );
     auto bag = Sprite::create ( "UIresource/beibao/newbag2.png" );
     bag->setTag ( 101 );
@@ -98,20 +106,20 @@ void InventoryUI::backgroundcreate(){
     }
     else
     {
-        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+        // ï¿½ï¿½È¡Ô­Ê¼Í¼Æ¬ï¿½Ä¿ï¿½ï¿½ï¿½
         float originalWidth = bag->getContentSize ().width;
         float originalHeight = bag->getContentSize ().height;
-        // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Èºï¿½Í¼Æ¬Ô­Ê¼ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // Ñ¡Ôñ×îÐ¡µÄËõ·Å±ÈÀý£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äÐÎ
+        // Ñ¡ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ö¤Í¼Æ¬ï¿½ï¿½È«ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½
         float scale = std::min ( scaleX , scaleY );
         bag->setScale ( scale / 1.5 );
         bag->setPosition ( Vec2 ( currentx , currenty ) );
         this->addChild ( bag , 0 );
     }
 
-    //ÈËÎïÐÎÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     auto CharacterDisplay = Sprite::create ( "character1/player_down3.png" );
     if (CharacterDisplay == nullptr)
     {
@@ -137,6 +145,15 @@ void InventoryUI::backgroundcreate(){
     FarmNameDisplay->setTextColor ( Color4B::BLACK );
     FarmNameDisplay->setPosition ( Vec2 ( currentx + visibleSize.width * 0.1 , currenty - visibleSize.height * 0.15 ) );
     this->addChild ( FarmNameDisplay , 4 );
+
+    if (!_goldLabel) {
+        _goldLabel = Label::createWithTTF(std::to_string(GoldAmount) + "g", "fonts/Marker Felt.ttf", 38);
+        _goldLabel->setTextColor(Color4B::BLACK);
+        _goldLabel->setPosition(Vec2(currentx + visibleSize.width * 0.1f, currenty - visibleSize.height * 0.23f));
+        this->addChild(_goldLabel, 4);
+    } else {
+        _goldLabel->setString(std::to_string(GoldAmount) + "g");
+    }
 }
 
 void InventoryUI::Itemblock ( Inventory* inventory ) {
@@ -146,28 +163,28 @@ void InventoryUI::Itemblock ( Inventory* inventory ) {
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
     Vec2 origin = Director::getInstance ()->getVisibleOrigin ();
     _inventory = inventory;
-    _selectedSlot = 1; // Ä¬ÈÏÑ¡ÖÐµÚÒ»¸ö²ÛÎ»  
+    _selectedSlot = 1; // Ä¬ï¿½ï¿½Ñ¡ï¿½Ðµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î»  
 
 
-    // ³õÊ¼»¯ÎïÆ·²Û Sprite 
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ Sprite 
     for (int m = 0; m < 3; m++)
     {
         for (int i = 0; i < kRowSize; ++i) {
             auto slot = Sprite::create ( "UIresource/beibao/itemblock.png" );
             auto bag = getChildByTag ( 101 );
-            // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+            // ï¿½ï¿½È¡Ô­Ê¼Í¼Æ¬ï¿½Ä¿ï¿½ï¿½ï¿½
             float originalWidth = slot->getContentSize ().width;
             float originalHeight = slot->getContentSize ().height;
-            // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀý
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Èºï¿½Í¼Æ¬Ô­Ê¼ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             float scaleX = visibleSize.width / originalWidth;
             float scaleY = visibleSize.height / originalHeight;
-            // Ñ¡Ôñ×îÐ¡µÄËõ·Å±ÈÀý£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äÐÎ
+            // Ñ¡ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ö¤Í¼Æ¬ï¿½ï¿½È«ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½
             float scale = std::min ( scaleX , scaleY );
             slot->setScale ( scale / 16.5 );
             float bagWidth = bag->getContentSize ().width;
             float bagHeight = bag->getContentSize ().height;
-            slot->setPosition ( currentx - bagWidth * 0.545 + (originalWidth * scale / 16.5 + 5) * i , currenty + bagHeight * 1.73 / 3.643 - m * (originalHeight * scale / 16.5 + 10) ); // ¼ÆËã²ÛÎ»Î»ÖÃ  
-            slot->setTag ( i + 1 ); // ÉèÖÃ²ÛÎ»µÄ±êÇ©  
+            slot->setPosition ( currentx - bagWidth * 0.545 + (originalWidth * scale / 16.5 + 5) * i , currenty + bagHeight * 1.73 / 3.643 - m * (originalHeight * scale / 16.5 + 10) ); // ï¿½ï¿½ï¿½ï¿½ï¿½Î»Î»ï¿½ï¿½  
+            slot->setTag ( i + 1 ); // ï¿½ï¿½ï¿½Ã²ï¿½Î»ï¿½Ä±ï¿½Ç©  
             this->addChild ( slot , 2 );
 
             _itemSlots.pushBack ( slot );
@@ -191,7 +208,9 @@ bool InventoryUI::init ( Inventory* inventory , std::string sceneName ) {
 
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
 
-    updateDisplay (); // ¸üÐÂÏÔÊ¾ÄÚÈÝ  
+    updateDisplay (); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½  
+
+    registerEventObservers();
 
     return true;
 }
@@ -201,7 +220,7 @@ void InventoryUI::Buttons_switching () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    //Í¼±êÏÔÊ¾
+    //Í¼ï¿½ï¿½ï¿½ï¿½Ê¾
     auto bagkey = Sprite::create ( "UIresource/beibao/bagkey.png" );
     auto Skillkey = Sprite::create ( "UIresource/beibao/Skillkey.png" );
     auto intimacykey = Sprite::create ( "UIresource/beibao/intimacykey.png" );
@@ -212,18 +231,18 @@ void InventoryUI::Buttons_switching () {
     }
     else
     {
-        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+        // ï¿½ï¿½È¡Ô­Ê¼Í¼Æ¬ï¿½Ä¿ï¿½ï¿½ï¿½
         float originalWidth = bagkey->getContentSize ().width;
         float originalHeight = bagkey->getContentSize ().height;
-        // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Èºï¿½Í¼Æ¬Ô­Ê¼ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // Ñ¡Ôñ×îÐ¡µÄËõ·Å±ÈÀý£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äÐÎ
+        // Ñ¡ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ö¤Í¼Æ¬ï¿½ï¿½È«ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½
         float scale = std::min ( scaleX , scaleY );
         bagkey->setScale ( scale / 16.5 );
-        bagkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.25 , currenty + visibleSize.height * 0.305 ) );//0.305ÊÇÑ¡ÖÐÊ±Î»ÖÃ
+        bagkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.25 , currenty + visibleSize.height * 0.305 ) );//0.305ï¿½ï¿½Ñ¡ï¿½ï¿½Ê±Î»ï¿½ï¿½
         Skillkey->setScale ( scale / 16.5 );
-        Skillkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.19 , currenty + visibleSize.height * 0.315 ) );//0.315ÊÇÎ´Ñ¡ÖÐÊ±Î»ÖÃ
+        Skillkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.19 , currenty + visibleSize.height * 0.315 ) );//0.315ï¿½ï¿½Î´Ñ¡ï¿½ï¿½Ê±Î»ï¿½ï¿½
         intimacykey->setScale ( scale / 16.5 );
         intimacykey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.13 , currenty + visibleSize.height * 0.315 ) );
         quitkey->setScale ( scale / 16.5 );
@@ -234,7 +253,7 @@ void InventoryUI::Buttons_switching () {
         this->addChild ( quitkey , 2 );
     }
 
-    //¶¯»­ÒÔ¼°ÇÐ»»Layer
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ð»ï¿½Layer
     auto listener = EventListenerMouse::create ();
     listener->onMouseDown = [this, bagkey, Skillkey,intimacykey , quitkey]( EventMouse* event ) {
         Vec2 mousePos = Vec2 ( event->getCursorX () , event->getCursorY () );
@@ -248,7 +267,7 @@ void InventoryUI::Buttons_switching () {
             Director::getInstance ()->getRunningScene ()->addChild ( SkillTreeUI::create ( nowScene ) , 20 );
         }
         else if (intimacykey->getBoundingBox ().containsPoint ( mousePos )) {
-            // ÒÆ³ýµ±Ç°µÄLayer
+            // ï¿½Æ³ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Layer
             std::string nowScene = SceneName;
             this->removeFromParent ();
             Director::getInstance ()->getRunningScene ()->addChild ( intimacyUI::create ( nowScene ) , 20 );
@@ -275,21 +294,21 @@ InventoryUI* InventoryUI::create ( Inventory* inventory , std::string sceneName 
 void InventoryUI::updateDisplay () {
     if (!_inventory) {
         CCLOG ( "Warning: _inventory is nullptr" );
-        return; // ÍË³ö·½·¨  
+        return; // ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½  
     }
 
     for (int m = 0; m < 3; m++) {
-        // »ñÈ¡µ±Ç°Ñ¡ÔñµÄÎïÆ·µÄ²ÛÎ»  
+        // ï¿½ï¿½È¡ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ä²ï¿½Î»  
         for (int i = 0; i < kRowSize; ++i) {
             int serial_number = i + m * 12;
             auto slot = _itemSlots.at ( serial_number );
-            slot->setVisible ( true ); // È·±£ÏÔÊ¾ËùÓÐ²ÛÎ»  
+            slot->setVisible ( true ); // È·ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ð²ï¿½Î»  
 
-            // »ñÈ¡²ÛÎ»ÎïÆ·  
-            auto item = _inventory->GetItemAt ( serial_number + 1 ); // »ñÈ¡ÌØ¶¨²ÛÎ»µÄÎïÆ·£¬×¢Òâ²ÛÎ»´Ó1¿ªÊ¼ 
+            // ï¿½ï¿½È¡ï¿½ï¿½Î»ï¿½ï¿½Æ·  
+            auto item = _inventory->GetItemAt ( serial_number + 1 ); // ï¿½ï¿½È¡ï¿½Ø¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½×¢ï¿½ï¿½ï¿½Î»ï¿½ï¿½1ï¿½ï¿½Ê¼ 
 
-            // »ñÈ¡ÎïÆ·ÊýÁ¿   
-            int itemCount = _inventory->GetItemCountAt ( serial_number + 1 ); // »ñÈ¡¸Ã²ÛÎ»µÄÎïÆ·ÊýÁ¿  
+            // ï¿½ï¿½È¡ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½   
+            int itemCount = _inventory->GetItemCountAt ( serial_number + 1 ); // ï¿½ï¿½È¡ï¿½Ã²ï¿½Î»ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½  
 
             if (item) {
                 CCLOG ( "Item in slot %d: %s" , serial_number + 1 , item->GetName ().c_str () );
@@ -298,14 +317,14 @@ void InventoryUI::updateDisplay () {
                 CCLOG ( "No item in slot %d" , serial_number + 1 );
             }
 
-            // Èç¹ûÐèÒª»ñÈ¡ÌØ¶¨²ÛÎ»µÄÎïÆ·£¬Ê¹ÓÃ GetItemAt(int position) ¶¨ÒåÐÂº¯Êý  
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½Ø¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ê¹ï¿½ï¿½ GetItemAt(int position) ï¿½ï¿½ï¿½ï¿½ï¿½Âºï¿½ï¿½ï¿½  
 
-            // ¸üÐÂ²ÛÎ»ÊÓ¾õ±íÏÖ  
+            // ï¿½ï¿½ï¿½Â²ï¿½Î»ï¿½Ó¾ï¿½ï¿½ï¿½ï¿½ï¿½  
             if (item) {
-                // Çå³ýÖ®Ç°µÄ×Ó½Úµã  
+                // ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½Ó½Úµï¿½  
                 slot->removeAllChildren ();
 
-                // Í¼Æ¬Â·¾¶  
+                // Í¼Æ¬Â·ï¿½ï¿½  
                 auto itemSprite = Sprite::create ( item->initial_pic );
                 if (itemSprite) {
                     itemSprite->setPosition ( slot->getContentSize () / 2 );
@@ -317,27 +336,27 @@ void InventoryUI::updateDisplay () {
                     CCLOG ( "Error loading item sprite: %s" , item->initial_pic.c_str () );
                 }
 
-                // ¸ù¾Ý item ÀïµÄÊýÁ¿À´ÉèÖÃÊýÁ¿±êÇ©£¨Èç¹ûÐèÒª£©¡£  
-                // ¿ÉÒÔÔÚÕâÀï´´½¨Ò»¸ö Label ÏÔÊ¾ÊýÁ¿  
-                auto countLabel = static_cast<Label*>(slot->getChildByTag ( 200 + serial_number )); // Ê¹ÓÃ²ÛÎ»µÄ±êÇ©Éú³ÉÊýÁ¿±êÇ©µÄÎ¨Ò»ID  
+                // ï¿½ï¿½ï¿½ï¿½ item ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï´´ï¿½ï¿½Ò»ï¿½ï¿½ Label ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½  
+                auto countLabel = static_cast<Label*>(slot->getChildByTag ( 200 + serial_number )); // Ê¹ï¿½Ã²ï¿½Î»ï¿½Ä±ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç©ï¿½ï¿½Î¨Ò»ID  
                 if (!countLabel) {
-                    // Èç¹û±êÇ©²»´æÔÚ£¬´´½¨ÐÂµÄ±êÇ©  
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ±ï¿½Ç©  
                     countLabel = Label::createWithSystemFont ( std::to_string ( itemCount ) , "fonts/Comic Sans MS.ttf" , 20 );
                     countLabel->setTextColor ( Color4B ( 255 , 153 , 0 , 255 ) );
-                    countLabel->setPosition ( slot->getContentSize ().width * 0.8 , slot->getContentSize ().height * 0.2 ); // ÉèÖÃÎ»ÖÃÔÚ²ÛÎ»ÓÒÏÂ·½  
-                    countLabel->setTag ( 200 + serial_number ); // ÉèÖÃ±êÇ©  
-                    slot->addChild ( countLabel , 4 ); // Ìí¼Óµ½²ã¼¶ÖÐ  
+                    countLabel->setPosition ( slot->getContentSize ().width * 0.8 , slot->getContentSize ().height * 0.2 ); // ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ú²ï¿½Î»ï¿½ï¿½ï¿½Â·ï¿½  
+                    countLabel->setTag ( 200 + serial_number ); // ï¿½ï¿½ï¿½Ã±ï¿½Ç©  
+                    slot->addChild ( countLabel , 4 ); // ï¿½ï¿½ï¿½Óµï¿½ï¿½ã¼¶ï¿½ï¿½  
                 }
                 else {
-                    // Èç¹û±êÇ©´æÔÚ£¬¸üÐÂÊýÁ¿  
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½Ç©ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
                     countLabel->setString ( std::to_string ( itemCount ) );
                 }
 
 
-                // Ìí¼Ó´¥ÃþÊÂ¼þ  
+                // ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½  
                 auto listener = EventListenerMouse::create ();
 
-                // Êó±êÒÆ¶¯ÊÂ¼þ
+                // ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Â¼ï¿½
                 listener->onMouseMove = [this , slot , itemSprite , countLabel]( EventMouse* event ) {
                     Vec2 mousePos = Vec2 ( event->getCursorX () , event->getCursorY () );
                     mousePos = this->convertToNodeSpace ( mousePos );
@@ -346,20 +365,20 @@ void InventoryUI::updateDisplay () {
                         countLabel->setScale ( 1.5f );
                     }
                     else if (slot && itemSprite != currentItemSprite) {
-                        itemSprite->setScale ( 0.7f ); // »Ö¸´Ô­´óÐ¡
+                        itemSprite->setScale ( 0.7f ); // ï¿½Ö¸ï¿½Ô­ï¿½ï¿½Ð¡
                         countLabel->setScale ( 1.0f );
                     }
                     };
 
-                // Ìí¼ÓÊó±ê°´ÏÂÊÂ¼þ  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê°´ï¿½ï¿½ï¿½Â¼ï¿½  
                 listener->onMouseDown = [this , slot , itemSprite, serial_number]( EventMouse* event ) {
                     Vec2 mousePos = Vec2 ( event->getCursorX () , event->getCursorY () );
                     mousePos = this->convertToNodeSpace ( mousePos );
 
-                    // ¼ì²éÊó±êÊÇ·ñµã»÷ÁË slot  
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ slot  
                     if (slot->getBoundingBox ().containsPoint ( mousePos )) {
                         if (!isClick) {
-                            currentItemSprite = itemSprite; // ¼ÇÂ¼µ±Ç°Ñ¡ÔñµÄÎïÆ·
+                            currentItemSprite = itemSprite; // ï¿½ï¿½Â¼ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
                             _selectedSlot = serial_number + 1;
                             CCLOG ( "_selectedSlot:%d" , _selectedSlot );
                         }
@@ -373,19 +392,19 @@ void InventoryUI::updateDisplay () {
                 _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , itemSprite );
             }
             else {
-                slot->removeAllChildren (); // Çå¿Õ²ÛÎ»  
+                slot->removeAllChildren (); // ï¿½ï¿½Õ²ï¿½Î»  
 
-                // Çå³ýÊýÁ¿±êÇ©  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç©  
                 auto countLabel = static_cast<Label*>(slot->getChildByTag ( 200 + i ));
                 if (countLabel) {
-                    countLabel->removeFromParent (); // ÒÆ³ýÊýÁ¿±êÇ©  
+                    countLabel->removeFromParent (); // ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç©  
                 }
             }
         }
     }
 
-    // ¸üÐÂÎïÆ·ÐÅÏ¢±êÇ©£¨ÓÃÓÚµ÷ÊÔ£©  
-    if (_itemLabel) { // ¼ì²é _itemLabel ÊÇ·ñÎª nullptr  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½ï¿½Ç©ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Ô£ï¿½  
+    if (_itemLabel) { // ï¿½ï¿½ï¿½ _itemLabel ï¿½Ç·ï¿½Îª nullptr  
         if (auto selectedItem = _inventory->GetSelectedItem ()) {
             _itemLabel->setString ( "Selected: " + selectedItem->GetName () );
         }
@@ -395,5 +414,28 @@ void InventoryUI::updateDisplay () {
     }
     else {
         CCLOG ( "Warning: _itemLabel is nullptr" );
+    }
+}
+
+void InventoryUI::registerEventObservers() {
+    _eventObserver = std::make_shared<UIEventObserver>(this);
+    _eventObserver
+        ->on(GameEventType::GOLD_AMOUNT_CHANGED, [this](const GameEvent& event) {
+            if (auto data = event.getData<GoldChangedEventData>()) {
+                refreshGoldLabel(data->newAmount);
+            }
+        })
+        .on(GameEventType::ITEM_ADDED, [this](const GameEvent&) {
+            this->updateDisplay();
+        })
+        .on(GameEventType::ITEM_REMOVED, [this](const GameEvent&) {
+            this->updateDisplay();
+        });
+    EventManager::getInstance().addObserver(_eventObserver);
+}
+
+void InventoryUI::refreshGoldLabel(int amount) {
+    if (_goldLabel) {
+        _goldLabel->setString(std::to_string(amount) + "g");
     }
 }

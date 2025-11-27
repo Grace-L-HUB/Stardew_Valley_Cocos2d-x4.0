@@ -1,4 +1,6 @@
-#include"Crop.h"
+#include "Crop.h"
+#include "EventManager.h"
+#include "cocos2d.h"
 
 Crop::Crop(const std::string& crop_name, const std::string& initial_pic,
 	const std::string& growing_pic, const std::string& mature_pic, const std::string& season,
@@ -33,7 +35,7 @@ std::shared_ptr<Crop> Crop::GetCropCopy() const {
 }
 
 void Crop::UpdateGrowth() {
-	
+	Phase previousPhase = phase;
 	this->watered = false;
 
 	int times = 0;
@@ -58,6 +60,13 @@ void Crop::UpdateGrowth() {
 	}
 	else {
 		this->phase = Phase::SEED;
+	}
+
+	if (phase == Phase::MATURE && previousPhase != Phase::MATURE) {
+		EventManager::getInstance().publishCropEvent(GameEventType::CROP_GROWN,
+			name,
+			cocos2d::Vec2::ZERO,
+			static_cast<int>(phase));
 	}
 }
 

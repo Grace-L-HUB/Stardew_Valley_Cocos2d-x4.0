@@ -5,6 +5,7 @@
 #include "Inventory.h"
 #include "Crop.h"
 #include "AppDelegate.h"
+#include "EventManager.h"
 
 const int kDefaultEnergy = 100;
 
@@ -16,16 +17,16 @@ public:
     Player();
     ~Player();
 
-    // ´´½¨ Player ¶ÔÏóµÄ·½·¨
+    // ï¿½ï¿½ï¿½ï¿½ Player ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
     static Player* create();
 
-    // ³õÊ¼»¯½ÇÉ«
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½É«
     bool init();
 
-    // °´¼ü°´ÏÂÊ±´¥·¢µÄ»Øµ÷º¯Êý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
-    // °´¼üÊÍ·ÅÊ±´¥·¢µÄ»Øµ÷º¯Êý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
     void player1_move();
@@ -37,15 +38,22 @@ public:
 
     bool leftpressed = false, downpressed = false, uppressed = false, rightpressed = false;
 
-    // ½ÇÉ«µÄÒÆ¶¯ËÙ¶È
+    // ï¿½ï¿½É«ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
     float speed;
 
     int look_state = 0;
 
     std::string pic_path;
 
-    //int energy_limit = kDefaultEnergy;
-    //int current_energy = kDefaultEnergy;
+    int energy_limit = kDefaultEnergy;
+    int current_energy = kDefaultEnergy;
+
+    // èƒ½é‡ç›¸å…³æ–¹æ³•
+    void setEnergy(int energy);
+    void changeEnergy(int delta);
+    int getCurrentEnergy() const { return current_energy; }
+    int getEnergyLimit() const { return energy_limit; }
+    bool hasEnergy(int amount) const { return current_energy >= amount; }
 
 };
 

@@ -3,11 +3,13 @@
 #include "cocos2d.h"  
 #include "Inventory.h"  
 #include "AppDelegate.h"
+#include "EventObserver.h"
 #include "intimacyUI.h"
 #include "SkillTreeUI.h"
 
 class InventoryUI : public cocos2d::Layer {
 public:
+    ~InventoryUI();
     virtual bool init ( Inventory* inventory , std::string sceneName );
 
     static InventoryUI* create ( Inventory* inventory , std::string sceneName );
@@ -16,23 +18,28 @@ public:
 
     void Itemblock ( Inventory* inventory );
 
-    void updateDisplay (); // ¸üÐÂÏÔÊ¾ÄÚÈÝ  
+    void updateDisplay (); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½  
 
     void Buttons_switching ();
 
     void updateCoordinate ( float &x , float &y );
+    void registerEventObservers();
+    void refreshGoldLabel(int amount);
 private:
-    Inventory* _inventory; // Ö¸Ïò Inventory ÊµÀýµÄÖ¸Õë  
+    Inventory* _inventory; // Ö¸ï¿½ï¿½ Inventory Êµï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½  
 
-    cocos2d::Label* _itemLabel;  // ÏÔÊ¾ÎïÆ·ÐÅÏ¢µÄ±êÇ© 
+    cocos2d::Label* _itemLabel;  // ï¿½ï¿½Ê¾ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½Ä±ï¿½Ç© 
+    cocos2d::Label* _goldLabel = nullptr;
 
-    cocos2d::Vector<cocos2d::Sprite*> _itemSlots; // ´æ´¢ÎïÆ·²ÛµÄ Sprite  
+    cocos2d::Vector<cocos2d::Sprite*> _itemSlots; // ï¿½æ´¢ï¿½ï¿½Æ·ï¿½Ûµï¿½ Sprite  
 
-    int _selectedSlot; // µ±Ç°Ñ¡ÖÐµÄ²ÛÎ» 
+    int _selectedSlot; // ï¿½ï¿½Ç°Ñ¡ï¿½ÐµÄ²ï¿½Î» 
 
-    bool isClick = false;  // ±êÖ¾£¬±íÊ¾ÊÇ·ñ±»µã»÷
+    bool isClick = false;  // ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ç·ñ±»µï¿½ï¿½
 
-    Sprite* currentItemSprite = nullptr; // ±êÊ¶µ±Ç°Ñ¡ÔñµÄÎïÆ·
+    Sprite* currentItemSprite = nullptr; // ï¿½ï¿½Ê¶ï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
 
     std::string SceneName;
+
+    std::shared_ptr<UIEventObserver> _eventObserver;
 };

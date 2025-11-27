@@ -12,6 +12,8 @@
 #include "vector"
 #include "mailBoxUI.h"
 #include "GameStateManager.h"
+#include "EventManager.h"
+#include "GameEvent.h"
 
 USING_NS_CC;
 
@@ -38,9 +40,17 @@ bool farm::init ()
     AllInitialize_crop ();
 
     if (Weather == "Rainy") {
-        // ����
+        // ���ڳ���
         createRainEffect ();
     }
+    
+    // 注册天气变化事件监听器
+    EventManager::getInstance().addObserver(GameEventType::WEATHER_CHANGED, [this](const GameEvent& event) {
+        auto weatherData = event.getData<WeatherChangedEventData>();
+        if (weatherData) {
+            this->handleWeatherChanged(weatherData->oldWeather, weatherData->newWeather);
+        }
+    }, this);
 
     // ���ñ���ͼƬ
     auto background_real = Sprite::create ( "farm/farm.png" );
@@ -902,6 +912,26 @@ void farm::updaterain ( float deltaTime ) {
         emitter->setLife ( newLife );
 
         emitter->setEmissionRate ( emitter->getTotalParticles () / emitter->getLife () * 1.3 );
+    }
+}
+
+void farm::handleWeatherChanged(const std::string& oldWeather, const std::string& newWeather) {
+    // 更新全局天气变量
+    Weather = newWeather;
+    
+    // 处理天气变化逻辑
+    if (oldWeather == "Rainy" && newWeather != "Rainy") {
+        // 天气从雨天变为非雨天，移除雨水效果
+        if (emitter) {
+            this->unschedule("update_rain_key");
+            emitter->removeFromParentAndCleanup(true);
+            emitter = nullptr;
+        }
+    } else if (oldWeather != "Rainy" && newWeather == "Rainy") {
+        // 天气从非雨天变为雨天，创建雨水效果
+        if (!emitter) {
+            createRainEffect();
+        }
     }
 }
 

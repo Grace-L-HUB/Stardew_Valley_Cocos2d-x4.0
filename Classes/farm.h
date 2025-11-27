@@ -25,63 +25,66 @@ public:
 
     static farm* create ();
 
-    // еп╤о╫ги╚╣дн╩жц
+    // О©╫п╤о╫О©╫и╚О©╫О©╫н╩О©╫О©╫
     void checkPlayerPosition ();
 
-    // обсЙп╖╧Ш
+    // О©╫О©╫О©╫О©╫п╖О©╫О©╫
     void createRainEffect();
 
-    // ╦Э╦дсЙ╣ниЗцЭжэфз
+    // О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
     void updaterain(float deltaTime);
+    
+    // Е╓└Г░├Е╓╘Ф╟■Е▐≤Е▄√
+    void handleWeatherChanged(const std::string& oldWeather, const std::string& newWeather);
 
 
 
-    // ╥╣╩ьвВнОпР╨е
+    // О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
     int getRegionNumber ( Vec2 pos );
 
-    // ╢╢╫╗р╩╦Жап╠Мё╛сцсз╠ё╢ФкЫсп╥гм╦цВоЯкь╣двЬ╠Й
+    // О©╫О©╫О©╫О©╫р╩О©╫О©╫О©╫п╠О©╫О©╫О©╫О©╫О©╫О©╫з╠О©╫О©╫О©╫О©╫О©╫О©╫п╥О©╫м╦О©╫О©╫О©╫О©╫О©╫ь╣О©╫О©╫О©╫О©╫О©╫
     std::vector<cocos2d::Vec2> nonTransparentPixels;
 
-    // юК©╙е╘Ё║╣дгЬсР
+    // О©╫К©╙е╘О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
     Rect Out_Farm = Rect ( 792 , 1187 , 36 , 153 );
 
-    // ©ижжж╡гЬсР(╣╔©ИцФ╩Щн╙ 48 * 48 )
+    // О©╫О©╫О©╫О©╫ж╡О©╫О©╫О©╫О©╫(О©╫О©╫О©╫О©╫О©╫О©╫О©╫н╙ 48 * 48 )
     Rect plant_area = Rect ( 474 , 467 , 864 , 510 );
 
-    // ©ирт╫ЬхК╪р╣дгЬсР
+    // О©╫О©╫О©╫т╫О©╫О©╫О©╫р╣О©╫О©╫О©╫О©╫О©╫
     Rect myhouse_area = Rect ( 70 , 920 , 75 , 30 );
 
-    // ©ирт╫ЬхКпСеО╣дгЬсР
+    // О©╫О©╫О©╫т╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
     Rect barn_area = Rect ( 20 , 170 , 70 , 70 );
 
-    // ©ирт╫ЬхКи╫╤╢╣дгЬсР
+    // О©╫О©╫О©╫т╫О©╫О©╫О©╫и╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
     Rect cave_area = Rect ( 635 , 1185 , 90 , 40 );
 
-    // ©ирт╫ЬхКи╜аж╣дгЬсР
+    // О©╫О©╫О©╫т╫О©╫О©╫О©╫и╜О©╫ж╣О©╫О©╫О©╫О©╫О©╫
     Rect forest_area = Rect ( 750 , -70 , 100 , 50 );
 
     cocos2d::ParticleRain* emitter;
 
-    // ╩ж╦╢жжж╡
+    // О©╫ж╦О©╫О©╫О©╫ж╡
     void AllInitialize_crop ();
 
 private:
 
-    /* мкЁЖ╟╢е╔ */
+    /* О©╫кЁО©╫О©╫О©╫е╔ */
     Sprite* button;
 
 
-    // мкЁЖ╟╢е╔
+    // О©╫кЁО©╫О©╫О©╫е╔
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;
 
     bool isEnterKeyPressed = false;
-    // еп╤ожжж╡P╪Эйг╥Я╟╢об
+    // О©╫п╤О©╫О©╫О©╫ж╡PО©╫О©╫О©╫г╥О©╫О©╫О©╫
     bool isPKeyPressed = false;
-    // еп╤о╫╫к╝W╪Эйг╥Я╟╢об
+    // О©╫п╤о╫О©╫к╝WО©╫О©╫О©╫г╥О©╫О©╫О©╫
     bool isWKeyPressed = false;
-    // еп╤ойу╦НG╪Эйг╥Я╟╢об
+    // О©╫п╤О©╫О©╫у╦О©╫GО©╫О©╫О©╫г╥О©╫О©╫О©╫
     bool isGKeyPressed = false;
 
     Sprite* Box;
