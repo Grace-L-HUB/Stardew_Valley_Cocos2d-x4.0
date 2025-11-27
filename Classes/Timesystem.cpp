@@ -2,18 +2,22 @@
 #include "ui/CocosGUI.h"  
 #include "Item.h"  
 #include "DailyRecordUI.h"
+#include "EventManager.h"
+#include "GameEvent.h"
 
 USING_NS_CC;
 
-
+// åˆå§‹åŒ–é™æ€æˆå‘˜å˜é‡
+Timesystem* Timesystem::TimeUI = nullptr;
 
 bool Timesystem::init( std::string place ) {
-    // µ÷ÓÃ¸¸ÀàµÄinit()
-    if (!Node::init()) {  // Èç¹û¼Ì³Ð×ÔNode£¬µ÷ÓÃNodeµÄinit
+    // è°ƒç”¨çˆ¶ç±»init()
+    if (!Node::init()) {  // è°ƒç”¨çˆ¶ç±»Nodeçš„init
         return false;
     }
     Place = place;
-    // ÉèÖÃ¼ÆÊ±Æ÷±êÇ©
+    TimeUI = this; // è®¾ç½®å•ä¾‹æŒ‡é’ˆ
+    // è®¾ç½®æ—¶é—´æ ‡ç­¾
     timer_label_day = Label::createWithTTF("Day: 0", "fonts/Marker Felt.ttf", 24);
     this->addChild(timer_label_day, 2);
     timer_label_day->setScale(1.7f);
@@ -39,12 +43,12 @@ bool Timesystem::init( std::string place ) {
     timer_label_festival->setScale(1.5f);
     timer_label_festival->setString(Festival);
 
-    // ´´½¨Ê±¼ä±³¾°Í¼Æ¬
+    // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä±³ï¿½ï¿½Í¼Æ¬
     time_pic = Sprite::create("UIresource/TimePic.png");
     time_pic->setScale(1.7f);
-    this->addChild(time_pic, 1);  // ÉèÖÃÍ¼Æ¬²ã¼¶ÔÚ±êÇ©ÏÂ·½
+    this->addChild(time_pic, 1);  // ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ã¼¶ï¿½Ú±ï¿½Ç©ï¿½Â·ï¿½
 
-    // ´´½¨ÌåÁ¦±ß¿ò
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½
     energy_frame = Sprite::create("UIresource/strength.png");
     energy_frame->setScale(3.7f);
     this->addChild(energy_frame, 1);
@@ -57,7 +61,7 @@ bool Timesystem::init( std::string place ) {
     this->addChild(energy_bar, 3);
     energy_bar->setPosition(435, 405);
 
-    // ÉèÖÃ¸÷ÔªËØµÄÎ»ÖÃ
+    // ï¿½ï¿½ï¿½Ã¸ï¿½Ôªï¿½Øµï¿½Î»ï¿½ï¿½
     timer_label_day->setPosition(585, 575);
     timer_label_hour->setPosition(690, 575);
     timer_label_season->setPosition(570, 500);
@@ -66,7 +70,7 @@ bool Timesystem::init( std::string place ) {
     time_pic->setPosition(630, 490);
    
 
-    //½ð±ÒÏÔÊ¾
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
     currency_frame = Sprite::create ( "UIresource/supermarket/moneyFrame_new.png" );
     currency_frame->setScale ( 3.5f );
     this->addChild ( currency_frame , 1 );
@@ -80,7 +84,7 @@ bool Timesystem::init( std::string place ) {
         this->addChild ( currency_num , 4 );
     }
 
-    //ÈÕÖ¾ÏÔÊ¾
+    //ï¿½ï¿½Ö¾ï¿½ï¿½Ê¾
     daily_record = Sprite::create ( "UIresource/rizhi.png" );
     this->addChild ( daily_record , 1 );
     daily_record->setScale ( 1.5f );
@@ -101,7 +105,7 @@ bool Timesystem::init( std::string place ) {
         mousePos = this->convertToNodeSpace ( mousePos );
         if (daily_record->getBoundingBox ().containsPoint ( mousePos )) {
             DailyRecordUI* Dailyrecord = DailyRecordUI::create(place);
-            // »ñÈ¡µ±Ç°ÔËÐÐµÄ³¡¾°
+            // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ÐµÄ³ï¿½ï¿½ï¿½
             Scene* currentScene = Director::getInstance ()->getRunningScene ();
             currentScene->addChild ( Dailyrecord , 20 );
         }
@@ -110,10 +114,20 @@ bool Timesystem::init( std::string place ) {
 
     this->schedule([this](float dt) {
         timer_label_day->setString("Day: " + std::to_string(day));
-        timer_label_hour->setString(std::to_string(remainingTime / 1800) + ":00");
+        
+        int currentHour = remainingTime / 1800;
+        timer_label_hour->setString(std::to_string(currentHour) + ":00");
+        
         timer_label_season->setString(Season);
         currency_num->setString ( std::to_string ( GoldAmount ) );
+        
+        // è¿™é‡Œå¯ä»¥æ·»åŠ æ—¶é—´å‡å°‘çš„é€»è¾‘ï¼Œå¹¶åœ¨å°æ—¶å˜åŒ–æ—¶å‘é€äº‹ä»¶
+        // remainingTime -= dt * 1000; // æ ¹æ®å®žé™…æ¸¸æˆé€Ÿåº¦è°ƒæ•´
         }, 0.01f, "updatetime");
+        
+    // å‘é€åˆå§‹äº‹ä»¶
+    notifyGoldChanged(0, GoldAmount);
+    notifyEnergyChanged(100, strength);
 
     return true;
 }
@@ -130,4 +144,41 @@ Timesystem* Timesystem::create( std::string place ) {
 
 void Timesystem::UpdateEnergy () {
     TimeUI->energy_bar->setScaleY ( strength / 100.0 * 16.5f );
+}
+
+// äº‹ä»¶é€šçŸ¥æ–¹æ³•å®žçŽ°
+void Timesystem::notifyTimeChanged(int oldHour, int newHour) {
+    auto eventData = std::make_shared<TimeChangedEventData>(oldHour, newHour, day, 1, Season);
+    auto event = std::make_shared<GameEvent>(GameEventType::TIME_CHANGED, eventData, "TimeSystem");
+    EventManager::getInstance().dispatchEvent(event);
+}
+
+void Timesystem::notifyDayChanged(int newDay) {
+    auto eventData = std::make_shared<DayChangedEventData>(newDay, Season);
+    auto event = std::make_shared<GameEvent>(GameEventType::DAY_CHANGED, eventData, "TimeSystem");
+    EventManager::getInstance().dispatchEvent(event);
+}
+
+void Timesystem::notifySeasonChanged(const std::string& oldSeason, const std::string& newSeason) {
+    auto eventData = std::make_shared<SeasonChangedEventData>(oldSeason, newSeason, day);
+    auto event = std::make_shared<GameEvent>(GameEventType::SEASON_CHANGED, eventData, "TimeSystem");
+    EventManager::getInstance().dispatchEvent(event);
+}
+
+void Timesystem::notifyWeatherChanged(const std::string& oldWeather, const std::string& newWeather) {
+    auto eventData = std::make_shared<WeatherChangedEventData>(oldWeather, newWeather, 1);
+    auto event = std::make_shared<GameEvent>(GameEventType::WEATHER_CHANGED, eventData, "TimeSystem");
+    EventManager::getInstance().dispatchEvent(event);
+}
+
+void Timesystem::notifyEnergyChanged(int oldEnergy, int newEnergy) {
+    auto eventData = std::make_shared<PlayerEnergyChangedEventData>(oldEnergy, newEnergy);
+    auto event = std::make_shared<GameEvent>(GameEventType::PLAYER_ENERGY_CHANGED, eventData, "TimeSystem");
+    EventManager::getInstance().dispatchEvent(event);
+}
+
+void Timesystem::notifyGoldChanged(int oldGold, int newGold) {
+    auto eventData = std::make_shared<GoldChangedEventData>(oldGold, newGold);
+    auto event = std::make_shared<GameEvent>(GameEventType::GOLD_AMOUNT_CHANGED, eventData, "TimeSystem");
+    EventManager::getInstance().dispatchEvent(event);
 }

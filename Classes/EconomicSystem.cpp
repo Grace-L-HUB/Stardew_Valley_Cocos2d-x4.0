@@ -1,37 +1,49 @@
 #include "EconomicSystem.h"  
-#include "cocos2d.h"  // È·±£°üº¬ cocos2d.h À´Ê¹ÓÃ CCLOG  
+#include "cocos2d.h"  // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cocos2d.h ï¿½ï¿½Ê¹ï¿½ï¿½ CCLOG  
 #include <iostream>  
+#include "EventManager.h"  
+#include "GameEvent.h"  
 
 extern int GoldAmount;
 
-// ¹¹Ôìº¯Êı³õÊ¼»¯½ğ±ÒÊıÁ¿Îª4000  
+// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª4000  
 EconomicSystem::EconomicSystem ( Inventory* mybag , Inventory* goods)
     : goldAmount (GoldAmount) , _mybag ( mybag ) , _goods ( goods ) {
-    // ³õÊ¼»¯´úÂë¿ÉÒÔÔÚÕâÀïÖ´ĞĞ  
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½  
 }
 
-// Îö¹¹º¯Êı  
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 EconomicSystem::~EconomicSystem () {
-    // ÇåÀí´úÂë  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     GoldAmount = goldAmount;
 }
 
-// Ôö¼Ó½ğ±ÒµÄº¯Êı  
+// ï¿½ï¿½ï¿½Ó½ï¿½ÒµÄºï¿½ï¿½ï¿½  
 void EconomicSystem::addGold ( int amount ) {
     if (amount > 0) {
+        int oldAmount = goldAmount;
         goldAmount += amount;
         CCLOG ( "Added %d gold. Total: %d gold." , amount , goldAmount );
+        
+        // å‘é€é‡‘å¸å˜åŒ–äº‹ä»¶
+        auto eventData = std::make_shared<GoldChangedEventData>(oldAmount, goldAmount);
+        QUEUE_EVENT(GameEventType::GOLD_AMOUNT_CHANGED, eventData);
     }
     else {
         CCLOG ( "Amount to add must be positive." );
     }
 }
 
-// ¼õÉÙ½ğ±ÒµÄº¯Êı  
+// ï¿½ï¿½ï¿½Ù½ï¿½ÒµÄºï¿½ï¿½ï¿½  
 void EconomicSystem::subtractGold ( int amount ) {
     if (amount > 0 && amount <= goldAmount) {
+        int oldAmount = goldAmount;
         goldAmount -= amount;
         CCLOG ( "Subtracted %d gold. Total: %d gold." , amount , goldAmount );
+        
+        // å‘é€é‡‘å¸å˜åŒ–äº‹ä»¶
+        auto eventData = std::make_shared<GoldChangedEventData>(oldAmount, goldAmount);
+        QUEUE_EVENT(GameEventType::GOLD_AMOUNT_CHANGED, eventData);
     }
     else {
         if (amount > goldAmount) {
@@ -43,12 +55,12 @@ void EconomicSystem::subtractGold ( int amount ) {
     }
 }
 
-// ¶ÁÈ¡ÓµÓĞ½ğ±ÒÊıÁ¿µÄº¯Êı  
+// ï¿½ï¿½È¡Óµï¿½Ğ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½  
 int EconomicSystem::getGoldAmount () const {
     return goldAmount;
 }
 
-// ¹ºÂòº¯Êı  
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 void EconomicSystem::buyItem ( const string& itemName ) {
     Item item = _goods->GetItemByName ( itemName );
 
@@ -56,18 +68,30 @@ void EconomicSystem::buyItem ( const string& itemName ) {
         subtractGold ( item.GetValue () );
         _mybag->AddItem ( item );
         CCLOG ( "Purchased item: %s" , itemName.c_str () );
+        
+        // å‘é€ç‰©å“è´­ä¹°äº‹ä»¶
+        auto eventData = std::make_shared<ItemEventData>(itemName, 1);
+        QUEUE_EVENT(GameEventType::ITEM_BOUGHT, eventData);
     }
     else {
         CCLOG ( "Not enough gold to buy %s." , itemName.c_str () );
+        
+        // å‘é€è´­ä¹°å¤±è´¥äº‹ä»¶
+        auto eventData = std::make_shared<ItemEventData>(itemName, 0);
+        QUEUE_EVENT(GameEventType::BUY_FAILED, eventData);
     }
 }
 
-// ³öÊÛº¯Êı  
+// ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½  
 void EconomicSystem::sellItem ( const string& itemName , int count) {
-    Item item = _mybag->GetItemByName ( itemName ); // ´Ó±³°üÖĞ»ñÈ¡ÎïÆ·  
+    Item item = _mybag->GetItemByName ( itemName ); // ï¿½Ó±ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½È¡ï¿½ï¿½Æ·  
 
-    int itemValue = item.GetValue (); // »ñÈ¡Âô³ö¼Û¸ñ  
+    int itemValue = item.GetValue (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½  
     addGold ( itemValue * count );
     _mybag->RemoveItem ( item , count );
     CCLOG ( "Sold item: %s for %d gold." , itemName.c_str () , itemValue * count );
+    
+    // å‘é€ç‰©å“å‡ºå”®äº‹ä»¶
+    auto eventData = std::make_shared<ItemTransactionEventData>(itemName, itemValue, TransactionType::SELL, count);
+    QUEUE_EVENT(GameEventType::ITEM_SOLD, eventData);
 }

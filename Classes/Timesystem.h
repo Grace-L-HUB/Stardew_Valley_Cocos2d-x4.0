@@ -1,9 +1,11 @@
 #pragma once
 #include "cocos2d.h"  
 #include "AppDelegate.h"
+#include "GameEvent.h"
+#include "EventManager.h"
 #include <NPC.h>
 
-class Timesystem : public cocos2d::Node {  // ¼Ì³Ğ×ÔNode
+class Timesystem : public cocos2d::Node {  // ç»§æ‰¿è‡ªNode
 public:
     bool init ( std::string place );
 
@@ -11,7 +13,7 @@ public:
 
     void UpdateEnergy();
 
-    // ÆäËû³ÉÔ±±äÁ¿ºÍ·½·¨
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½
     cocos2d::Label* timer_label_day;
     cocos2d::Label* timer_label_hour;
     cocos2d::Label* timer_label_season;
@@ -26,6 +28,26 @@ public:
 
     cocos2d::Sprite* daily_record;
 
-    // Ëù´¦µÄ³¡¾°
+    // åœºæ™¯çš„åç§°
     std::string Place;
+    
+    // æ—¶é—´ç›¸å…³å±æ€§
+    int day = 0;
+    int remainingTime = 0;
+    std::string Season = "Spring";
+    std::string Weather = "Sunny";
+    std::string Festival = "None";
+    int strength = 100;
+    int GoldAmount = 0;
+    
+    // é™æ€å•ä¾‹æŒ‡é’ˆ
+    static Timesystem* TimeUI;
+    
+    // äº‹ä»¶é€šçŸ¥æ–¹æ³•
+    void notifyTimeChanged(int oldHour, int newHour);
+    void notifyDayChanged(int newDay);
+    void notifySeasonChanged(const std::string& oldSeason, const std::string& newSeason);
+    void notifyWeatherChanged(const std::string& oldWeather, const std::string& newWeather);
+    void notifyEnergyChanged(int oldEnergy, int newEnergy);
+    void notifyGoldChanged(int oldGold, int newGold);
 };

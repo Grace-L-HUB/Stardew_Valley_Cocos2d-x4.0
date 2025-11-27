@@ -20,20 +20,21 @@ public:
     virtual bool init();
 
     static Town* create();
+    static cocos2d::Scene* createScene();
 
-    // ÅÐ¶Ï½ÇÉ«µÄÎ»ÖÃ
+    // ï¿½Ð¶Ï½ï¿½É«ï¿½ï¿½Î»ï¿½ï¿½
     void checkPlayerPosition();
 
-    // ÏÂÓêÐ§¹û
+    // ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
     void createRainEffect();
 
-    // ¸ü¸ÄÓêµÎÉúÃüÖÜÆÚ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     void updaterain(float deltaTime);
     
-    // ´´½¨Ò»¸öÁÐ±í£¬ÓÃÓÚ±£´æËùÓÐ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
+    // ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
     std::vector<cocos2d::Vec2> nonTransparentPixels;
 
-    // ´´½¨·¿×ÓµÄÇøÓò
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
     cocos2d::Rect Region_supermarket = Rect(163, 518, 130, 60);
     cocos2d::Rect Region_forest = Rect(-940, -400, 200, 110);
     cocos2d::Rect Region_beach = Rect(490, -750, 50, 100);
@@ -42,13 +43,13 @@ public:
 
 private:
 
-    /* ÍË³ö°´Å¥ */
+    /* ï¿½Ë³ï¿½ï¿½ï¿½Å¥ */
     Sprite* button;
 
-    /* ¿ªÃÅ°´Å¥ */
+    /* ï¿½ï¿½ï¿½Å°ï¿½Å¥ */
     Sprite* opendoor;
 
-    // ÍË³ö°´Å¥
+    // ï¿½Ë³ï¿½ï¿½ï¿½Å¥
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;

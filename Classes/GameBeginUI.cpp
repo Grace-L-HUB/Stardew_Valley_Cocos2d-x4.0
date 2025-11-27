@@ -2,10 +2,11 @@
 #include "CreateCharacterUI.h"  
 #include "Player.h"  
 #include "Town.h"  
+#include "GameStateManager.h"  
 
 USING_NS_CC;
 ///////////////////////////////
-//ÒÔÏÂÎªBeginScene³õÊ¼¶¯»­µÄÊµÏÖ²¿·Ö
+//ï¿½ï¿½ï¿½ï¿½ÎªBeginSceneï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö²ï¿½ï¿½ï¿½
 static void problemLoading(const char* filename)
 {
     printf("Error while loading: %s\n", filename);
@@ -16,10 +17,10 @@ bool BeginScene::init()
     {
         return false;
     }
-    auto layer = cocos2d::LayerColor::create(cocos2d::Color4B(255, 255, 255, 255)); // ÉèÖÃ±³¾°ÑÕÉ«Îª°×É«  
+    auto layer = cocos2d::LayerColor::create(cocos2d::Color4B(255, 255, 255, 255)); // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½É«Îªï¿½ï¿½É«  
     this->addChild(layer);
 
-    // ²¥·Å¿ª³¡¶¯»­  
+    // ï¿½ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     playSplashAnimation();
 
     return true;
@@ -27,7 +28,7 @@ bool BeginScene::init()
 
 void BeginScene::playSplashAnimation()
 {
-    //¶¯»­ÖÆ×÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     cocos2d::Vector<cocos2d::SpriteFrame*> animationFrames;
     std::string frameName1 = "UIresource/hebing1.png";
@@ -43,7 +44,7 @@ void BeginScene::playSplashAnimation()
     animationFrames.pushBack(frame4);
     animationFrames.pushBack(frame5);
     animationFrames.pushBack(frame6);
-    auto animation = cocos2d::Animation::createWithSpriteFrames(animationFrames, 0.2f); // 0.2ÃëÎªÃ¿Ö¡µÄ³ÖÐøÊ±¼ä  
+    auto animation = cocos2d::Animation::createWithSpriteFrames(animationFrames, 0.2f); // 0.2ï¿½ï¿½ÎªÃ¿Ö¡ï¿½Ä³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½  
 
     auto sprite = cocos2d::Sprite::createWithSpriteFrame(animationFrames.at(0));
 
@@ -51,50 +52,51 @@ void BeginScene::playSplashAnimation()
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     sprite->setPosition(visibleSize.width / 2.5 + visibleSize.width * 0.139, visibleSize.height / 2 );
-    this->addChild(sprite); // Ìí¼Óµ½³¡¾°  
+    this->addChild(sprite); // ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½  
 
-    // 4. Ê¹ÓÃ¶¯»­²¥·Å  
+    // 4. Ê¹ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     auto animate = cocos2d::Animate::create(animation);
-    auto repeat = Repeat::create ( animate , 3 );  // ¶¯»­ÖØ¸´3´Î
-    // ÔÚ¶¯»­Íê³ÉºóÈÃ¾«ÁéÍ¸Ã÷
-    auto fadeOut = FadeOut::create(1.0f); // 1.0ÃëÖð½¥ÏûÊ§
-    auto sequence1 = Sequence::create(repeat, fadeOut, nullptr); // ¶¯»­Íê³ÉºóÖ´ÐÐFadeOut
+    auto repeat = Repeat::create ( animate , 3 );  // ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½3ï¿½ï¿½
+    // ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½Ã¾ï¿½ï¿½ï¿½Í¸ï¿½ï¿½
+    auto fadeOut = FadeOut::create(1.0f); // 1.0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§
+    auto sequence1 = Sequence::create(repeat, fadeOut, nullptr); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½Ö´ï¿½ï¿½FadeOut
     auto animateSequence = Sequence::create(
         sequence1,
         CallFunc::create([this, sprite]() {
-            // È·±£ÔÚ¶¯»­½áÊøºóÈÔ±£³ÖÔÚÖÐÐÄÎ»ÖÃ  
+            // È·ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½  
             auto visibleSize = Director::getInstance()->getVisibleSize();
-            sprite->setPosition(visibleSize.width / 2.5 + visibleSize.width * 0.139, visibleSize.height / 2); // È·¶¨¾«ÁéÎ»ÖÃÔÚÔ­´¦  
+            sprite->setPosition(visibleSize.width / 2.5 + visibleSize.width * 0.139, visibleSize.height / 2); // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½  
             onAnimationComplete();
             }),
         nullptr
     );
-    sprite->setScale(3.0f);  // ÉèÖÃÕû¸ö¶¯»­µÄËõ·Å
-    sprite->runAction(animateSequence); // ²¥·Å¶¯»­   
+    sprite->setScale(3.0f);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    sprite->runAction(animateSequence); // ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½   
 }
 
 void BeginScene::onAnimationComplete()
 {
-    Director::getInstance()->replaceScene(NextScene::create());
+    // ä½¿ç”¨GameStateManageråˆ‡æ¢åœºæ™¯
+    GameStateManager::getInstance()->changeState(GameStateType::FARM);
 }
 
 /////////////////////
-//ÒÔÏÂÎªNextSceneÊµÏÖ²¿·Ö£¬ÓÃÓÚÊµÏÖ½ô½ÓÉÏ²¿·Ö¡¢Á¬½ÓÖ÷²Ëµ¥µÄ¶¯»­Ð§¹û
+//ï¿½ï¿½ï¿½ï¿½ÎªNextSceneÊµï¿½Ö²ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ä¶ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 bool NextScene::init()
 {
     if (!Scene::init())
     {
         return false;
     }
-    // ³õÊ¼¶¯»­²¥·ÅÍêºó£¬ÇÐ»»´Ë¶¯»­
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½Ë¶ï¿½ï¿½ï¿½
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     auto layer = cocos2d::LayerColor::create(cocos2d::Color4B(255, 255, 255, 255),
         visibleSize.width,
         visibleSize.height);
     this->addChild(layer, 5);
-    // Ê¹ÓÃ fadeIn ¶¯»­£¬Ê¹²ã´ÓÍ¸Ã÷µ½ÍêÈ«²»Í¸Ã÷
-    layer->runAction(cocos2d::FadeTo::create(2.0f, 0)); // 2ÃëÄÚ´ÓÍ¸Ã÷µ½ÍêÈ«²»Í¸Ã÷
+    // Ê¹ï¿½ï¿½ fadeIn ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Í¸ï¿½ï¿½
+    layer->runAction(cocos2d::FadeTo::create(2.0f, 0)); // 2ï¿½ï¿½ï¿½Ú´ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Í¸ï¿½ï¿½
     addLogo_sec  (visibleSize , origin);
     cloudsAni ( 1.0f );
     this->schedule ( [this]( float dt ) {
@@ -107,7 +109,7 @@ bool NextScene::init()
 
 void NextScene::addfirstscene(const cocos2d::Size& visibleSize, const cocos2d::Vec2& origin)
 {
-    //Ìí¼Ó±³¾°
+    //ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½
     auto background = Sprite::create ( "UIresource/background2.png" );
     if (background) {
         background->setContentSize ( Size ( visibleSize.width , visibleSize.height * 2 ) );
@@ -127,15 +129,15 @@ void NextScene::addfirstscene(const cocos2d::Size& visibleSize, const cocos2d::V
     auto treeright = Sprite::create("UIresource/treeright.png");
     treeright->setTag ( 104 );
     if (mountain1) {
-        // »ñÈ¡¾«ÁéµÄÔ­Ê¼³ß´ç
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ô­Ê¼ï¿½ß´ï¿½
         Size spriteSize = mountain1->getContentSize();
 
-        // ¼ÆËãËõ·Å±ÈÀý
-        float scaleX = visibleSize.width / spriteSize.width; // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍ¾«Áé¿í¶È¼ÆËãË®Æ½Ëõ·Å±ÈÀý
-        float scaleY = scaleX; // ±£³Ö³¤¿í±È²»±ä£¬Òò´ËYÖáµÄËõ·Å±ÈÀýµÈÓÚXÖáµÄËõ·Å±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
+        float scaleX = visibleSize.width / spriteSize.width; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ÈºÍ¾ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
+        float scaleY = scaleX; // ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
 
-        // ¸ù¾Ý¼ÆËã³öµÄ±ÈÀýÉèÖÃ¾«ÁéµÄËõ·Å
-        mountain1->setScale(2 * scaleX); // »òÕßÊ¹ÓÃ setScale(scaleX, scaleY);
+        // ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        mountain1->setScale(2 * scaleX); // ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ setScale(scaleX, scaleY);
         mountain1->setPosition(Vec2(visibleSize.width / 2 + origin.x, origin.y + visibleSize.height * 0.25));
         this->addChild(mountain1, 3);
     }
@@ -145,11 +147,11 @@ void NextScene::addfirstscene(const cocos2d::Size& visibleSize, const cocos2d::V
     if (mountain2) {
         Size spriteSize = mountain2->getContentSize();
 
-        // ¼ÆËãËõ·Å±ÈÀý
-        float scaleX = visibleSize.width / spriteSize.width; // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍ¾«Áé¿í¶È¼ÆËãË®Æ½Ëõ·Å±ÈÀý
-        float scaleY = scaleX; // ±£³Ö³¤¿í±È²»±ä£¬Òò´ËYÖáµÄËõ·Å±ÈÀýµÈÓÚXÖáµÄËõ·Å±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
+        float scaleX = visibleSize.width / spriteSize.width; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ÈºÍ¾ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
+        float scaleY = scaleX; // ï¿½ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ï¿½È²ï¿½ï¿½ä£¬ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
 
-        // ¸ù¾Ý¼ÆËã³öµÄ±ÈÀýÉèÖÃ¾«ÁéµÄËõ·Å
+        // ï¿½ï¿½ï¿½Ý¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         mountain2->setScale(2 * scaleX);
         mountain2->setPosition(Vec2(visibleSize.width / 2 + origin.x - visibleSize.width * 0.05, origin.y + visibleSize.height * 0.35));
         this->addChild(mountain2, 2);
@@ -160,16 +162,16 @@ void NextScene::addfirstscene(const cocos2d::Size& visibleSize, const cocos2d::V
     if (treeleft) {
         Size spriteSize = treeleft->getContentSize();
 
-        // ¼ÆËãËõ·Å±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
         float maxWidth = visibleSize.width * 0.6f;
         float maxHeight = visibleSize.height * 0.6f;
         float scaleX = maxWidth / spriteSize.width;
         float scaleY = maxHeight / spriteSize.height;
-        // Ê¹ÓÃ setScale À´Ëõ·ÅÍ¼Æ¬
-        treeleft->setScale(std::min(scaleX, scaleY));  // ±£³Ö¿í¸ß±È
-        // ÉèÖÃÃªµãÎª×óÏÂ½Ç
+        // Ê¹ï¿½ï¿½ setScale ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+        treeleft->setScale(std::min(scaleX, scaleY));  // ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ß±ï¿½
+        // ï¿½ï¿½ï¿½ï¿½Ãªï¿½ï¿½Îªï¿½ï¿½ï¿½Â½ï¿½
         treeleft->setAnchorPoint(Vec2(0, 0));
-        // ½«¾«ÁéµÄÎ»ÖÃÉèÖÃÎªÆÁÄ»×óÏÂ½Ç
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ä»ï¿½ï¿½ï¿½Â½ï¿½
         treeleft->setPosition(Vec2(0, 0));
         this->addChild(treeleft, 4);
     }
@@ -179,16 +181,16 @@ void NextScene::addfirstscene(const cocos2d::Size& visibleSize, const cocos2d::V
     if (treeright) {
         Size spriteSize = treeright->getContentSize();
 
-        // ¼ÆËãËõ·Å±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
         float maxWidth = visibleSize.width * 0.6f;
         float maxHeight = visibleSize.height * 0.6f;
         float scaleX = maxWidth / spriteSize.width;
         float scaleY = maxHeight / spriteSize.height;
-        // Ê¹ÓÃ setScale À´Ëõ·ÅÍ¼Æ¬
-        treeright->setScale(std::min(scaleX, scaleY));  // ±£³Ö¿í¸ß±È
-        // ÉèÖÃÃªµãÎªÓÒÏÂ½Ç
+        // Ê¹ï¿½ï¿½ setScale ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+        treeright->setScale(std::min(scaleX, scaleY));  // ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ß±ï¿½
+        // ï¿½ï¿½ï¿½ï¿½Ãªï¿½ï¿½Îªï¿½ï¿½ï¿½Â½ï¿½
         treeright->setAnchorPoint(Vec2(1, 0));
-        // ½«¾«ÁéµÄÎ»ÖÃÉèÖÃÎªÆÁÄ»ÓÒÏÂ½Ç
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ä»ï¿½ï¿½ï¿½Â½ï¿½
         treeright->setPosition(Vec2(visibleSize.width + origin.x , 0));
         this->addChild(treeright, 4);
     }
@@ -200,50 +202,50 @@ void NextScene::addfirstscene(const cocos2d::Size& visibleSize, const cocos2d::V
 void NextScene::birdfly()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    // ´´½¨¾«ÁéÖ¡
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡
     Vector<cocos2d::SpriteFrame*> animFrames;
 
-    // ¼ÓÔØ4ÕÅÍ¼Æ¬
+    // ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½Í¼Æ¬
     animFrames.pushBack(cocos2d::SpriteFrame::create("UIresource/fly1.png", cocos2d::Rect(0, 0, 26, 26)));
     animFrames.pushBack(cocos2d::SpriteFrame::create("UIresource/fly2.png", cocos2d::Rect(0, 0, 26, 26)));
     animFrames.pushBack(cocos2d::SpriteFrame::create("UIresource/fly3.png", cocos2d::Rect(0, 0, 26, 26)));
     animFrames.pushBack(cocos2d::SpriteFrame::create("UIresource/fly4.png", cocos2d::Rect(0, 0, 26, 26)));
 
-    // ´´½¨¶¯»­
-    auto animation1 = cocos2d::Animation::createWithSpriteFrames(animFrames, 0.2f);  // Ã¿Ö¡0.2Ãë
-    auto animation2 = cocos2d::Animation::createWithSpriteFrames(animFrames, 0.2f);  // Ã¿Ö¡0.2Ãë
-    // ´´½¨¶¯»­¶ÔÏó
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    auto animation1 = cocos2d::Animation::createWithSpriteFrames(animFrames, 0.2f);  // Ã¿Ö¡0.2ï¿½ï¿½
+    auto animation2 = cocos2d::Animation::createWithSpriteFrames(animFrames, 0.2f);  // Ã¿Ö¡0.2ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     auto animate1 = cocos2d::Animate::create(animation1);
     auto animate2 = cocos2d::Animate::create(animation2);
-    // ¼ÆËãÖØ¸´µÄ´ÎÊý£¬Ê¹×ÜÊ±¼ä·ûºÏÒªÇó
-    float totalDuration = 4.5f;  // Éè¶¨×ÜÊ±¼ä
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½
+    float totalDuration = 4.5f;  // ï¿½è¶¨ï¿½ï¿½Ê±ï¿½ï¿½
     int repeatCount1 = totalDuration / animation1->getDuration();
     auto repeatedAction1 = Repeat::create(animate1, repeatCount1);
     int repeatCount2 = totalDuration / animation2->getDuration();
     auto repeatedAction2 = Repeat::create(animate2, repeatCount2);
-    // ´´½¨ÒÆ¶¯¶¯×÷
-    auto moveAction1 = MoveBy::create(5.0f, Vec2(-visibleSize.width / 1.5, 0)); // 5ÃëÄÚÑØXÖáÒÆ¶¯
-    auto moveAction2 = MoveBy::create(5.0f, Vec2(-visibleSize.width / 1.5, 0)); // 5ÃëÄÚÑØXÖáÒÆ¶¯
-    // ´´½¨¾«Áé²¢²¥·Å¶¯»­
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+    auto moveAction1 = MoveBy::create(5.0f, Vec2(-visibleSize.width / 1.5, 0)); // 5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½Æ¶ï¿½
+    auto moveAction2 = MoveBy::create(5.0f, Vec2(-visibleSize.width / 1.5, 0)); // 5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½Æ¶ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é²¢ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
      auto sprite1 = cocos2d::Sprite::createWithSpriteFrame(animFrames.at(0));
      auto sprite2 = cocos2d::Sprite::createWithSpriteFrame(animFrames.at(0));
-     sprite1->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 3));  // ÉèÖÃ¾«ÁéÎ»ÖÃ
-     sprite2->setPosition(cocos2d::Vec2(visibleSize.width / 1.8, visibleSize.height / 3.2));  // ÉèÖÃ¾«ÁéÎ»ÖÃ
-     // Í¬Ê±Ö´ÐÐ¶¯»­ºÍÒÆ¶¯
+     sprite1->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 3));  // ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+     sprite2->setPosition(cocos2d::Vec2(visibleSize.width / 1.8, visibleSize.height / 3.2));  // ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+     // Í¬Ê±Ö´ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
      auto spawnAction1 = Spawn::create(repeatedAction1, moveAction1, nullptr);
      auto spawnAction2 = Spawn::create(repeatedAction2, moveAction2, nullptr);
      auto sequence = Sequence::create(
          spawnAction1,
-         //Äñ·É³öÆÁÄ»ºó¿ªÊ¼½øÐÐ×ª³¡
+         //ï¿½ï¿½É³ï¿½ï¿½ï¿½Ä»ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½
          CallFunc::create([this, sprite1]() {
              scenechangedown();
               }),
          nullptr);
-     sprite1->runAction(sequence); // Ñ­»·²¥·Å¶¯»­
-     sprite2->runAction(spawnAction2);  // Ñ­»·²¥·Å¶¯»­
-    // ½«¾«ÁéÌí¼Óµ½³¡¾°ÖÐ
-    sprite1->setScale(2.0f);  // ÉèÖÃÕû¸ö¶¯»­µÄËõ·Å
-    sprite2->setScale(2.0f);  // ÉèÖÃÕû¸ö¶¯»­µÄËõ·Å
+     sprite1->runAction(sequence); // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
+     sprite2->runAction(spawnAction2);  // Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½Å¶ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    sprite1->setScale(2.0f);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    sprite2->setScale(2.0f);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     this->addChild(sprite1, 3);
     this->addChild(sprite2, 3);
 }
@@ -274,16 +276,16 @@ void NextScene::cloudsAni ( float dt )
     auto clouds = Sprite::create ( "UIresource/Clouds.png" );
     if (cloud0) {
         Size spriteSize = cloud0->getContentSize ();
-        // ¼ÆËãËõ·Å±ÈÀý
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
         float maxWidth = visibleSize.width * 0.6f;
         float maxHeight = visibleSize.height * 0.6f;
         float scaleX = maxWidth / spriteSize.width;
         float scaleY = maxHeight / spriteSize.height;
-        // Ê¹ÓÃ setScale À´Ëõ·ÅÍ¼Æ¬
-        cloud0->setScale ( std::min ( scaleX , scaleY ) );  // ±£³Ö¿í¸ß±È
-        // ÉèÖÃÃªµãÎªÓÒÏÂ½Ç
+        // Ê¹ï¿½ï¿½ setScale ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+        cloud0->setScale ( std::min ( scaleX , scaleY ) );  // ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ß±ï¿½
+        // ï¿½ï¿½ï¿½ï¿½Ãªï¿½ï¿½Îªï¿½ï¿½ï¿½Â½ï¿½
         cloud0->setAnchorPoint ( Vec2 ( 1 , 0 ) );
-        // ½«¾«ÁéµÄÎ»ÖÃÉèÖÃÎªÆÁÄ»ÓÒÏÂ½Ç¿¿ÉÏÒ»µã¿¿ÓÒÒ»µã
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ä»ï¿½ï¿½ï¿½Â½Ç¿ï¿½ï¿½ï¿½Ò»ï¿½ã¿¿ï¿½ï¿½Ò»ï¿½ï¿½
         cloud0->setPosition ( Vec2 ( visibleSize.width * 1.5 + origin.x , visibleSize.height / 1.8 + origin.y ) );
         this->addChild ( cloud0 , 1 );
     }
@@ -305,7 +307,7 @@ void NextScene::cloudsAni ( float dt )
         problemLoading ( "'Clouds.png'" );
     }
 
-    // ¼ÆËã¾«ÁéÒÆ¶¯µÄÄ¿±êÎ»ÖÃ£¨ÆÁÄ»µÄ×ó²à£©
+    // ï¿½ï¿½ï¿½ã¾«ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½à£©
     auto moveTo_0 = cocos2d::MoveTo::create ( 50.0f , cocos2d::Vec2 ( 0 , cloud0->getPosition ().y ) );
     auto moveTo_s = cocos2d::MoveTo::create ( 50.0f , cocos2d::Vec2 ( -visibleSize.width * 0.6 , clouds->getPosition ().y ) );
     cloud0->runAction ( cocos2d::RepeatForever::create ( moveTo_0 ) );
@@ -316,13 +318,13 @@ void NextScene::scenechangedown ()
 {
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
     Vec2 origin = Director::getInstance ()->getVisibleOrigin ();
-    // »ñÈ¡µ±Ç°ÔËÐÐµÄ³¡¾°
+    // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ÐµÄ³ï¿½ï¿½ï¿½
     auto scene = Director::getInstance ()->getRunningScene ();
 
-    // ¶¨ÒåÏòÏÂÒÆ¶¯µÄÎ»ÒÆÁ¿£¬ÐèÒªÏòÏÂÒÆ¶¯Õû¸ö¿ÉÊÓÇøÓò
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Vec2 moveDistance = Vec2 ( 0 , -visibleSize.height );
 
-    // ´´½¨ MoveBy ¶¯×÷£¬ÉèÖÃÊ±¼äÎª 8 Ãë
+    // ï¿½ï¿½ï¿½ï¿½ MoveBy ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Îª 8 ï¿½ï¿½
     auto moveAction = MoveBy::create ( 8.0f , moveDistance );
 
 
@@ -330,10 +332,10 @@ void NextScene::scenechangedown ()
     auto mountain2 = this->getChildByTag ( 102 );
     auto treeleft = this->getChildByTag  ( 103 );
     auto treeright = this->getChildByTag ( 104 );
-    auto moveDown1 = cocos2d::MoveBy::create ( 20.0f , cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) ); // ÏòÏÂÒÆ¶¯
-    auto moveDown2 = cocos2d::MoveBy::create ( 40.0f ,cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) );  // ÏòÏÂÒÆ¶¯
-    auto moveDown3 = cocos2d::MoveBy::create ( 15.0f , cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) );  // ÏòÏÂÒÆ¶¯
-    auto moveDown4 = cocos2d::MoveBy::create ( 15.0f , cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) );  // ÏòÏÂÒÆ¶¯
+    auto moveDown1 = cocos2d::MoveBy::create ( 20.0f , cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) ); // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+    auto moveDown2 = cocos2d::MoveBy::create ( 40.0f ,cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) );  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+    auto moveDown3 = cocos2d::MoveBy::create ( 15.0f , cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) );  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+    auto moveDown4 = cocos2d::MoveBy::create ( 15.0f , cocos2d::Vec2 ( 0 , -visibleSize.height * 3 ) );  // ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
 
     scene    ->runAction ( moveAction);
     mountain1->runAction ( moveDown1 );
@@ -341,39 +343,39 @@ void NextScene::scenechangedown ()
     treeleft ->runAction ( moveDown3 );
     treeright->runAction ( moveDown4 );
 
-    // ´´½¨²Ëµ¥Ïî  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½  
     auto BeginItem = createMenuItem ( "UIresource/start1.png" , "UIresource/start1.png" , CC_CALLBACK_1 ( NextScene::menuNewCallback , this ) , origin , -visibleSize.width * 0.338 );
     auto LoadItem = createMenuItem ( "UIresource/load1.png" , "UIresource/load1.png" , CC_CALLBACK_1 ( NextScene::menuNewCallback , this ) , origin , -visibleSize.width * 0.113 );
     auto coopItem = createMenuItem ( "UIresource/coop1.png" , "UIresource/coop1.png" , CC_CALLBACK_1 ( NextScene::menuNewCallback , this ) , origin , visibleSize.width * 0.113 );
     auto closeItem = createMenuItem ( "UIresource/quit1.png" , "UIresource/quit1.png" , CC_CALLBACK_1 ( NextScene::menuCloseCallback , this ) , origin , visibleSize.width * 0.338 );
 
-    // Ê¹ÓÃÑÓÊ±ºÍË³Ðò¶¯»­À´ÏÔÊ¾²Ëµ¥Ïî
-    auto delay0 = DelayTime::create ( 5.0f ); // 5ÃëÑÓ³Ù
-    auto delay1 = DelayTime::create ( 1.0f ); // 1ÃëÑÓ³Ù
-    auto delay2 = DelayTime::create ( 1.0f ); // 1ÃëÑÓ³Ù
-    auto delay3 = DelayTime::create ( 1.0f ); // 1ÃëÑÓ³Ù
+    // Ê¹ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ë³ï¿½ò¶¯»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ëµï¿½ï¿½ï¿½
+    auto delay0 = DelayTime::create ( 5.0f ); // 5ï¿½ï¿½ï¿½Ó³ï¿½
+    auto delay1 = DelayTime::create ( 1.0f ); // 1ï¿½ï¿½ï¿½Ó³ï¿½
+    auto delay2 = DelayTime::create ( 1.0f ); // 1ï¿½ï¿½ï¿½Ó³ï¿½
+    auto delay3 = DelayTime::create ( 1.0f ); // 1ï¿½ï¿½ï¿½Ó³ï¿½
 
-    auto showBeginItem = FadeIn::create ( 0.5f );  // ¿ªÊ¼°´Å¥½¥ÏÖ
-    auto showLoadItem  = FadeIn::create ( 0.5f );   // ¼ÓÔØ°´Å¥½¥ÏÖ
-    auto showCoopItem  = FadeIn::create ( 0.5f );   // ºÏ×÷°´Å¥½¥ÏÖ
-    auto showCloseItem = FadeIn::create ( 0.5f );  // ÍË³ö°´Å¥½¥ÏÖ
+    auto showBeginItem = FadeIn::create ( 0.5f );  // ï¿½ï¿½Ê¼ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
+    auto showLoadItem  = FadeIn::create ( 0.5f );   // ï¿½ï¿½ï¿½Ø°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
+    auto showCoopItem  = FadeIn::create ( 0.5f );   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
+    auto showCloseItem = FadeIn::create ( 0.5f );  // ï¿½Ë³ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
 
-    auto sequence1 = Sequence::create ( delay0 , showBeginItem , nullptr );                             // BeginItem ×îÏÈ½¥ÏÔ
-    auto sequence2 = Sequence::create ( delay0 , delay1 , showLoadItem , nullptr );                     // LoadItem ÔÚµÈ´ý 1 Ãëºó½¥ÏÔ
-    auto sequence3 = Sequence::create ( delay0 , delay1 , delay2 , showCoopItem , nullptr );            // CoopItem ÔÚµÈ´ý 2 Ãëºó½¥ÏÔ
-    auto sequence4 = Sequence::create ( delay0 , delay1 , delay2 , delay3 , showCloseItem , nullptr );  // CloseItem ÔÚµÈ´ý 3 Ãëºó½¥ÏÔ
+    auto sequence1 = Sequence::create ( delay0 , showBeginItem , nullptr );                             // BeginItem ï¿½ï¿½ï¿½È½ï¿½ï¿½ï¿½
+    auto sequence2 = Sequence::create ( delay0 , delay1 , showLoadItem , nullptr );                     // LoadItem ï¿½ÚµÈ´ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½
+    auto sequence3 = Sequence::create ( delay0 , delay1 , delay2 , showCoopItem , nullptr );            // CoopItem ï¿½ÚµÈ´ï¿½ 2 ï¿½ï¿½ï¿½ï¿½ï¿½
+    auto sequence4 = Sequence::create ( delay0 , delay1 , delay2 , delay3 , showCloseItem , nullptr );  // CloseItem ï¿½ÚµÈ´ï¿½ 3 ï¿½ï¿½ï¿½ï¿½ï¿½
 
     BeginItem->runAction ( sequence1->clone () );
     LoadItem->runAction  ( sequence2->clone () );
     coopItem->runAction  ( sequence3->clone () );
     closeItem->runAction ( sequence4->clone () );
 
-    // ´´½¨²Ëµ¥  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½  
     auto menu = Menu::create ( BeginItem , LoadItem , coopItem , closeItem , nullptr );
     menu->setPosition ( Vec2 ( 0 , visibleSize.height ) );
     this->addChild ( menu , 3 );
 
-    // Ìí¼ÓÊó±ê¼àÌýÆ÷  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     addMouseListener ( BeginItem , LoadItem , coopItem , closeItem );
 }
 
@@ -384,19 +386,19 @@ MenuItemImage* NextScene::createMenuItem(const std::string& normalImage, const s
     auto visibleSize = Director::getInstance()->getVisibleSize();
     if (item) {
         Size itemSize = item->getContentSize();
-        // »ñÈ¡ÆÁÄ»¿ÉÊÓÇøÓòµÄ´óÐ¡
+        // ï¿½ï¿½È¡ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡
         auto visibleSize = Director::getInstance()->getVisibleSize();
-        // ÉèÖÃÍ¼±êµÄËõ·Å±ÈÂÊ
+        // ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
         float maxWidth = visibleSize.width * 0.2f;
         float maxHeight = visibleSize.height * 0.2f;
         float scaleX = maxWidth / itemSize.width ;
         float scaleY = maxHeight / itemSize.height ;
-        // Ê¹ÓÃ setScale À´Ëõ·ÅÍ¼Æ¬
-        item->setScale(std::min(scaleX, scaleY));  // ±£³Ö¿í¸ß±È
+        // Ê¹ï¿½ï¿½ setScale ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
+        item->setScale(std::min(scaleX, scaleY));  // ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ß±ï¿½
         float x = origin.x + visibleSize.width / 2 + offsetX;
         float y = origin.y + visibleSize.height / 720 * 100;
         item->setPosition(Vec2(x, y));
-        item->setOpacity(0);//³õÊ¼Í¸Ã÷
+        item->setOpacity(0);//ï¿½ï¿½Ê¼Í¸ï¿½ï¿½
     }
     else {
         problemLoading(normalImage.c_str());
@@ -418,16 +420,16 @@ void NextScene::addMouseListener(MenuItemImage* BeginItem, MenuItemImage* LoadIt
     listener->onMouseDown = [this , BeginItem , LoadItem , coopItem , closeItem]( EventMouse* event ) {
         Vec2 mousePos = Vec2 ( event->getCursorX () , event->getCursorY () );
         if (BeginItem->getBoundingBox ().containsPoint ( mousePos )) {
-            menuNewCallback ( BeginItem );  // Èç¹ûµã»÷µÄÊÇ BeginItem£¬Ôòµ÷ÓÃ»Øµ÷
+            menuNewCallback ( BeginItem );  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BeginItemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»Øµï¿½
         }
         else if (LoadItem->getBoundingBox ().containsPoint ( mousePos )) {
-            menuNewCallback ( LoadItem );  // Èç¹ûµã»÷µÄÊÇ LoadItem£¬Ôòµ÷ÓÃ»Øµ÷
+            menuNewCallback ( LoadItem );  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ LoadItemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»Øµï¿½
         }
         else if (coopItem->getBoundingBox ().containsPoint ( mousePos )) {
-            menuNewCallback ( coopItem );  // Èç¹ûµã»÷µÄÊÇ coopItem£¬Ôòµ÷ÓÃ»Øµ÷
+            menuNewCallback ( coopItem );  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ coopItemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»Øµï¿½
         }
         else if (closeItem->getBoundingBox ().containsPoint ( mousePos )) {
-            menuCloseCallback( closeItem );  // Èç¹ûµã»÷µÄÊÇ closeItem£¬Ôòµ÷ÓÃ»Øµ÷
+            menuCloseCallback( closeItem );  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ closeItemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»Øµï¿½
         }
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
@@ -437,7 +439,7 @@ void NextScene::updateMenuItem(MenuItemImage* item, const Vec2& mousePos, const 
 {
     Size itemSize = item->getContentSize();
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    // ÉèÖÃÍ¼±êµÄËõ·Å±ÈÂÊ
+    // ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ï¿½ï¿½
     float maxWidth = visibleSize.width * 0.2f;
     float maxHeight = visibleSize.height * 0.2f;
     float scaleX = maxWidth / itemSize.width;
@@ -455,11 +457,11 @@ void NextScene::updateMenuItem(MenuItemImage* item, const Vec2& mousePos, const 
     }
 }
 
-// Ìø×ªµ½ÐÂ³¡¾°  
+// ï¿½ï¿½×ªï¿½ï¿½ï¿½Â³ï¿½ï¿½ï¿½  
 void NextScene::menuNewCallback(Ref* pSender)
 {
-    //Director::getInstance()->replaceScene(Town::create()); // ½øÈëµ½Ö÷µØÍ¼  
-    Director::getInstance ()->replaceScene ( TransitionFade::create ( 3.0f , CreateCharacter::create () ) ); // ½øÈëµ½ÈËÎï´´½¨½çÃæ 
+    //Director::getInstance()->replaceScene(Town::create()); // ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½Í¼  
+    Director::getInstance ()->replaceScene ( TransitionFade::create ( 3.0f , CreateCharacter::create () ) ); // ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï´´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 }
 
 void NextScene::menuCloseCallback(Ref* pSender)

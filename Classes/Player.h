@@ -5,6 +5,8 @@
 #include "Inventory.h"
 #include "Crop.h"
 #include "AppDelegate.h"
+#include "EventManager.h"
+#include "GameEvent.h"
 
 const int kDefaultEnergy = 100;
 
@@ -12,20 +14,27 @@ USING_NS_CC;
 
 class Player : public cocos2d::Sprite
 {
+private:
+    // å‘é€ç©å®¶ä½ç½®å˜åŒ–äº‹ä»¶
+    void notifyPositionChanged(const cocos2d::Vec2& newPosition);
+    
+    // å‘é€ç©å®¶çŠ¶æ€å˜åŒ–äº‹ä»¶
+    void notifyStateChanged(const std::string& state, bool value);
+
 public:
     Player();
     ~Player();
 
-    // ´´½¨ Player ¶ÔÏóµÄ·½·¨
+    // ï¿½ï¿½ï¿½ï¿½ Player ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
     static Player* create();
 
-    // ³õÊ¼»¯½ÇÉ«
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½É«
     bool init();
 
-    // °´¼ü°´ÏÂÊ±´¥·¢µÄ»Øµ÷º¯Êı
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
-    // °´¼üÊÍ·ÅÊ±´¥·¢µÄ»Øµ÷º¯Êı
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
     void player1_move();
@@ -37,15 +46,35 @@ public:
 
     bool leftpressed = false, downpressed = false, uppressed = false, rightpressed = false;
 
-    // ½ÇÉ«µÄÒÆ¶¯ËÙ¶È
+    // ï¿½ï¿½É«ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
     float speed;
 
     int look_state = 0;
 
     std::string pic_path;
 
-    //int energy_limit = kDefaultEnergy;
-    //int current_energy = kDefaultEnergy;
+    int energy_limit = kDefaultEnergy;
+    int current_energy = kDefaultEnergy;
+    
+    // ç­‰çº§ç›¸å…³å±æ€§
+    int current_level = 1;
+    int experience = 0;
+    int exp_to_next_level = 100; // å‡çº§æ‰€éœ€ç»éªŒ
+    
+    // è®¾ç½®ç©å®¶èƒ½é‡å¹¶å‘é€äº‹ä»¶
+    void setEnergy(int newEnergy);
+    
+    // è·å–ç©å®¶å½“å‰ä½ç½®
+    cocos2d::Vec2 getPosition() const;
+    
+    // è®¾ç½®ç©å®¶ç»éªŒ
+    void setExperience(int newExp);
+    
+    // è®¾ç½®ç©å®¶ç­‰çº§
+    void setLevel(int newLevel);
+    
+    // å‘é€ç­‰çº§æå‡äº‹ä»¶
+    void notifyLevelUp(int oldLevel, int newLevel);
 
 };
 

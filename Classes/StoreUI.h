@@ -4,21 +4,23 @@
 #include "Inventory.h"  
 #include "AppDelegate.h"
 #include "EconomicSystem.h"
+#include "EventObserver.h"
+#include "GameEvent.h"
 
 USING_NS_CC;
 
-class StoreUI : public cocos2d::Layer {
+class StoreUI : public cocos2d::Layer, public EventObserver {
 public:
     virtual bool init ( Inventory* mybag , Inventory* goods );
     static StoreUI* create ( Inventory* mybag , Inventory* goods );
-    //±³¾°Í¼Õ¹Ê¾
+    //ï¿½ï¿½ï¿½ï¿½Í¼Õ¹Ê¾
     void backgroundcreate ();
-    //ÉÌÆ·Õ¹Ê¾
+    //ï¿½ï¿½Æ·Õ¹Ê¾
     void ProductDisplay ( Inventory* mybag , Inventory* goods );
 
     void Itemblock ( Inventory* mybag , Inventory* goods );
 
-    void updateDisplay (); // ¸üĞÂÏÔÊ¾ÄÚÈİ  
+    void updateDisplay (); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½  
 
     void moneyDisplay ();
 
@@ -28,21 +30,29 @@ public:
 
 private:
 
-    Inventory* _mybag; // Ö¸Ïò×Ô¼º±³°üÊµÀıµÄÖ¸Õë  
+    Inventory* _mybag; // Ö¸ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½  
 
-    Inventory* _goods; // Ö¸ÏòÉÌÆ·ÊµÀıµÄÖ¸Õë  
+    Inventory* _goods; // Ö¸ï¿½ï¿½ï¿½ï¿½Æ·Êµï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½  
 
-    cocos2d::Label* _itemLabel;  // ÏÔÊ¾ÎïÆ·ĞÅÏ¢µÄ±êÇ© 
+    cocos2d::Label* _itemLabel;  // ï¿½ï¿½Ê¾ï¿½ï¿½Æ·ï¿½ï¿½Ï¢ï¿½Ä±ï¿½Ç© 
 
-    cocos2d::Vector<cocos2d::Sprite*> _itemSlots; // ´æ´¢ÎïÆ·²ÛµÄ Sprite  
+    cocos2d::Vector<cocos2d::Sprite*> _itemSlots; // ï¿½æ´¢ï¿½ï¿½Æ·ï¿½Ûµï¿½ Sprite  
 
-    int _selectedSlot; // µ±Ç°Ñ¡ÖĞµÄ²ÛÎ»  
+    int _selectedSlot; // ï¿½ï¿½Ç°Ñ¡ï¿½ĞµÄ²ï¿½Î»  
 
-    void onItemSlotClicked ( cocos2d::Ref* sender ); // ÎïÆ·²ÛµÄµã»÷ÊÂ¼ş´¦Àí 
+    void onItemSlotClicked ( cocos2d::Ref* sender ); // ï¿½ï¿½Æ·ï¿½ÛµÄµï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
     bool isClick = false;
 
     shared_ptr<Item> chosen_Item = nullptr;
 
     std::shared_ptr<EconomicSystem> economicSystem;
+    
+public:
+    // äº‹ä»¶å¤„ç†æ–¹æ³•
+    virtual void onEvent(EventType eventType, const EventData& data) override;
+    
+    // ç”Ÿå‘½å‘¨æœŸæ–¹æ³•
+    virtual void onEnter() override;
+    virtual void onExit() override;
 };

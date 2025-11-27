@@ -3,9 +3,9 @@
 
  http://www.cocos2d-x.org
 
- ÔÊÐíÈÎºÎÈËÃâ·ÑÊ¹ÓÃ¸ÃÈí¼þ£¬°üÀ¨ÐÞ¸Ä¡¢ºÏ²¢¡¢·¢²¼¡¢·Ö·¢¡¢ÔÙÐí¿ÉÒÔ¼°ÏúÊÛ¸ÃÈí¼þµÄ¸±±¾£¬Ç°ÌáÊÇËùÓÐ¸±±¾»òÕßÖØÒª²¿·Ö¶¼±ØÐë°üº¬±¾°æÈ¨ÉùÃ÷ºÍÐí¿ÉÉùÃ÷¡£
+ ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä¡ï¿½ï¿½Ï²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Û¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
- ¸ÃÈí¼þ°´"Ô­Ñù"Ìá¹©£¬²»¸½´øÈÎºÎÐÎÊ½µÄ±£Ö¤£¬°üÀ¨µ«²»ÏÞÓÚ¶ÔÊÊÏúÐÔ¡¢ÌØ¶¨ÓÃÍ¾ÊÊÓÃÐÔºÍ²»ÇÖÈ¨µÄ±£Ö¤¡£ÔÚÈÎºÎÇé¿öÏÂ£¬×÷Õß»ò°æÈ¨³ÖÓÐÕß¾ù²»¶ÔÒòÊ¹ÓÃ¸ÃÈí¼þ»òÓë¸ÃÈí¼þÏà¹ØµÄÈÎºÎË÷Åâ¡¢Ëðº¦»òÆäËûÔðÈÎ³Ðµ£ÔðÈÎ£¬ÎÞÂÛÊÇºÏÍ¬¡¢ÇÖÈ¨ÐÐÎª»òÆäËû·½Ê½¡£
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"Ô­ï¿½ï¿½"ï¿½á¹©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½Ê½ï¿½Ä±ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¡ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½ï¿½ï¿½ÔºÍ²ï¿½ï¿½ï¿½È¨ï¿½Ä±ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ß»ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½Îºï¿½ï¿½ï¿½ï¿½â¡¢ï¿½ðº¦»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î³Ðµï¿½ï¿½ï¿½ï¿½Î£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½Í¬ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½
  ****************************************************************************/
 
 #include "AppDelegate.h"
@@ -15,18 +15,20 @@
 #include "Barn.h"
 //#include "supermarket.h"
 #include "CreateCharacterUI.h"
+#include "GameStateManager.h"
+#include "ConcreteGameStates.h"
 
-// #define USE_AUDIO_ENGINE 1   // Èç¹ûÐèÒªÊ¹ÓÃÒôÆµÒýÇæ£¬¿ÉÒÔÈ¡Ïû×¢ÊÍÕâÒ»ÐÐ
+// #define USE_AUDIO_ENGINE 1   // ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 
 #if USE_AUDIO_ENGINE
-#include "audio/include/AudioEngine.h"  // Èç¹ûÆôÓÃÁËÒôÆµÒýÇæ£¬ÔòÒýÈëÒôÆµÒýÇæµÄÍ·ÎÄ¼þ
-// using namespace cocos2d::experimental;  // Ê¹ÓÃÒôÆµÒýÇæµÄÃüÃû¿Õ¼ä
+#include "audio/include/AudioEngine.h"  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½æ£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ä¼ï¿½
+// using namespace cocos2d::experimental;  // Ê¹ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
 #endif
 
-USING_NS_CC;  // Ê¹ÓÃcocos2dµÄÃüÃû¿Õ¼ä
+USING_NS_CC;  // Ê¹ï¿½ï¿½cocos2dï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½
 
-/******************************** È«¾Ö±äÁ¿ÉùÃ÷Çø ****************************************/
-// ÔÚ´ËÎÄ¼þÖÐ¶¨Òå²¢³õÊ¼»¯È«¾Ö±äÁ¿
+/******************************** È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ****************************************/
+// ï¿½Ú´ï¿½ï¿½Ä¼ï¿½ï¿½Ð¶ï¿½ï¿½å²¢ï¿½ï¿½Ê¼ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½
 int remainingTime = 10800;
 int day = 1;
 int GoldAmount = 4000;
@@ -58,7 +60,7 @@ std::map<std::pair<std::string , Vec2>, bool> W_lastplace;
 std::string protagonistName = "player";
 std::string FarmName = "An ordinary farm";
 
-// È«¾ÖÖ¸Õë±äÁ¿¶¨Òå
+// È«ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 Player* player1 = nullptr;
 mini_bag* miniBag = nullptr;
 Timesystem* TimeUI = nullptr;
@@ -71,40 +73,40 @@ std::vector<std::pair<Rect , bool>> barn_space;
 std::vector<Livestock*> livestocks;
 SkillTree* skill_tree = new SkillTree ();
 
-// ´´½¨ÈÎÎñ¹ÜÀíÆ÷
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 TaskManagement* taskManager = new TaskManagement();
 /****************************************************************************************/
 
 
 AppDelegate::AppDelegate() {
-    // ¹¹Ôìº¯Êý£ºAppDelegate¹¹ÔìÊ±»áµ÷ÓÃ
+    // ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½AppDelegateï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 AppDelegate::~AppDelegate() {
-    // Îö¹¹º¯Êý£º³ÌÐò½áÊøÊ±»áµ÷ÓÃ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½
 #if USE_AUDIO_ENGINE
-    AudioEngine::end();  // Èç¹ûÊ¹ÓÃÁËÒôÆµÒýÇæ£¬Í£Ö¹ÒôÆµÒýÇæ
+    AudioEngine::end();  // ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½æ£¬Í£Ö¹ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½
 #endif
 }
 
-// ³õÊ¼»¯ OpenGL ÉÏÏÂÎÄÊôÐÔ
+// ï¿½ï¿½Ê¼ï¿½ï¿½ OpenGL ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void AppDelegate::initGLContextAttrs() {
-    // ÉèÖÃOpenGLÉÏÏÂÎÄµÄÊôÐÔ£ººì¡¢ÂÌ¡¢À¶¡¢Í¸Ã÷Í¨µÀµÄÎ»Éî£¬Éî¶È¡¢Ä£°åºÍ¶àÖØ²ÉÑù
-    GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8, 0 };  // ÉèÖÃ OpenGL ÉÏÏÂÎÄµÄÑÕÉ«ºÍÉî¶È»º³åµÈÊôÐÔ
+    // ï¿½ï¿½ï¿½ï¿½OpenGLï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ì¡¢ï¿½Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½Î»ï¿½î£¬ï¿½ï¿½È¡ï¿½Ä£ï¿½ï¿½Í¶ï¿½ï¿½Ø²ï¿½ï¿½ï¿½
+    GLContextAttrs glContextAttrs = { 8, 8, 8, 8, 24, 8, 0 };  // ï¿½ï¿½ï¿½ï¿½ OpenGL ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    GLView::setGLContextAttrs(glContextAttrs);  // ½«ÉèÖÃµÄÉÏÏÂÎÄÊôÐÔÓ¦ÓÃµ½ GLView
+    GLView::setGLContextAttrs(glContextAttrs);  // ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ãµï¿½ GLView
 }
 
-// Èç¹ûÏëÍ¨¹ý°ü¹ÜÀíÆ÷°²×°¸ü¶à°ü£¬²»ÒªÐÞ¸Ä»òÉ¾³ýÕâ¸öº¯Êý
+// ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Þ¸Ä»ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 static int register_all_packages() {
-    return 0;  // ±êÖ¾Î»£¬ÓÃÓÚ°ü¹ÜÀíÆ÷
+    return 0;  // ï¿½ï¿½Ö¾Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
-// Ó¦ÓÃÆô¶¯Íê³Éºóµ÷ÓÃ
+// Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½ï¿½ï¿½
 bool AppDelegate::applicationDidFinishLaunching() {
-    // ³õÊ¼»¯ Director£¨µ¼ÑÝÀà£¬ÓÃÓÚ¹ÜÀí³¡¾°ºÍ»æÖÆ£©
-    auto director = Director::getInstance();  // »ñÈ¡ Director ÊµÀý
-    auto glview = director->getOpenGLView();  // »ñÈ¡ OpenGL ÊÓÍ¼
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ Directorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£¬ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Æ£ï¿½
+    auto director = Director::getInstance();  // ï¿½ï¿½È¡ Director Êµï¿½ï¿½
+    auto glview = director->getOpenGLView();  // ï¿½ï¿½È¡ OpenGL ï¿½ï¿½Í¼
     
     if (!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
@@ -115,33 +117,40 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    // ´ò¿ª FPS ÏÔÊ¾
-    director->setDisplayStats(true);  // ÏÔÊ¾Ö¡ÂÊÍ³¼ÆÐÅÏ¢
+    // ï¿½ï¿½ FPS ï¿½ï¿½Ê¾
+    director->setDisplayStats(true);  // ï¿½ï¿½Ê¾Ö¡ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½Ï¢
 
-    // ÉèÖÃÖ¡ÂÊ¡£Ä¬ÈÏÖµÎª 1.0/60£¬¼´ 60 FPS
-    director->setAnimationInterval(1.0f / 60);  // ÉèÖÃ¶¯»­Ö¡ÂÊÎª 60 FPS
+    // ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½Ê¡ï¿½Ä¬ï¿½ï¿½ÖµÎª 1.0/60ï¿½ï¿½ï¿½ï¿½ 60 FPS
+    director->setAnimationInterval(1.0f / 60);  // ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½Îª 60 FPS
 
-    // ÉèÖÃÉè¼Æ·Ö±æÂÊ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ö±ï¿½ï¿½ï¿½
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
     director->setContentScaleFactor(1.0f);
 
-    register_all_packages();  // ×¢²áËùÓÐµÄ°ü
-
-    runScene(director);
+    register_all_packages();  // ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ°ï¿½
+    
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    auto stateManager = GameStateManager::getInstance();
+    
+    // ×¢ï¿½ï¿½ï¿½æ‰€ï¿½ï¿½ï¿½Ï·×´Ì¬
+    GameStateFactory::registerAllStates();
+    
+    // Ê¹ï¿½Ã¹×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½Ó´Ëµï¿½ï¿½Ê¼ï¿½ï¿½
+    stateManager->changeState(GameStateType::MAIN_MENU);
 
     // set the background music and continuously play it.
     auto backgroundAudioID = AudioEngine::play2d ( "MUSIC/01 - Stardew Valley Overture.mp3" , true );
 
-    return true;  // ·µ»Ø³É¹¦
+    return true;  // ï¿½ï¿½ï¿½Ø³É¹ï¿½
 }
 
-// ÇÐ»»³¡¾°µÄº¯Êý
+// ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½
 void AppDelegate::runScene(cocos2d::Director* director) {
     Initialize ();
     
-    // »ñÈ¡µ±Ç°ÊÓÍ¼µÄ¿É¼û´óÐ¡ºÍÔ­µãÎ»ÖÃ
-    auto visibleSize = Director::getInstance()->getVisibleSize();  // »ñÈ¡ÆÁÄ»¿ÉÊÓÇøÓòµÄ´óÐ¡
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();  // »ñÈ¡ÆÁÄ»Ô­µãµÄÎ»ÖÃ£¨×óÏÂ½Ç£©
+    // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½Í¼ï¿½Ä¿É¼ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ô­ï¿½ï¿½Î»ï¿½ï¿½
+    auto visibleSize = Director::getInstance()->getVisibleSize();  // ï¿½ï¿½È¡ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();  // ï¿½ï¿½È¡ï¿½ï¿½Ä»Ô­ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Â½Ç£ï¿½
   
 
     std::pair<std::string , Vec2> key = { "initiation",Vec2 ( 350,350 ) };
@@ -149,74 +158,74 @@ void AppDelegate::runScene(cocos2d::Director* director) {
     key = { "seedshop",Vec2 ( 230,470 ) };
     T_lastplace.insert(std::make_pair(key, false));
 
-    // ÔËÐÐÅ©³¡
+    // ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
     //auto farm = farm::create ();
     //director->runWithScene ( farm );
 
-    //ÔËÐÐº£Ì²³¡¾°
+    //ï¿½ï¿½ï¿½Ðºï¿½Ì²ï¿½ï¿½ï¿½ï¿½
     // auto beach = Beach::create ();
     // director->runWithScene ( beach );
 
-    // ÔËÐÐ¼ÒµÄ³¡¾°
+    // ï¿½ï¿½ï¿½Ð¼ÒµÄ³ï¿½ï¿½ï¿½
    /*  auto test = Myhouse::create();
      director->runWithScene(test); */
 
-    // ÔËÐÐÐ¡ÕòµÄ³¡¾°
+    // ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Ä³ï¿½ï¿½ï¿½
      //auto test = Town::create ();
      //director->runWithScene(test);
 
-    // ÔËÐÐÉÌµêµÄ³¡¾°
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½Ä³ï¿½ï¿½ï¿½
     //auto test = supermarket::create();
     //director->runWithScene(test);
 
-    // ÔËÐÐCave
+    // ï¿½ï¿½ï¿½ï¿½Cave
      //auto test = Cave::create();
      //director->runWithScene(test);
 
-    // ÔËÐÐBeach
+    // ï¿½ï¿½ï¿½ï¿½Beach
     // auto test = Beach::create();
     // director->runWithScene(test);
     
-    // ÔËÐÐÉ­ÁÖ
+    // ï¿½ï¿½ï¿½ï¿½É­ï¿½ï¿½
     /* auto test = Forest::create();
      director->runWithScene(test);*/
 
-     // ÔËÐÐÐóÅï
+     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      // auto test = Barn::create();
      // director->runWithScene(test);
 
-    //¿ª¾ÖUIÔËÐÐ
+    //ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½
     director->runWithScene ( BeginScene::create () );
-    //´´½¨ÈËÎï½çÃæÔËÐÐ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     // director->runWithScene ( CreateCharacter::create () );
 }
 
 void AppDelegate::Initialize () {
 
-    // ³õÊ¼»¯´æ´¢×÷ÎïÐÅÏ¢µÄÊý×é
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     cropbasicinformation.insert({ "Wheat_Seeds", wheat });
     cropbasicinformation.insert({ "Corn_Seeds", corn });
     cropbasicinformation.insert({ "Potato_Seeds", potato });
     cropbasicinformation.insert({ "Pumpkin_Seeds", pumpkin });
     cropbasicinformation.insert({ "Blueberry_Seeds", blueberry });
 
-    // ³õÊ¼»¯±¦Ê¯ÐÅÏ¢
-    Ore Ruby("Ruby", "Ore/Ruby1.png", "Ore/Ruby2.png", 3, 3, Vec2(350, 500));                   // ºì±¦Ê¯
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê¯ï¿½ï¿½Ï¢
+    Ore Ruby("Ruby", "Ore/Ruby1.png", "Ore/Ruby2.png", 3, 3, Vec2(350, 500));                   // ï¿½ì±¦Ê¯
     Ore_information.push_back(Ruby.GetOreCopy());
     Ruby.position = Vec2(950, 750);
     Ore_information.push_back(Ruby.GetOreCopy());
 
-    Ore Amethyst("Amethyst", "Ore/Amethyst1.png", "Ore/Amethyst2.png", 5, 5, Vec2(800, 250));   // ×Ï±¦Ê¯
+    Ore Amethyst("Amethyst", "Ore/Amethyst1.png", "Ore/Amethyst2.png", 5, 5, Vec2(800, 250));   // ï¿½Ï±ï¿½Ê¯
     Ore_information.push_back(Amethyst.GetOreCopy());
     Amethyst.position = Vec2(750, 850);
     Ore_information.push_back(Amethyst.GetOreCopy());
 
-    Ore Emerald("Emerald", "Ore/Emerald1.png", "Ore/Emerald2.png", 5, 5, Vec2(900, 150));       // ÂÌ±¦Ê¯
+    Ore Emerald("Emerald", "Ore/Emerald1.png", "Ore/Emerald2.png", 5, 5, Vec2(900, 150));       // ï¿½Ì±ï¿½Ê¯
     Ore_information.push_back(Emerald.GetOreCopy());
     Emerald.position = Vec2(1250, 350);
     Ore_information.push_back(Emerald.GetOreCopy());
 
-    // ³õÊ¼»¯Ê÷Ä¾ÐÅÏ¢
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½Ï¢
     Tree tree("tree", "Tree/tree1.png", "Tree/tree2.png", "Tree/tree3.png", 15, 5, Vec2(50, 950));
     Tree_information.push_back(tree.GetTreeCopy());
     tree.position = Vec2(-400, 700);
@@ -228,7 +237,7 @@ void AppDelegate::Initialize () {
     tree.position = Vec2(1300, 1550);
     Tree_information.push_back(tree.GetTreeCopy());
 
-    // ³õÊ¼»¯Ð¡Õò¸÷µØÖ·×ø±ê
+    // ï¿½ï¿½Ê¼ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½
     std::pair<std::string , Vec2> key = { "initiation",Vec2 (-840,-340) };
     T_lastplace.insert ( std::make_pair ( key , true ) );
     key = { "seedshop",Vec2 ( 230,470 ) };
@@ -238,7 +247,7 @@ void AppDelegate::Initialize () {
     key = { "beach",Vec2(500, -750) };
     T_lastplace.insert(std::make_pair(key, false));
 
-    // ³õÊ¼»¯Å©³¡¸÷µØÖ·×ø±ê
+    // ï¿½ï¿½Ê¼ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½
     key = { "initiation",Vec2(70, 920) };
     F_lastplace.insert(std::make_pair(key, true));
     key = { "myhouse",Vec2(70, 920) };
@@ -250,7 +259,7 @@ void AppDelegate::Initialize () {
     key = { "cave",Vec2(635, 1185) };
     F_lastplace.insert(std::make_pair(key, false));
 
-    // ³õÊ¼»¯É­ÁÖ¸÷µØÖ·×ø±ê
+    // ï¿½ï¿½Ê¼ï¿½ï¿½É­ï¿½Ö¸ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½
     key = { "initiation",Vec2(1150,2650) };
     W_lastplace.insert(std::make_pair(key, true));
     key = { "town",Vec2(2600, 1900) };
@@ -258,47 +267,47 @@ void AppDelegate::Initialize () {
     key = { "farm",Vec2(1150, 2650) };
     W_lastplace.insert(std::make_pair(key, false));
 
-    // ´´½¨ÈÎÎñ  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     TaskManagement::Task task1 (
         "Fetch the Amethyst" ,
         TaskManagement::NPC_TASK ,
-        "Retrieve the Amethyst for Abigail." , // ÏêÏ¸ËµÃ÷  
-        "Spring" , // ³õÊ¼ÈÕÆÚ  
-        "Summer"  // ½ØÖÁÈÕÆÚ  
+        "Retrieve the Amethyst for Abigail." , // ï¿½ï¿½Ï¸Ëµï¿½ï¿½  
+        "Spring" , // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½  
+        "Summer"  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     );
-    task1.npcName = "Abigail"; // ·¢²¼ÈÎÎñµÄ NPC Ãû×Ö  
-    task1.requiredItems.push_back ( Bean_Starter ); // ÐèÒªµÄÎïÆ·  
-    task1.rewardCoins = 500; // ½±Àø½ð±Ò  
-    task1.relationshipPoints = 10; // NPC ºÃ¸Ð¶È  
+    task1.npcName = "Abigail"; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPC ï¿½ï¿½ï¿½ï¿½  
+    task1.requiredItems.push_back ( Bean_Starter ); // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ·  
+    task1.rewardCoins = 500; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+    task1.relationshipPoints = 10; // NPC ï¿½Ã¸Ð¶ï¿½  
 
     TaskManagement::Task task2 (
         "Collect Emerald" ,
         TaskManagement::SYSTEM_TASK ,
-        "Collect an Emerald for system tasks." , // ÏêÏ¸ËµÃ÷  
-        "Summer" , // ³õÊ¼ÈÕÆÚ  
-        "Autumn"  // ½ØÖÁÈÕÆÚ  
+        "Collect an Emerald for system tasks." , // ï¿½ï¿½Ï¸Ëµï¿½ï¿½  
+        "Summer" , // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½  
+        "Autumn"  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     );
-    task2.requiredItems.push_back ( emerald ); // ÐèÒªµÄÎïÆ·  
-    task2.rewardCoins = 30; // ½±Àø½ð±Ò  
+    task2.requiredItems.push_back ( emerald ); // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ·  
+    task2.rewardCoins = 30; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
     TaskManagement::Task task3 (
         "Festival Gathering" ,
         TaskManagement::FESTIVAL_TASK ,
-        "Join the festival and collect special items." , // ÏêÏ¸ËµÃ÷  
-        "Winter" , // ³õÊ¼ÈÕÆÚ  
-        "Summer"  // ½ØÖÁÈÕÆÚ  
+        "Join the festival and collect special items." , // ï¿½ï¿½Ï¸Ëµï¿½ï¿½  
+        "Winter" , // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½  
+        "Summer"  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     );
-    task3.specialRewards.push_back ( Gold_Hoe );   // ÌØÊâ½±Àø  
-    task3.relationshipPoints = 5; // ÓëËùÓÐÈËµÄºÃ¸Ð¶È  
+    task3.specialRewards.push_back ( Gold_Hoe );   // ï¿½ï¿½ï¿½â½±ï¿½ï¿½  
+    task3.relationshipPoints = 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄºÃ¸Ð¶ï¿½  
 
-    // ½«ÈÎÎñÌí¼Óµ½ÈÎÎñ¹ÜÀíÆ÷  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     taskManager->createTask ( task1 );
     taskManager->createTask ( task2 );
     taskManager->createTask ( task3 );
 
     // taskManager->AddAcceptTask ( task1 );
 
-    //³õÊ¼»¯BarnÄÚ¿É·ÅÖÃ¼ÒÐó¾ØÕó
+    //ï¿½ï¿½Ê¼ï¿½ï¿½Barnï¿½Ú¿É·ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     barn_space.push_back(std::make_pair(Rect(685.714294, 213.333328, 114.285713, 106.666664), false));
     barn_space.push_back(std::make_pair(Rect(800.000000, 213.333328, 114.285713, 106.666664), false));
     barn_space.push_back(std::make_pair(Rect(914.285706, 213.333328, 114.285713, 106.666664), false));
@@ -312,28 +321,28 @@ void AppDelegate::Initialize () {
     barn_space.push_back(std::make_pair(Rect(914.285706, 640.000000, 114.285713, 106.666664), false));
     barn_space.push_back(std::make_pair(Rect(1142.857178, 640.000000, 114.285713, 106.666664), false));
 
-    // ³õÊ¼»¯¼¾½Ú
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     season.insert ( { "Spring", 1 } );
     season.insert ( { "Summer", 2 } );
     season.insert ( { "Autumn", 3 } );
     season.insert ( { "Winter", 4 } );
 
-    // ´´½¨ÈÎÎñ  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     //TaskManagement::Task task1 ( "Fetch the Amethyst" , TaskManagement::NPC_TASK );
-    //task1.npcName = "Abigail"; // ·¢²¼ÈÎÎñµÄ NPC Ãû×Ö  
-    //task1.requiredItems.push_back ( amethyst ); // ÐèÒªµÄÎïÆ·  
-    //task1.rewardCoins = 500; // ½±Àø½ð±Ò  
-    //task1.relationshipPoints = 10; // NPC ºÃ¸Ð¶È  
+    //task1.npcName = "Abigail"; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPC ï¿½ï¿½ï¿½ï¿½  
+    //task1.requiredItems.push_back ( amethyst ); // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ·  
+    //task1.rewardCoins = 500; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+    //task1.relationshipPoints = 10; // NPC ï¿½Ã¸Ð¶ï¿½  
 
     //TaskManagement::Task task2 ( "Collect Emerald" , TaskManagement::SYSTEM_TASK );
-    //task2.requiredItems.push_back ( emerald ); // ÐèÒªµÄÎïÆ·  
-    //task2.rewardCoins = 30; // ½±Àø½ð±Ò  
+    //task2.requiredItems.push_back ( emerald ); // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ·  
+    //task2.rewardCoins = 30; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
     //TaskManagement::Task task3 ( "Festival Gathering" , TaskManagement::FESTIVAL_TASK );
-    //task3.specialRewards.push_back ( Gold_Hoe );   // ÌØÊâ½±Àø  
-    //task3.relationshipPoints = 5; // ÓëËùÓÐÈËµÄºÃ¸Ð¶È  
+    //task3.specialRewards.push_back ( Gold_Hoe );   // ï¿½ï¿½ï¿½â½±ï¿½ï¿½  
+    //task3.relationshipPoints = 5; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄºÃ¸Ð¶ï¿½  
 
-    //// ½«ÈÎÎñÌí¼Óµ½ÈÎÎñ¹ÜÀíÆ÷  
+    //// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     //taskManager->createTask ( task1 );
     //taskManager->createTask ( task2 );
     //taskManager->createTask ( task3 );
@@ -341,20 +350,20 @@ void AppDelegate::Initialize () {
 
 
 
-// µ±Ó¦ÓÃ³ÌÐò½øÈëºóÌ¨Ê±µ÷ÓÃ
+// ï¿½ï¿½Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨Ê±ï¿½ï¿½ï¿½ï¿½
 void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();  // Í£Ö¹¶¯»­
+    Director::getInstance()->stopAnimation();  // Í£Ö¹ï¿½ï¿½ï¿½ï¿½
 
 #if USE_AUDIO_ENGINE
-    AudioEngine::pauseAll();  // ÔÝÍ£ËùÓÐÒôÆµ£¨Èç¹ûÆôÓÃÁËÒôÆµÒýÇæ£©
+    AudioEngine::pauseAll();  // ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½æ£©
 #endif
 }
 
-// µ±Ó¦ÓÃ³ÌÐòÖØÐÂ½øÈëÇ°Ì¨Ê±µ÷ÓÃ
+// ï¿½ï¿½Ó¦ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½Ç°Ì¨Ê±ï¿½ï¿½ï¿½ï¿½
 void AppDelegate::applicationWillEnterForeground() {
-    Director::getInstance()->startAnimation();  // »Ö¸´¶¯»­
+    Director::getInstance()->startAnimation();  // ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
 #if USE_AUDIO_ENGINE
-    AudioEngine::resumeAll();  // »Ö¸´ËùÓÐÒôÆµ£¨Èç¹ûÆôÓÃÁËÒôÆµÒýÇæ£©
+    AudioEngine::resumeAll();  // ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½æ£©
 #endif
 }

@@ -1,24 +1,45 @@
 #pragma once
-#include<algorithm>
-#include<memory>
-#include<map>
-#include"Item.h"
+#include <algorithm>
+#include <memory>
+#include <map>
+#include "Item.h"
+#include "EventManager.h"
+#include "GameEvent.h"
 
 const int kRowSize = 12;
 const int kDefaultSize = kRowSize * 2;
 
 class Inventory {
 private:
-	//±³°üÈÝÁ¿
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int capacity;
 
-	//µ±Ç°Ñ¡ÖÐµÄÎïÆ·Î»ÖÃ
+	//ï¿½ï¿½Ç°Ñ¡ï¿½Ðµï¿½ï¿½ï¿½Æ·Î»ï¿½ï¿½
 	int selected_position;
 
-	//map´æ´¢£¬ÎïÆ·ÔÚ±³°üÖÐµÄÎ»ÖÃ×÷Îªkey£¨ÒÔ×óÉÏ½ÇÎª1£¬°´´Ó×óµ½ÓÒ¡¢´ÓÉÏµ½ÏÂµÝÔö£©
-	//std::pair´æ´¢¶ÔÓ¦µÄItemÖ¸Õë(Ê¹ÓÃshared_ptr)ºÍ±³°ü¸ÃÎ»ÖÃ/¸ñ×ÓÖÐ¶à¸ö´æ·ÅµÄ¸ÃÖÖÎïÆ·¸öÊý£¨ÈçÄ¾Í·£¬99±íÊ¾±³°üÖÐµÄ¸ÃÒ»¸ö¸ñ×ÓÖÐ´æ´¢ÁË99¸öÄ¾Í·£©
-	//¶ÔÓÚÔÚÒ»¸ö¸ñ×ÓÖÐ´æ·ÅµÄItem£¬Ö»¶ÔÓ¦Ò»¸öshared_ptr
+	//mapï¿½æ´¢ï¿½ï¿½ï¿½ï¿½Æ·ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î»ï¿½ï¿½ï¿½ï¿½Îªkeyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï½ï¿½Îª1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
+	//std::pairï¿½æ´¢ï¿½ï¿½Ó¦ï¿½ï¿½ItemÖ¸ï¿½ï¿½(Ê¹ï¿½ï¿½shared_ptr)ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ÅµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾Í·ï¿½ï¿½99ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´æ´¢ï¿½ï¿½99ï¿½ï¿½Ä¾Í·ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½Åµï¿½Itemï¿½ï¿½Ö»ï¿½ï¿½Ó¦Ò»ï¿½ï¿½shared_ptr
 	std::map<int , std::pair<std::shared_ptr<Item> , int>> package;
+
+	// äº‹ä»¶é€šçŸ¥æ–¹æ³•
+	void notifyItemAdded(std::shared_ptr<Item> item, int count) {
+        auto data = std::make_shared<ItemAddedEventData>(item, count);
+        auto event = std::make_shared<GameEvent>(GameEventType::ITEM_ADDED, data);
+        EventManager::getInstance()->dispatchEvent(event);
+    }
+
+    void notifyItemRemoved(std::shared_ptr<Item> item, int count, bool isCompletelyRemoved = false) {
+        auto data = std::make_shared<ItemRemovedEventData>(item, count, isCompletelyRemoved);
+        auto event = std::make_shared<GameEvent>(GameEventType::ITEM_REMOVED, data);
+        EventManager::getInstance()->dispatchEvent(event);
+    }
+
+	void notifySelectedItemChanged(int oldPosition, int newPosition) {
+		std::shared_ptr<SelectedItemChangedEventData> data = std::make_shared<SelectedItemChangedEventData>(oldPosition, newPosition);
+		std::shared_ptr<GameEvent> event = std::make_shared<GameEvent>(GameEventType::SELECTED_ITEM_CHANGED, data);
+		EventManager::getInstance()->dispatchEvent(event);
+	}
 
 public:
 	Inventory ( const int& size = kDefaultSize );
@@ -27,99 +48,55 @@ public:
 
 	~Inventory ();
 
-	bool is_updated = false;//¼ì²â±³°üÊÇ·ñ¸üÐÂ¹ý
+	bool is_updated = false;//ï¿½ï¿½â±³ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Â¹ï¿½
 
-	//³É¹¦Ìí¼ÓÊ±·µ»Øtrue,Ìí¼ÓÊ§°ÜÊ±·µ»Øfalse
-	bool AddItem ( const Item& item );
+	//ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½true,ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½false
+bool AddItem ( const Item& item );
 
-	//³É¹¦Ìí¼ÓËùÓÐ`add_num`¸öitemÊ±·µ»Øtrue,·ñÔò·µ»Øfalse
-	bool AddItem ( const Item& item , const int& add_num );
+	//ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`add_num`ï¿½ï¿½itemÊ±ï¿½ï¿½ï¿½ï¿½true,ï¿½ï¿½ï¿½ò·µ»ï¿½false
+bool AddItem ( const Item& item , const int& add_num );
 
-	//ÒÆ³ý`remove_num`¸öÔÚ±³°üÖÐ`position`Î»ÖÃµÄÎïÆ·
-	//Èô`remove_num`³¬¹ý¸Ã¸ñ×ÓÖÐÏÖÓÐÎïÆ·µÄÊýÁ¿£¬ÔòÇå¿Õ¸Ã¸ñ×Ó
-	//·µ»ØÖµ£º
-	//±³°üµÄ`position`Î»ÖÃ´¦Î´·ÅÖÃÎïÆ·Ê±·µ»Ø-1
-	//`remove_num`³¬¹ý¸Ã¸ñ×ÓÖÐÏÖÓÐÎïÆ·µÄÊýÁ¿£¬ÔòÇå¿Õ¸Ã¸ñ×Ó£¬²¢·µ»Ø1
-	//Õý³£ÒÆ³ý±³°üÖÐ`position`´¦µÄ`remove_num`¸öÎïÆ·Ê±£¬·µ»Ø0;
+	//ï¿½Æ³ï¿½`remove_num`ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½`position`Î»ï¿½Ãµï¿½ï¿½ï¿½Æ·
+	//ï¿½ï¿½`remove_num`ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸Ã¸ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`position`Î»ï¿½Ã´ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·Ê±ï¿½ï¿½ï¿½ï¿½-1
+	//`remove_num`ï¿½ï¿½ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸Ã¸ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`position`ï¿½ï¿½ï¿½ï¿½`remove_num`ï¿½ï¿½ï¿½ï¿½Æ·Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0;
 	int RemoveItem ( const int& position , const int& remove_num = 1 );
 
-	//Çå¿Õ±³°üÖÐ`position`Î»ÖÃµÄ¸ñ×Ó
+	// Ê¹ï¿½ï¿½ Item ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½Æ·  
+	int RemoveItem ( const Item& item , const int& remove_num = 1 );
+
+	//ï¿½ï¿½Õ±ï¿½ï¿½ï¿½ï¿½ï¿½`position`Î»ï¿½ÃµÄ¸ï¿½ï¿½ï¿½
 	bool ClearGrid ( const int& position );
 
-	//»ñÈ¡`selected_position`µÄItem
-	//Î´ÕÒµ½Ôò·µ»Ønullptr
+	//ï¿½ï¿½È¡`selected_position`ï¿½ï¿½Item
+	//Î´ï¿½Òµï¿½ï¿½ò·µ»ï¿½nullptr
 	std::shared_ptr<Item> GetSelectedItem ()const;
 
-	//»ñÈ¡`selected_position`µÄItemµÄ¸±±¾£¨ÓÃÓÚÈçÖÖ×ÓÖÖÖ²µÈÐèÒª»ñÈ¡¶à¸ö²»Í¬ItemÊµÀýµÄ³¡¾°)
-	//Î´ÕÒµ½»ò¿½±´Ê§°ÜÔò·µ»Ønullptr
+	//ï¿½ï¿½È¡`selected_position`ï¿½ï¿½Itemï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ItemÊµï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½)
+	//Î´ï¿½Òµï¿½ï¿½ò¿½±ï¿½Ê§ï¿½ï¿½ï¿½ò·µ»ï¿½nullptr
 	std::shared_ptr<Item> GetSelectedItemCopy ();
 
+	//ï¿½ï¿½È¡Ö¸ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ·
+	std::shared_ptr<Item> GetItemAt ( int position ) const;
 
-	std::shared_ptr<Item> GetItemAt ( int position ) const {
-		auto it = package.find ( position );
-		if (it != package.end ()) {
-			return it->second.first; // ·µ»Ø´æ´¢µÄ Item  
-		}
-		return nullptr; // Èç¹ûÃ»ÓÐÕÒµ½ Item£¬·µ»Ø nullptr  
-	}
+	// ï¿½ï¿½È¡Ö¸ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½  
+	int GetItemCountAt ( int position ) const;
 
-	// »ñÈ¡Ö¸¶¨Î»ÖÃÖÐµÄÎïÆ·¸öÊý  
-	int GetItemCountAt ( int position ) const {
-		auto it = package.find ( position );
-		if (it != package.end ()) {
-			return it->second.second; // ·µ»Ø¸ÃÎ»ÖÃµÄÎïÆ·¸öÊý  
-		}
-		return 0; // Èç¹û¸ÃÎ»ÖÃÃ»ÓÐÎïÆ·£¬·µ»Ø 0  
-	}
+	// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ Item  
+	Item GetItemByName ( const std::string& itemName ) const;
 
-	// »ñÈ¡±³°üÖÐÖ¸¶¨Ãû³ÆµÄ Item  
-	Item Inventory::GetItemByName ( const std::string& itemName ) const {
-		for (const auto& entry : package) {
-			if (entry.second.first->GetName () == itemName) {
-				return *(entry.second.first); // ·µ»ØÕÒµ½µÄ Item  
-			}
-		}
-	}
+	//ï¿½ï¿½`new_position`ï¿½Ï·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½`selected_position`ï¿½ï¿½ï¿½ï¿½Îª`new_position`
+	// ï¿½Ï·ï¿½ï¿½ï¿½`new_position`Ó¦ï¿½ï¿½Îªï¿½ï¿½[1,kRowSize]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½î¶¥Ò»ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Îª`selected_position`
+	//ï¿½ï¿½Ô­`selected_position`ï¿½ï¿½ï¿½ï¿½Itemï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªunusable×´Ì¬
+	//ï¿½ï¿½`new_position`<1 || `new_position`>kRowSize ï¿½ï¿½ï¿½ï¿½-1
+	//ï¿½ï¿½`new_position`ï¿½ï¿½ï¿½ï¿½Item,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªusable×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0
+	//ï¿½ï¿½`new_position`ï¿½ï¿½ï¿½ï¿½Item,ï¿½ï¿½ï¿½ï¿½-1
+	int SetSelectedItem(const int new_position);
 
-	// Ê¹ÓÃ Item ºÍÊýÁ¿ÒÆ³ýÎïÆ·  
-	int Inventory::RemoveItem ( const Item& item , const int& remove_num = 1 ) {
-		for (auto it = package.begin (); it != package.end (); ++it) {
-			if (it->second.first->GetName () == item.GetName ()) {
-				// Èç¹ûÒÆ³ýÊýÁ¿³¬¹ýÏÖÓÐÊýÁ¿  
-				is_updated = true;
-				if (remove_num >= it->second.second) {
-					
-					package.erase ( it ); // Çå¿Õ¸Ã¸ñ×Ó  
-					return 1; // Çå¿Õ¸ñ×Ó  
-				}
-				else {
-					it->second.second -= remove_num; // ¼õÉÙÊýÁ¿  
-					return 0; // Õý³£ÒÆ³ý  
-
-				}
-			}
-		}
-		return -1; // Ã»ÓÐÕÒµ½¸ÃÎïÆ·  
-	}
-
-
-	//ÔÚ`new_position`ºÏ·¨Ê±£¬½«`selected_position`ÉèÖÃÎª`new_position`
-	// ºÏ·¨µÄ`new_position`Ó¦µ±ÎªÔÚ[1,kRowSize]¼äµÄÕûÊý£¨Ö»ÄÜÉèÖÃÎïÆ·À¸×î¶¥Ò»À¸µÄÎ»ÖÃÎª`selected_position`
-	//ÈôÔ­`selected_position`´¦ÓÐItem£¬¸üÐÂÆäÎªunusable×´Ì¬
-	//Èô`new_position`<1 || `new_position`>kRowSize ·µ»Ø-1
-	//Èô`new_position`´¦ÓÐItem,¸üÐÂÆäÎªusable×´Ì¬£¬·µ»Ø0
-	//Èô`new_position`´¦ÎÞItem,·µ»Ø-1
-	int SetSelectedItem (const int new_position);
-
-	Inventory& operator=( const Inventory& other ) {
-		if (this == &other) {
-			return *this;
-		}
-		this->capacity = other.capacity;
-		this->package = other.package;
-		return *this;
-	}
-
-	//Ïò¿ØÖÆÌ¨Êä³öPackageÐÅÏ¢£¬½öÓÃÓÚµ÷ÊÔ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ì¨ï¿½ï¿½ï¿½Packageï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½
 	void DisplayPackageInCCLOG ();
+
+	Inventory& operator=( const Inventory& other );
 };

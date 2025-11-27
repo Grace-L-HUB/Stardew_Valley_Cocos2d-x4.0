@@ -1,15 +1,16 @@
 #pragma once
 #include "cocos2d.h" 
- #include "AppDelegate.h"
+#include "AppDelegate.h"
+#include "Item.h"
 
 
 class TaskManagement {
 public:
-	/* ³õÊ¼ĞÅÏ¢
-	*  ÈÎÎñÖÖÀà£ºNPC·¢²¼¡¢ÏµÍ³·¢²¼¡¢½ÚÈÕÇìµä·¢²¼
-	*  NPC·¢²¼Ôò´«µİNPCÃû×Ö
-	*  ÈÎÎñÄÚÈİ£ºNPC·¢²¼ÓëÏµÍ³·¢²¼¾ùÌá¹©ĞèÒªµÄÎïÆ·£¬½ÚÈÕÇìµäµ¥¶ÀÌá¹©
-	*  ½±Àø£ºNPC·¢²¼¼Ó½ğ±Ò»òÎïÆ·ÒÔ¼°¶ÔÓ¦ºÃ¸Ğ¶È£¬ÏµÍ³·¢²¼¼Ó½ğ±Ò£¬½ÚÈÕÇìµä·¢²¼¼ÓÓëËùÓĞÈËµÄºÃ¸Ğ¶ÈÒÔ¼°ÌØÊâÊÕ¼¯ÎïÆ·½±Àø
+	/* ï¿½ï¿½Ê¼ï¿½ï¿½Ï¢
+	*  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£ºNPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä·¢ï¿½ï¿½
+	*  NPCï¿½ï¿½ï¿½ï¿½ï¿½ò´«µï¿½NPCï¿½ï¿½ï¿½ï¿½
+	*  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ£ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹©ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½äµ¥ï¿½ï¿½ï¿½á¹©
+	*  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½Ò»ï¿½ï¿½ï¿½Æ·ï¿½Ô¼ï¿½ï¿½ï¿½Ó¦ï¿½Ã¸Ğ¶È£ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä·¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ËµÄºÃ¸Ğ¶ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
 	*/
 	enum TaskType {
 		NPC_TASK,
@@ -18,16 +19,16 @@ public:
 	};
 
 	struct Task {
-		std::string name;               // ÈÎÎñÃû³Æ  
-		TaskType type;                  // ÈÎÎñÀàĞÍ  
-		std::string npcName;            // ·¢²¼ÈÎÎñµÄ NPC Ãû×Ö£¨NPC_TASK Ê¹ÓÃ£©  
-		std::vector<Item> requiredItems; // ĞèÒªµÄÎïÆ·£¨¿ÉÑ¡£©  
-		int rewardCoins;                // ½±Àø½ğ±Ò£¨SYSTEM_TASK ºÍ NPC_TASK Ê¹ÓÃ£©  
-		std::vector<Item> specialRewards; // ½ÚÈÕÇìµäÌØÊâÊÕ¼¯ÎïÆ·£¨FESTIVAL_TASK Ê¹ÓÃ£©  
-		float relationshipPoints;       // ¶ÔÓ¦µÄºÃ¸Ğ¶È£¨NPC_TASK ºÍ FESTIVAL_TASK Ê¹ÓÃ£©  
-		std::string description;        // ÈÎÎñÏêÏ¸ËµÃ÷  
-		std::string startSeason;          // ÈÎÎñ³õÊ¼ÈÕÆÚ  
-		std::string endSeason;            // ÈÎÎñ½ØÖÁÈÕÆÚ  
+		std::string name;               // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+		TaskType type;                  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+		std::string npcName;            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ NPC ï¿½ï¿½ï¿½Ö£ï¿½NPC_TASK Ê¹ï¿½Ã£ï¿½  
+		std::vector<Item> requiredItems; // ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
+		int rewardCoins;                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò£ï¿½SYSTEM_TASK ï¿½ï¿½ NPC_TASK Ê¹ï¿½Ã£ï¿½  
+		std::vector<Item> specialRewards; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½Æ·ï¿½ï¿½FESTIVAL_TASK Ê¹ï¿½Ã£ï¿½  
+		float relationshipPoints;       // ï¿½ï¿½Ó¦ï¿½ÄºÃ¸Ğ¶È£ï¿½NPC_TASK ï¿½ï¿½ FESTIVAL_TASK Ê¹ï¿½Ã£ï¿½  
+		std::string description;        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸Ëµï¿½ï¿½  
+		std::string startSeason;          // ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½  
+		std::string endSeason;            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
 		Task ( const std::string& name , TaskType type , const std::string& desc , const std::string& start , const std::string& end )
 			: name ( name ) , type ( type ) , rewardCoins ( 0 ) , relationshipPoints ( 0.0f ) , description ( desc ) , startSeason ( start ) , endSeason ( end ) {
@@ -36,31 +37,36 @@ public:
 
 	TaskManagement ();
 
-	// ´´½¨ÈÎÎñ  
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	void createTask ( const Task& task );
 
-	// »ñÈ¡ÒÑ¾­´´½¨µÄÈÎÎñ
+	// ï¿½ï¿½È¡ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::vector<Task> returnTasks () { return tasks; }
 
-	// »ñÈ¡ÒÑ¾­½ÓÊÜµÄÈÎÎñ
+	// ï¿½ï¿½È¡ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
 	std::vector<Task> returnAcceptTasks () { return acceptTasks; }
 
-	// Ìí¼ÓÒÑ½ÓÊÜµÄÈÎÎñ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½
 	void AddAcceptTask ( const Task& task );
 
-	// Íê³ÉÈÎÎñ²¢´¦Àí½±Àø  
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ²¢´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 	void completeTask ( const std::string& task_name );
 
-	//ÈÎÎñ½ÓÊÜºó´Ó·¢²¼ÈÎÎñÖĞÉ¾³ı
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üºï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 	void DeleteAcceptTask ( const Task& task );
 
-	// ·µ»ØÎïÆ·¶ÔÓ¦µÄÈÎÎñ
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	std::string findTaskByRequiredItems ( const std::string& itemName );
 
 protected:
 
-	std::vector<Task> tasks;              // ´æ´¢ÈÎÎñµÄÈİÆ÷
+	std::vector<Task> tasks;              // ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	std::vector<Task> acceptTasks;        // ´¢´æÒÑ½ÓÊÜÈÎÎñµÄÈİÆ÷
+	std::vector<Task> acceptTasks;        // ï¿½ï¿½ï¿½ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    
+public:
+    // å¤–éƒ¨æ¨¡å—å¼•ç”¨
+    class Inventory* inventory = nullptr;          // èƒŒåŒ…å¼•ç”¨
+    class NpcRelationship* npc_relationship = nullptr; // NPCå…³ç³»ç³»ç»Ÿå¼•ç”¨
 
 };

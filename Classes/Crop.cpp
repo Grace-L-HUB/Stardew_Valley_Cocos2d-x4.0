@@ -1,4 +1,7 @@
 #include"Crop.h"
+#include"EventManager.h"
+#include"GameEvent.h"
+
 
 Crop::Crop(const std::string& crop_name, const std::string& initial_pic,
 	const std::string& growing_pic, const std::string& mature_pic, const std::string& season,
@@ -19,6 +22,7 @@ Crop::Crop(const Crop& other)
 void Crop::Water() {
 	if (phase != DEAD && !harvestable && !watered) {
 		watered = true;
+		notifyCropWatered();
 	}
 }
 
@@ -33,37 +37,42 @@ std::shared_ptr<Crop> Crop::GetCropCopy() const {
 }
 
 void Crop::UpdateGrowth() {
-	
 	this->watered = false;
+
+	Phase oldPhase = this->phase;
 
 	int times = 0;
 	if (Season == "Spring") {
 		times = 1;
-	}
-	else if (Season == "Summmer") {
+	} else if (Season == "Summmer") {
 		times = 2;
-	}
-	else if (Season == "Autumn") {
+	} else if (Season == "Autumn") {
 		times = 3;
-	}
-	else {
+	} else {
 		times = 4;
 	}
 	int growth_progress = times * 7 + day - this->plant_day;
 	if (growth_progress >= mature_needed) {
 		this->phase = Phase::MATURE;
-	}
-	else if (growth_progress >= mature_needed / 2) {
+		this->harvestable = true;
+	} else if (growth_progress >= mature_needed / 2) {
 		this->phase = Phase::GROWING;
-	}
-	else {
+	} else {
 		this->phase = Phase::SEED;
+	}
+	
+	// 如果阶段发生变化，发送事件
+	if (oldPhase != this->phase) {
+		notifyPhaseChanged(oldPhase, this->phase);
 	}
 }
 
 void Crop::SetDead() {
+	Phase oldPhase = phase;
 	phase = DEAD;
 	harvestable = false;
+	notifyPhaseChanged(oldPhase, DEAD);
+	notifyCropDead();
 }
 
 void Crop::SetValue(const int new_value) {
@@ -81,6 +90,7 @@ bool Crop::CanBeDepositTogether(const Item& other) const {
 bool Crop::Harvest(std::shared_ptr<Crop> to_harvest) {
 	if (to_harvest) {
 		if (to_harvest->IsHarvestable()) {
+			to_harvest->notifyCropHarvested();
 			to_harvest.reset();
 			return true;
 		}
@@ -94,4 +104,35 @@ bool Crop::Remove(std::shared_ptr<Crop> to_remove) {
 		return true;
 	}
 	return false;
+}
+
+// 事件通知相关方法
+void Crop::ChangePhase(Phase newPhase) {
+    Phase oldPhase = this->phase;
+    this->phase = newPhase;
+    notifyPhaseChanged(oldPhase, newPhase);
+}
+
+void Crop::notifyPhaseChanged(Phase oldPhase, Phase newPhase) {
+    auto eventData = std::make_shared<CropPhaseChangedEventData>(*this, static_cast<int>(oldPhase), static_cast<int>(newPhase));
+    auto event = std::make_shared<GameEvent>(GameEventType::CROP_PHASE_CHANGED, eventData, "Crop");
+    EventManager::getInstance()->dispatchEvent(event);
+}
+
+void Crop::notifyCropWatered() {
+    auto eventData = std::make_shared<CropWateredEventData>(*this);
+    auto event = std::make_shared<GameEvent>(GameEventType::CROP_WATERED, eventData, "Crop");
+    EventManager::getInstance()->dispatchEvent(event);
+}
+
+void Crop::notifyCropHarvested() {
+    auto eventData = std::make_shared<CropHarvestedEventData>(*this, 1);
+    auto event = std::make_shared<GameEvent>(GameEventType::CROP_HARVESTED, eventData, "Crop");
+    EventManager::getInstance()->dispatchEvent(event);
+}
+
+void Crop::notifyCropDead() {
+    auto eventData = std::make_shared<CropDeadEventData>(*this, "Unknown reason");
+    auto event = std::make_shared<GameEvent>(GameEventType::CROP_DEAD, eventData, "Crop");
+    EventManager::getInstance()->dispatchEvent(event);
 }
