@@ -1,26 +1,26 @@
 #pragma once
 #include "cocos2d.h" 
 
-// NPC è§’è‰²ç±»  
+// NPC ½ÇÉ«Àà  
 class NPC : public cocos2d::Node {
 public:
     NPC ( const std::string& name , const cocos2d::Vec2& position ,
         const std::vector<std::vector<std::string>>& animationFrames ,
         const std::vector<cocos2d::Vec2>& validPositions );
 
-    // è·å– NPC çš„ç²¾çµ  
+    // »ñÈ¡ NPC µÄ¾«Áé  
     cocos2d::Sprite* GetSprite () const { return sprite; }
 
-    // NPC çš„åç§°
+    // NPC µÄÃû³Æ
     const std::string& GetName () const { return name; }
 
-    // NPC çš„ä½ç½®  
+    // NPC µÄÎ»ÖÃ  
     const cocos2d::Vec2& GetPosition () const { return position; }
 
-    // è®¾å®š NPC çš„ä½ç½®  
+    // Éè¶¨ NPC µÄÎ»ÖÃ  
     void SetPosition ( const cocos2d::Vec2& pos ) { position = pos; }
 
-    // NPCç§»åŠ¨
+    // NPCÒÆ¶¯
     void MoveToPosition ( const cocos2d::Vec2& targetPosition );
 
     void RandomMove ();
@@ -28,30 +28,30 @@ public:
     bool IsPositionValid ( const cocos2d::Vec2& targetPosition , const cocos2d::Vec2& direction );
 
 protected:
-    std::string name;            // NPC çš„åå­—  
-    cocos2d::Vec2 position;      // NPC çš„åæ ‡ä½ç½®  
-    cocos2d::Sprite* sprite;     // NPC çš„ç²¾çµ
+    std::string name;            // NPC µÄÃû×Ö  
+    cocos2d::Vec2 position;      // NPC µÄ×ø±êÎ»ÖÃ  
+    cocos2d::Sprite* sprite;     // NPC µÄ¾«Áé
 
     std::vector<cocos2d::Vec2> nonTransparentPixels;
 
-    // åˆ›å»ºåŠ¨ç”»  
+    // ´´½¨¶¯»­  
     void CreateAnimation ( const std::string& animationName , const std::vector<std::string>& framePaths , float delay );
 
-    // æ’­æ”¾åŠ¨ç”»  
+    // ²¥·Å¶¯»­  
     void PlayAnimation ( const std::string& animationName , bool loop = true );
 
-    // åŠ¨ç”»å¸§  
+    // ¶¯»­Ö¡  
     std::vector<std::string> upFrames;
     std::vector<std::string> downFrames;
     std::vector<std::string> leftFrames;
     std::vector<std::string> rightFrames;
 
-    // åŠ¨ç”»å¸§è·¯å¾„  
+    // ¶¯»­Ö¡Â·¾¶  
     std::vector<std::vector<std::string>> animations; // [0]: up, [1]: down, [2]: left, [3]: right 
 
-    std::string currentAnimationName; // è·Ÿè¸ªå½“å‰åŠ¨ç”»åç§°
+    std::string currentAnimationName; // ¸ú×Ùµ±Ç°¶¯»­Ãû³Æ
 
-    cocos2d::Vec2 currentDirection; // å½“å‰ç§»åŠ¨æ–¹å‘
+    cocos2d::Vec2 currentDirection; // µ±Ç°ÒÆ¶¯·½Ïò
 };
 
 

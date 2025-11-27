@@ -1,6 +1,6 @@
 #pragma once
 //DailyRecordUI.h
-//浠诲姟鏄剧ず鐣岄潰
+//任务显示界面
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

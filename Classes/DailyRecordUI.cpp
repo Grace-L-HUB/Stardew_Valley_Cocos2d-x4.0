@@ -88,11 +88,11 @@ void DailyRecordUI::backgroundcreate () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜çš„é»‘è‰²é®ç½©
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜åº¦ä¸º120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize  );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
+    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize  );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
     this->addChild ( darkLayer , 0 );
-    //å¤§æ¡†æ¶
+    //´ó¿ò¼Ü
     auto daily_record = Sprite::create ( "UIresource/rizhi/DailyRecord.png" );
     if (daily_record == nullptr)
     {
@@ -100,13 +100,13 @@ void DailyRecordUI::backgroundcreate () {
     }
     else
     {
-        // è·å–åŸå§‹å›¾ç‰‡çš„å®½é«˜
+        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
         float originalWidth = daily_record->getContentSize ().width;
         float originalHeight = daily_record->getContentSize ().height;
-        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
+        // ¸ù¾İÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀı
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
+        // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
         float scale = std::min ( scaleX , scaleY );
         daily_record->setScale ( scale * 0.8 );
         daily_record->setPosition ( Vec2 ( currentx , currenty ) );
@@ -120,74 +120,74 @@ void DailyRecordUI::taskDisplay ( TaskManagement& taskManager ) {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    //åˆ›å»º ScrollView
+    //´´½¨ ScrollView
     auto scrollView = cocos2d::ui::ScrollView::create ();
-    scrollView->setDirection ( cocos2d::ui::ScrollView::Direction::VERTICAL ); // è®¾ç½®ä¸ºå‚ç›´æ»šåŠ¨
-    scrollView->setContentSize ( Size ( 1630 , 600 ) ); // è®¾ç½®ScrollView å®½åº¦ï¼Œé«˜åº¦
-    scrollView->setPosition ( Vec2 ( currentx - visibleSize.width * 0.589 , currenty - visibleSize.height * 0.2 ) ); // è®¾ç½®ä½ç½®
-    scrollView->setBounceEnabled ( true ); // å¯ç”¨å¼¹æ€§æ•ˆæœ
-    scrollView->setScrollBarEnabled ( false );    // ç¦ç”¨å‚ç›´å’Œæ°´å¹³æ»‘åŠ¨æ¡
+    scrollView->setDirection ( cocos2d::ui::ScrollView::Direction::VERTICAL ); // ÉèÖÃÎª´¹Ö±¹ö¶¯
+    scrollView->setContentSize ( Size ( 1630 , 600 ) ); // ÉèÖÃScrollView ¿í¶È£¬¸ß¶È
+    scrollView->setPosition ( Vec2 ( currentx - visibleSize.width * 0.589 , currenty - visibleSize.height * 0.2 ) ); // ÉèÖÃÎ»ÖÃ
+    scrollView->setBounceEnabled ( true ); // ÆôÓÃµ¯ĞÔĞ§¹û
+    scrollView->setScrollBarEnabled ( false );    // ½ûÓÃ´¹Ö±ºÍË®Æ½»¬¶¯Ìõ
 
-    // è®¡ç®—æ€»é«˜åº¦  
+    // ¼ÆËã×Ü¸ß¶È  
     float totalItemHeight = 0;
-    const int itemCount = 5; // ä»»åŠ¡æ•°é‡  
-    const float itemHeight = 500; // æ¯ä¸ªé«˜åº¦  
-    totalItemHeight = itemCount * itemHeight; // è®¡ç®—æ€»é«˜åº¦  
+    const int itemCount = 5; // ÈÎÎñÊıÁ¿  
+    const float itemHeight = 500; // Ã¿¸ö¸ß¶È  
+    totalItemHeight = itemCount * itemHeight; // ¼ÆËã×Ü¸ß¶È  
 
-    // è®¾ç½®å†…éƒ¨å®¹å™¨çš„å¤§å°  
-    scrollView->setInnerContainerSize ( Size ( 1630 , totalItemHeight ) ); // è®¾ç½®å†…éƒ¨å®¹å™¨çš„å¤§å°
+    // ÉèÖÃÄÚ²¿ÈİÆ÷µÄ´óĞ¡  
+    scrollView->setInnerContainerSize ( Size ( 1630 , totalItemHeight ) ); // ÉèÖÃÄÚ²¿ÈİÆ÷µÄ´óĞ¡
 
-    // ç›‘å¬é¼ æ ‡æ»šè½®äº‹ä»¶
+    // ¼àÌıÊó±ê¹öÂÖÊÂ¼ş
     auto listener = cocos2d::EventListenerMouse::create ();
     listener->onMouseScroll = [scrollView]( cocos2d::EventMouse* event ) {
-        // è·å–é¼ æ ‡æ»šè½®çš„åç§»é‡  
+        // »ñÈ¡Êó±ê¹öÂÖµÄÆ«ÒÆÁ¿  
         float scrollDelta = event->getScrollY ();
 
-        // è·å–å½“å‰çš„ innerContainer  
+        // »ñÈ¡µ±Ç°µÄ innerContainer  
         auto innerContainer = scrollView->getInnerContainer ();
 
-        // è®¡ç®—æ–°çš„ Y ä½ç½®  
+        // ¼ÆËãĞÂµÄ Y Î»ÖÃ  
         float currentPosY = innerContainer->getPositionY ();
-        float newPosY = currentPosY + scrollDelta * 100; // è°ƒæ•´çµæ•åº¦  
+        float newPosY = currentPosY + scrollDelta * 100; // µ÷ÕûÁéÃô¶È  
 
-        // é™åˆ¶æ»šåŠ¨çš„ä¸Šä¸‹è¾¹ç•Œ  
+        // ÏŞÖÆ¹ö¶¯µÄÉÏÏÂ±ß½ç  
         float lowerLimit = scrollView->getContentSize ().height - innerContainer->getContentSize ().height;
         float upperLimit = -1400;
 
         //CCLOG ( "currentPosY: %f, newPosY: %f, lowerLimit: %f, upperLimit: %f" , currentPosY , newPosY , lowerLimit , upperLimit );
 
-        // ä½¿ç”¨ std::max å’Œ std::min ç¡®ä¿ newPosY åœ¨è¾¹ç•Œå†…  
+        // Ê¹ÓÃ std::max ºÍ std::min È·±£ newPosY ÔÚ±ß½çÄÚ  
         newPosY = std::max ( newPosY , lowerLimit );
         newPosY = std::min ( newPosY , upperLimit );
 
-        // è®¾ç½®æ–°çš„ä½ç½®  
+        // ÉèÖÃĞÂµÄÎ»ÖÃ  
         innerContainer->setPositionY ( newPosY );
 
         };
-    // å°†ç›‘å¬å™¨æ·»åŠ åˆ°äº‹ä»¶åˆ†å‘å™¨
+    // ½«¼àÌıÆ÷Ìí¼Óµ½ÊÂ¼ş·Ö·¢Æ÷
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , this );
 
-    float offsetY = 0;  // ç”¨æ¥å­˜å‚¨ä»»åŠ¡é—´çš„çºµå‘é—´è·
-    // è·å–æ‰€æœ‰ä»»åŠ¡  
+    float offsetY = 0;  // ÓÃÀ´´æ´¢ÈÎÎñ¼äµÄ×İÏò¼ä¾à
+    // »ñÈ¡ËùÓĞÈÎÎñ  
     std::vector<TaskManagement::Task> tasks = taskManager.returnAcceptTasks ();
 
-    // åˆ›å»ºä¸€ä¸ªå­—ç¬¦ä¸²ä»¥å­˜å‚¨æ‰€æœ‰ä»»åŠ¡çš„ä¿¡æ¯  
+    // ´´½¨Ò»¸ö×Ö·û´®ÒÔ´æ´¢ËùÓĞÈÎÎñµÄĞÅÏ¢  
     std::string allTasksInfo;
     for (const auto& task : tasks) {
-        //æ·»åŠ æ¡†
+        //Ìí¼Ó¿ò
         auto taskframe = Sprite::create ( "UIresource/SkillTree/background.png" );
         taskframe->setScale ( 1.2f , 0.4f );
         taskframe->setPosition ( Vec2 ( visibleSize.width * 0.6 , 539 + visibleSize.height * 1.4 - offsetY ) );
         scrollView->addChild ( taskframe , 2 );
 
-        // æ ¼å¼åŒ–ä»»åŠ¡ä¿¡æ¯  
+        // ¸ñÊ½»¯ÈÎÎñĞÅÏ¢  
         std::string taskInfo = "Task_Name: " + task.name;
-        // åˆ›å»ºæ ‡ç­¾æ¥æ˜¾ç¤ºä»»åŠ¡ä¿¡æ¯  
+        // ´´½¨±êÇ©À´ÏÔÊ¾ÈÎÎñĞÅÏ¢  
         auto taskMessage = Label::createWithSystemFont ( taskInfo , "fonts/Comic Sans MS.ttf" , 50 );
         taskMessage->setAnchorPoint ( Vec2 ( 0 , 0.5 ) );
         taskMessage->setTextColor ( Color4B::BLACK );
 
-        // è®¾ç½®æ ‡ç­¾çš„ä½ç½®  
+        // ÉèÖÃ±êÇ©µÄÎ»ÖÃ  
         Vec2 visibleSize = Director::getInstance ()->getVisibleSize ();
         taskMessage->setPosition ( Vec2 ( visibleSize.x * 0.35 , 539 + visibleSize.y * 1.4 - offsetY ) );
 
@@ -217,10 +217,10 @@ void DailyRecordUI::taskDisplay ( TaskManagement& taskManager ) {
 
         _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , taskframe );
 
-        // æ›´æ–°ä¸‹ä¸€ä¸ªå•†å“çš„ä½ç½®åç§»é‡
-        offsetY += 350;  // æ¯ä¸ªä»»åŠ¡é—´çš„çš„é—´è·
+        // ¸üĞÂÏÂÒ»¸öÉÌÆ·µÄÎ»ÖÃÆ«ÒÆÁ¿
+        offsetY += 350;  // Ã¿¸öÈÎÎñ¼äµÄµÄ¼ä¾à
     }
-    // å°†æ»šåŠ¨è§†å›¾æ·»åŠ åˆ°Layerä¸­
+    // ½«¹ö¶¯ÊÓÍ¼Ìí¼Óµ½LayerÖĞ
     this->addChild ( scrollView , 5 );
 }
 

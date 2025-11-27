@@ -9,7 +9,7 @@ Livestock::~Livestock(){
 Livestock* Livestock::create ( const std::string& species , const std::string& icon_path , const cocos2d::Rect& area ) {
     Livestock* livestock = new Livestock ( species , icon_path , area );
     if (livestock && livestock->init ()) {
-        livestock->autorelease ();  // è‡ªåŠ¨ç®¡ç†å†…å­˜
+        livestock->autorelease ();  // ×Ô¶¯¹ÜÀíÄÚ´æ
         return livestock;
     }
     CC_SAFE_DELETE ( livestock );
@@ -20,69 +20,69 @@ void Livestock::RandomMove() {
     if (this->getParent () == nullptr) {
         return;
     }
-    // éšæœºé€‰æ‹©ä¸€ä¸ªæ–¹å‘ï¼š0 - ä¸‹ , 1 - ä¸Š , 2 - å·¦ , 3 - å³
+    // Ëæ»úÑ¡ÔñÒ»¸ö·½Ïò£º0 - ÏÂ , 1 - ÉÏ , 2 - ×ó , 3 - ÓÒ
     int direction = cocos2d::RandomHelper::random_int ( 0 , 3 );
     if (species == "Chicken") {
         direction %= 2;
         direction += 2;
     }
-    // èŽ·å–å½“å‰çš„ä½ç½®
+    // »ñÈ¡µ±Ç°µÄÎ»ÖÃ
     cocos2d::Vec2 current_position = this->getPosition ();
 
-    // æ ¹æ®æ–¹å‘ä¿®æ”¹ç›®æ ‡ä½ç½®
+    // ¸ù¾Ý·½ÏòÐÞ¸ÄÄ¿±êÎ»ÖÃ
     cocos2d::Vec2 target_pos;
 
     switch (direction) {
-        case 0: // ä¸‹
+        case 0: // ÏÂ
             target_pos = cocos2d::Vec2 ( current_position.x , move_area.getMinY () + 20.0f );
             break;
-        case 1: // ä¸Š
+        case 1: // ÉÏ
             target_pos = cocos2d::Vec2 ( current_position.x , move_area.getMaxY () - 20.0f );
             break;
-        case 2: // å·¦
+        case 2: // ×ó
             target_pos = cocos2d::Vec2 ( move_area.getMinX () + 20.0f , current_position.y );
             break;
-        case 3: // å³
+        case 3: // ÓÒ
             target_pos = cocos2d::Vec2 ( move_area.getMaxX () - 20.0f , current_position.y );
             break;
     }
     
     move_direction = direction;
 
-    //æ›´æ”¹ç§»åŠ¨çŠ¶æ€
+    //¸ü¸ÄÒÆ¶¯×´Ì¬
     SetMoving ( true );
 
-    // åˆ›å»º MoveTo åŠ¨ä½œ
+    // ´´½¨ MoveTo ¶¯×÷
     auto move_to = cocos2d::MoveTo::create ( 4.0f , target_pos );
 
-    // åœ¨ç§»åŠ¨å®Œæˆæ—¶è®¾ç½® isMoving ä¸º false
+    // ÔÚÒÆ¶¯Íê³ÉÊ±ÉèÖÃ isMoving Îª false
     auto callback = [this]() {
-        this->SetMoving ( false );  // ç§»åŠ¨å®ŒæˆåŽåœæ­¢æ›´æ–°å›¾åƒ
+        this->SetMoving ( false );  // ÒÆ¶¯Íê³ÉºóÍ£Ö¹¸üÐÂÍ¼Ïñ
         };
     auto sequence = cocos2d::Sequence::create ( move_to , cocos2d::CallFunc::create ( callback ) , nullptr );
     this->runAction ( sequence );
 
-    //æ›´æ”¹ç§»åŠ¨çŠ¶æ€
+    //¸ü¸ÄÒÆ¶¯×´Ì¬
     moving = true;
 }
 
 bool Livestock::init () {
-    // è°ƒç”¨åŸºç±» Sprite çš„åˆå§‹åŒ–
+    // µ÷ÓÃ»ùÀà Sprite µÄ³õÊ¼»¯
     if (!Sprite::init ()) {
         CCLOG ( "failed to initialize Livestock." );
         return false;
     }
 
-    // è®¾ç½®å®¶ç•œçš„å›¾æ ‡
+    // ÉèÖÃ¼ÒÐóµÄÍ¼±ê
     if (!this->initWithFile ( icon_path )) {
         CCLOG ( "fail to initialize Livestock with file %s" , icon_path.c_str () );
         return false;
     }
 
-    //æ›´æ”¹å›¾æ ‡å¤§å°
+    //¸ü¸ÄÍ¼±ê´óÐ¡
     this->setScale ( 5.0f , 5.0f );
 
-    // è®¾ç½®åˆå§‹ä½ç½®åœ¨æ´»åŠ¨èŒƒå›´å†…
+    // ÉèÖÃ³õÊ¼Î»ÖÃÔÚ»î¶¯·¶Î§ÄÚ
     this->setPosition ( cocos2d::Vec2 (
         cocos2d::RandomHelper::random_real ( move_area.getMinX () , move_area.getMaxX () ) ,
         cocos2d::RandomHelper::random_real ( move_area.getMinY () , move_area.getMaxY () )

@@ -13,14 +13,14 @@ public:
     ~StoreUI();
     virtual bool init ( Inventory* mybag , Inventory* goods );
     static StoreUI* create ( Inventory* mybag , Inventory* goods );
-    //����ͼչʾ
+    //???????
     void backgroundcreate ();
-    //��Ʒչʾ
+    //?????
     void ProductDisplay ( Inventory* mybag , Inventory* goods );
 
     void Itemblock ( Inventory* mybag , Inventory* goods );
 
-    void updateDisplay (); // ������ʾ����  
+    void updateDisplay (); // ???????????  
 
     void moneyDisplay ();
 
@@ -30,17 +30,17 @@ public:
 
 private:
 
-    Inventory* _mybag; // ָ���Լ�����ʵ����ָ��  
+    Inventory* _mybag; // ??????????????????  
 
-    Inventory* _goods; // ָ����Ʒʵ����ָ��  
+    Inventory* _goods; // ??????????????  
 
-    cocos2d::Label* _itemLabel;  // ��ʾ��Ʒ��Ϣ�ı�ǩ 
+    cocos2d::Label* _itemLabel;  // ????????????? 
 
-    cocos2d::Vector<cocos2d::Sprite*> _itemSlots; // �洢��Ʒ�۵� Sprite  
+    cocos2d::Vector<cocos2d::Sprite*> _itemSlots; // ???????? Sprite  
 
-    int _selectedSlot; // ��ǰѡ�еĲ�λ  
+    int _selectedSlot; // ?????��??��  
 
-    void onItemSlotClicked ( cocos2d::Ref* sender ); // ��Ʒ�۵ĵ���¼����� 
+    void onItemSlotClicked ( cocos2d::Ref* sender ); // ??????????????? 
 
     bool isClick = false;
 

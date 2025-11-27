@@ -12,18 +12,18 @@ private:
 public:
 	SkillTree ();
 
-	//ä¸º`skill_type`å¯¹åº”çš„æŠ€èƒ½å¢åŠ `amount`æ•°é‡çš„ç»éªŒ
-	//è‹¥skillsä¸­æ²¡æœ‰skill_typeå¯¹åº”çš„skillåˆ™è¿”å›false
-	//å¦åˆ™è¿”å›true
+	//Îª`skill_type`¶ÔÓ¦µÄ¼¼ÄÜÔö¼Ó`amount`ÊıÁ¿µÄ¾­Ñé
+	//ÈôskillsÖĞÃ»ÓĞskill_type¶ÔÓ¦µÄskillÔò·µ»Øfalse
+	//·ñÔò·µ»Øtrue
 	bool AddExperience ( const int& skill_type , const int& amount );
 
-	//è·å–å½“å‰å„æŠ€èƒ½çš„ç­‰çº§ vectorçš„ä¸‹æ ‡ä¸Skillçš„typeå¯¹åº”
+	//»ñÈ¡µ±Ç°¸÷¼¼ÄÜµÄµÈ¼¶ vectorµÄÏÂ±êÓëSkillµÄtype¶ÔÓ¦
 	std::vector<int> GetSkillLevels ();
 
-	//é‡è½½()æ“ä½œç¬¦
-	//ä½œç”¨ä¸ºï¼šè·å–æŒ‡å®šç±»å‹æŠ€èƒ½çš„å½“å‰ç­‰çº§
-	//è‹¥skillsä¸­æ²¡æœ‰skill_typeå¯¹åº”çš„skillåˆ™è¿”å›-1
-	//å¦åˆ™è¿”å›å¯¹åº”Skillçš„`level`
+	//ÖØÔØ()²Ù×÷·û
+	//×÷ÓÃÎª£º»ñÈ¡Ö¸¶¨ÀàĞÍ¼¼ÄÜµÄµ±Ç°µÈ¼¶
+	//ÈôskillsÖĞÃ»ÓĞskill_type¶ÔÓ¦µÄskillÔò·µ»Ø-1
+	//·ñÔò·µ»Ø¶ÔÓ¦SkillµÄ`level`
 	int operator()( const int& skill_type ) {
 		if (skills.find ( skill_type ) != skills.end ()) {
 			return skills[skill_type].GetLevel ();

@@ -87,11 +87,11 @@ void Marry::backgroundcreate () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜çš„é»‘è‰²é®ç½©
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜åº¦ä¸º120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
+    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
     this->addChild ( darkLayer , 0 );
-    //å¤§æ¡†æ¶
+    //´ó¿ò¼Ü
     auto daily_record = Sprite::create ( "UIresource/SkillTree/background.png" );
     if (daily_record == nullptr)
     {
@@ -99,13 +99,13 @@ void Marry::backgroundcreate () {
     }
     else
     {
-        // è·å–åŸå§‹å›¾ç‰‡çš„å®½é«˜
+        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
         float originalWidth = daily_record->getContentSize ().width;
         float originalHeight = daily_record->getContentSize ().height;
-        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
+        // ¸ù¾İÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀı
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
+        // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
         float scale = std::min ( scaleX , scaleY );
         daily_record->setScale ( scale / 1.5 );
         daily_record->setPosition ( Vec2 ( currentx , currenty ) );
@@ -125,7 +125,7 @@ void Marry::ifmarry () {
     this->addChild ( ismarry , 3 );
 }
 
-//å¯¹è¯é€‰ä¸­æ¡†æ·»åŠ 
+//¶Ô»°Ñ¡ÖĞ¿òÌí¼Ó
 void Marry::SelectedAnswer () {
     Vec2 position = player1->getPosition ();
     float currentx = position.x , currenty = position.y;
@@ -147,7 +147,7 @@ void Marry::SelectedAnswer () {
         this->addChild ( Selectedbox1 , 0 );
         this->addChild ( Selectedbox2 , 0 );
 
-        // ç­›é¾Œå®
+        // É¸ö»Ø´
         auto Yes = Label::createWithSystemFont ( "YES!!I DO! ! BABY" , "fonts/Comic Sans MS.ttf" , 60);
         Yes->setTextColor ( cocos2d::Color4B::BLACK );
         Yes->setPosition ( Vec2 ( currentx - visibleSize.width * 0.1 , currenty - visibleSize.height * 0.04 ) );
@@ -159,17 +159,17 @@ void Marry::SelectedAnswer () {
         this->addChild ( NO , 2 );
 
 
-        // é¼ æ ‡ç§»åŠ¨äº‹ä»¶  
+        // Êó±êÒÆ¶¯ÊÂ¼ş  
         auto listener = EventListenerMouse::create ();
         listener->onMouseMove = [=]( EventMouse* event ) {
             Vec2 mousePosition = Vec2 ( event->getCursorX () , event->getCursorY () );
             mousePosition = this->convertToNodeSpace ( mousePosition );
-            // æ£€æŸ¥æ¯ä¸ª Selectedbox  
+            // ¼ì²éÃ¿¸ö Selectedbox  
             if (Selectedbox1->getBoundingBox ().containsPoint ( mousePosition )) {
-                Selectedbox1->setLocalZOrder ( 2 ); // æ˜¾ç¤ºåœ¨ä¸Šå±‚  
+                Selectedbox1->setLocalZOrder ( 2 ); // ÏÔÊ¾ÔÚÉÏ²ã  
             }
             else {
-                Selectedbox1->setLocalZOrder ( 0 ); // éšè—åœ¨ä¸‹å±‚  
+                Selectedbox1->setLocalZOrder ( 0 ); // Òş²ØÔÚÏÂ²ã  
             }
             if (Selectedbox2->getBoundingBox ().containsPoint ( mousePosition )) {
                 Selectedbox2->setLocalZOrder ( 2 );
@@ -183,18 +183,18 @@ void Marry::SelectedAnswer () {
             Vec2 mousePosition = Vec2 ( event->getCursorX () , event->getCursorY () );
             mousePosition = this->convertToNodeSpace ( mousePosition );
 
-            // æ£€æŸ¥æ¯ä¸ª Selectedbox  
+            // ¼ì²éÃ¿¸ö Selectedbox  
             if (Selectedbox1 && Selectedbox1->getBoundingBox ().containsPoint ( mousePosition )) {
                 npc_relationship->increaseRelationship ( "player" , NpcName , 40 );
                 this->removeFromParent ();
                 AudioEngine::pauseAll ();
                 auto backgroundAudioID = AudioEngine::play2d ( "MUSIC/AthousandYears.mp3" , true );
-                return; // æå‰è¿”å›ï¼Œé¿å…æ‰§è¡Œåç»­é€‰æ‹©æ¡†æ£€æŸ¥  
+                return; // ÌáÇ°·µ»Ø£¬±ÜÃâÖ´ĞĞºóĞøÑ¡Ôñ¿ò¼ì²é  
             }
             if (Selectedbox2 && Selectedbox2->getBoundingBox ().containsPoint ( mousePosition )) {
                     npc_relationship->increaseRelationship ( "player" , NpcName , -80 );
                 this->removeFromParent ();
-                return; // æå‰è¿”å›  
+                return; // ÌáÇ°·µ»Ø  
             }
             };
 

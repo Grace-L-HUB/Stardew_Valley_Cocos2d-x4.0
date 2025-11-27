@@ -25,31 +25,31 @@ public:
 
     static  Beach* create ();
 
-    // ä¸‹é›¨æ•ˆæœ
+    // ÏÂÓêĞ§¹û
     void createRainEffect ();
 
-    // æ›´æ”¹é›¨æ»´ç”Ÿå‘½å‘¨æœŸ
+    // ¸ü¸ÄÓêµÎÉúÃüÖÜÆÚ
     void updaterain ( float deltaTime );
 
 
-    // åˆ¤æ–­è§’è‰²çš„ä½ç½®
+    // ÅĞ¶Ï½ÇÉ«µÄÎ»ÖÃ
     void CheckPlayerPosition ();
 
 
-    // åˆ›å»ºä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨äºä¿å­˜æ‰€æœ‰éé€æ˜åƒç´ çš„åæ ‡
+    // ´´½¨Ò»¸öÁĞ±í£¬ÓÃÓÚ±£´æËùÓĞ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
     std::vector<cocos2d::Vec2> non_transparent_pixels;
 
-    // ç¦»å¼€æµ·æ»©çš„åŒºåŸŸ
+    // Àë¿ªº£Ì²µÄÇøÓò
     Rect Out_Beach = Rect ( 240 , 1300 , 150 , 200 );
 
     cocos2d::ParticleRain* emitter;
 
 private:
 
-    /* é€€å‡ºæŒ‰é’® */
+    /* ÍË³ö°´Å¥ */
     Sprite* button;
 
-    // é€€å‡ºæŒ‰é’®
+    // ÍË³ö°´Å¥
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;

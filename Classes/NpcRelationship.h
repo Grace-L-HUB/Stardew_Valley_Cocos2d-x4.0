@@ -11,31 +11,31 @@ using namespace std;
 
 class NpcRelationship {
 public:
-	// æ„é€ å‡½æ•°å’Œææ„å‡½æ•°
+	// ¹¹Ôìº¯ÊıºÍÎö¹¹º¯Êı
 	NpcRelationship();
 	~NpcRelationship();
 
-	// æ·»åŠ  / ç§»é™¤NPC
+	// Ìí¼Ó / ÒÆ³ıNPC
 	void add_npc(const string& npcName);
 	void remove_npc(const string& npcName);
 
-	// è®¾ç½®npcä¹‹é—´çš„å…³ç³»
+	// ÉèÖÃnpcÖ®¼äµÄ¹ØÏµ
 	void setRelationship(const string& npcA, const string& npcB, double value);
 
-	// å¢åŠ /å‡å°‘å…³ç³»  
+	// Ôö¼Ó/¼õÉÙ¹ØÏµ  
 	void increaseRelationship(const std::string& npcA, const std::string& npcB, double amount);
 	void decreaseRelationship(const std::string& npcA, const std::string& npcB, double amount);
 
-	// è·å–å…³ç³»å±‚çº§  
+	// »ñÈ¡¹ØÏµ²ã¼¶  
 	std::string getRelationshipLevel(const std::string& npcA, const std::string& npcB) const;
 
-	// è·å–npcä¹‹é—´çš„å…³ç³»
+	// »ñÈ¡npcÖ®¼äµÄ¹ØÏµ
 	double getRelationship(const string& npcA, const string& npcB) const;
 
-	// æ‰“å°æ‰€æœ‰npcä¹‹é—´çš„å…³ç³»(ç”¨äºè°ƒè¯•)
+	// ´òÓ¡ËùÓĞnpcÖ®¼äµÄ¹ØÏµ(ÓÃÓÚµ÷ÊÔ)
 	void printRelationships() const;
 
-	// é€ç¤¼
+	// ËÍÀñ
 	void AddGiftTime ( const std::string& npc );
 
 	int NpcGiftTIme ( const std::string& npc );
@@ -49,7 +49,7 @@ private:
 
 	int lastUpdateDay = 0;
 
-	// å…³ç³»å€¼ä¸Šä¸‹é™  
+	// ¹ØÏµÖµÉÏÏÂÏŞ  
 	static const int MIN_RELATIONSHIP = -100;
 	static const int MAX_RELATIONSHIP = 100;
 };

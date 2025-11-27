@@ -3,7 +3,7 @@
 CookingPot* CookingPot::create () {
     CookingPot* cooking_pot = new CookingPot ();
     if (cooking_pot && cooking_pot->init ()) {
-        cooking_pot->autorelease ();  // è‡ªåŠ¨ç®¡ç†å†…å­˜
+        cooking_pot->autorelease ();  // ×Ô¶¯¹ÜÀíÄÚ´æ
         return cooking_pot;
     }
     CC_SAFE_DELETE ( cooking_pot );
@@ -16,13 +16,13 @@ bool CookingPot::init () {
         return false;
     }
 
-    // è®¾ç½®å¤§é”…çš„å›¾æ ‡
+    // ÉèÖÃ´ó¹øµÄÍ¼±ê
     if (!this->initWithFile ("farm/pot.png") ){
         CCLOG ( "fail to initialize Livestock with file :farm/pot.png" );
         return false;
     }
 
-    //æ›´æ”¹å›¾æ ‡å¤§å°
+    //¸ü¸ÄÍ¼±ê´óÐ¡
     this->setScale ( 2.7f , 2.7f );
 
 }

@@ -17,16 +17,16 @@ public:
     Player();
     ~Player();
 
-    // ���� Player ����ķ���
+    // ???? Player ????????
     static Player* create();
 
-    // ��ʼ����ɫ
+    // ????????
     bool init();
 
-    // ��������ʱ�����Ļص�����
+    // ?????????????????????
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
-    // �����ͷ�ʱ�����Ļص�����
+    // ????????????????????
     void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
 
     void player1_move();
@@ -38,7 +38,7 @@ public:
 
     bool leftpressed = false, downpressed = false, uppressed = false, rightpressed = false;
 
-    // ��ɫ���ƶ��ٶ�
+    // ???????????
     float speed;
 
     int look_state = 0;
@@ -48,7 +48,7 @@ public:
     int energy_limit = kDefaultEnergy;
     int current_energy = kDefaultEnergy;
 
-    // 能量相关方法
+    // ������ط���
     void setEnergy(int energy);
     void changeEnergy(int delta);
     int getCurrentEnergy() const { return current_energy; }

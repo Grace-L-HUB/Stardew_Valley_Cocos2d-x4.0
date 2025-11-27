@@ -1,18 +1,18 @@
 #include "cocos2d.h"  
 #include "NPC.h"
 
-// NPC åˆ›å»ºç±»  
+// NPC ´´½¨Àà  
 class NPCreate {
 public:
-    // é™æ€æ–¹æ³•ï¼Œåˆ›å»º NPC å®ä¾‹  
+    // ¾²Ì¬·½·¨£¬´´½¨ NPC ÊµÀı  
     static NPC* CreateNPC ( const std::string& name , const cocos2d::Vec2& position , 
         const std::vector<std::vector<std::string>>& animationFrames , 
         const std::vector<cocos2d::Vec2>& validPositions );
 
-    // åˆ›å»ºå¤šä¸ª NPC çš„æ–¹æ³•  
+    // ´´½¨¶à¸ö NPC µÄ·½·¨  
     static std::vector<NPC*> CreateMultipleNPCs ( const std::vector<std::pair<std::string , cocos2d::Vec2>>& npcData , 
         const std::vector<std::vector<std::vector<std::string>>>& allAnimationFrames ,
         const std::vector<cocos2d::Vec2>& validPositions );
 
-    cocos2d::AnimationCache* animationCache; // ä¿å­˜åŠ¨ç”» 
+    cocos2d::AnimationCache* animationCache; // ±£´æ¶¯»­ 
 };

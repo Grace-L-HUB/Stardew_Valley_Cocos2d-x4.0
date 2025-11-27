@@ -22,25 +22,25 @@ public:
 
     static Myhouse* create();
 
-    // åˆ¤æ–­è§’è‰²çš„ä½ç½®
+    // ÅĞ¶Ï½ÇÉ«µÄÎ»ÖÃ
     void checkPlayerPosition();
 
-    // åˆ›å»ºä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨äºä¿å­˜æ‰€æœ‰éé€æ˜åƒç´ çš„åæ ‡
+    // ´´½¨Ò»¸öÁĞ±í£¬ÓÃÓÚ±£´æËùÓĞ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
     std::vector<cocos2d::Vec2> nonTransparentPixels;
 
-    // å‡ºé—¨åŒºåŸŸ
+    // ³öÃÅÇøÓò
     Rect OutDoor = Rect(510, 210, 150, 70);
-    // ç¡è§‰åŒºåŸŸ
+    // Ë¯¾õÇøÓò
     Rect GoBed = Rect(1035, 385, 245, 390);
 
 
 private:
 
   
-    /* é€€å‡ºæŒ‰é’® */
+    /* ÍË³ö°´Å¥ */
     Sprite* button;
 
-    // é€€å‡ºæŒ‰é’®
+    // ÍË³ö°´Å¥
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;

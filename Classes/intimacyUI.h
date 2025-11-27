@@ -1,5 +1,5 @@
 //intimacyUI.h
-//äººç‰©äº²å¯†åº¦ç•Œé¢
+//ÈËÎïÇ×ÃÜ¶È½çÃæ
 #pragma once
 #include "cocos2d.h"  
 #include "NpcRelationship.h"  

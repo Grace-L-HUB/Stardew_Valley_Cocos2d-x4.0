@@ -20,24 +20,24 @@ public:
 
     static supermarket* create();
 
-    // åˆ¤æ–­è§’è‰²çš„ä½ç½®
+    // ÅĞ¶Ï½ÇÉ«µÄÎ»ÖÃ
     void checkPlayerPosition();
     
-    // åˆ›å»ºä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨äºä¿å­˜æ‰€æœ‰éé€æ˜åƒç´ çš„åæ ‡
+    // ´´½¨Ò»¸öÁĞ±í£¬ÓÃÓÚ±£´æËùÓĞ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
     std::vector<cocos2d::Vec2> nonTransparentPixels;
 
     cocos2d::Sprite* button;
 
-    /* å¼€é—¨æŒ‰é’® */
+    /* ¿ªÃÅ°´Å¥ */
     Sprite* opendoor;
     
-    // åˆ›å»ºå‡ºå£åŒºåŸŸ
+    // ´´½¨³ö¿ÚÇøÓò
     cocos2d::Rect Region_Out = Rect(1343, 818, 50, 868);
   
 
 private:
 
-    // é€€å‡ºæŒ‰é’®
+    // ÍË³ö°´Å¥
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;

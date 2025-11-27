@@ -9,12 +9,12 @@ USING_NS_CC;
 
 
 bool Timesystem::init( std::string place ) {
-    // ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½init()
-    if (!Node::init()) {  // ï¿½ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½Nodeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nodeï¿½ï¿½init
+    // ????????init()
+    if (!Node::init()) {  // ????????Node??????Node??init
         return false;
     }
     Place = place;
-    // ï¿½ï¿½ï¿½Ã¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ç©
+    // ???¨¹???????
     timer_label_day = Label::createWithTTF("Day: 0", "fonts/Marker Felt.ttf", 24);
     this->addChild(timer_label_day, 2);
     timer_label_day->setScale(1.7f);
@@ -40,12 +40,12 @@ bool Timesystem::init( std::string place ) {
     timer_label_festival->setScale(1.5f);
     timer_label_festival->setString(Festival);
 
-    // ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä±³ï¿½ï¿½Í¼Æ¬
+    // ???????????
     time_pic = Sprite::create("UIresource/TimePic.png");
     time_pic->setScale(1.7f);
-    this->addChild(time_pic, 1);  // ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ã¼¶ï¿½Ú±ï¿½Ç©ï¿½Â·ï¿½
+    this->addChild(time_pic, 1);  // ???????????????
 
-    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¿ï¿½
+    // ???????????
     energy_frame = Sprite::create("UIresource/strength.png");
     energy_frame->setScale(3.7f);
     this->addChild(energy_frame, 1);
@@ -58,7 +58,7 @@ bool Timesystem::init( std::string place ) {
     this->addChild(energy_bar, 3);
     energy_bar->setPosition(435, 405);
 
-    // ï¿½ï¿½ï¿½Ã¸ï¿½Ôªï¿½Øµï¿½Î»ï¿½ï¿½
+    // ?????????¦Ë??
     timer_label_day->setPosition(585, 575);
     timer_label_hour->setPosition(690, 575);
     timer_label_season->setPosition(570, 500);
@@ -67,7 +67,7 @@ bool Timesystem::init( std::string place ) {
     time_pic->setPosition(630, 490);
    
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
+    //??????
     currency_frame = Sprite::create ( "UIresource/supermarket/moneyFrame_new.png" );
     currency_frame->setScale ( 3.5f );
     this->addChild ( currency_frame , 1 );
@@ -81,7 +81,7 @@ bool Timesystem::init( std::string place ) {
         this->addChild ( currency_num , 4 );
     }
 
-    //ï¿½ï¿½Ö¾ï¿½ï¿½Ê¾
+    //??????
     daily_record = Sprite::create ( "UIresource/rizhi.png" );
     this->addChild ( daily_record , 1 );
     daily_record->setScale ( 1.5f );
@@ -102,31 +102,31 @@ bool Timesystem::init( std::string place ) {
         mousePos = this->convertToNodeSpace ( mousePos );
         if (daily_record->getBoundingBox ().containsPoint ( mousePos )) {
             DailyRecordUI* Dailyrecord = DailyRecordUI::create(place);
-            // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ĞµÄ³ï¿½ï¿½ï¿½
+            // ?????????§Ö????
             Scene* currentScene = Director::getInstance ()->getRunningScene ();
             currentScene->addChild ( Dailyrecord , 20 );
         }
         };
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , daily_record );
 
-    // ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+    // ??????????
     int lastDay = day;
     int lastHour = remainingTime / 1800;
     std::string lastSeason = Season;
     std::string lastWeather = Weather;
 
     this->schedule([this, &lastDay, &lastHour, &lastSeason, &lastWeather](float dt) {
-        // ï¿½ï¿½È¡ï¿½ï¿½Ç°Öµ
+        // ???????
         int currentHour = remainingTime / 1800;
         
-        // ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½Öµï¿½ï¿½ï¿½æ»»ï¿½ï¿½
+        // ????????????????
         timer_label_day->setString("Day: " + std::to_string(day));
         timer_label_hour->setString(std::to_string(currentHour) + ":00");
         timer_label_season->setString(Season);
         timer_label_weather->setString(Weather);
         currency_num->setString ( std::to_string ( GoldAmount ) );
         
-        // ï¿½ï¿½ï¿½å‘å¸ƒæ—¶é—´å˜åŒ–äº‹ä»¶
+        // ???·¢²¼Ê±¼ä±ä»¯ÊÂ¼ş
         if (currentHour != lastHour || day != lastDay || Season != lastSeason) {
             EventManager::getInstance().publishTimeChanged(day, currentHour, Season);
             lastHour = currentHour;
@@ -134,12 +134,12 @@ bool Timesystem::init( std::string place ) {
             lastSeason = Season;
         }
         
-        // å‘å¸ƒå­£èŠ‚å˜åŒ–äº‹ä»¶
+        // ·¢²¼¼¾½Ú±ä»¯ÊÂ¼ş
         if (Season != lastSeason) {
             lastSeason = Season;
         }
         
-        // å‘å¸ƒå¤©æ°”å˜åŒ–äº‹ä»¶
+        // ·¢²¼ÌìÆø±ä»¯ÊÂ¼ş
         if (Weather != lastWeather) {
             EventManager::getInstance().publishWeatherChanged(lastWeather, Weather);
             lastWeather = Weather;
@@ -162,6 +162,6 @@ Timesystem* Timesystem::create( std::string place ) {
 void Timesystem::UpdateEnergy () {
     TimeUI->energy_bar->setScaleY ( strength / 100.0 * 16.5f );
     
-    // å‘å¸ƒç©å®¶èƒ½é‡å˜åŒ–äº‹ä»¶
+    // ·¢²¼Íæ¼ÒÄÜÁ¿±ä»¯ÊÂ¼ş
     EventManager::getInstance().publishPlayerEnergyChanged(strength);
 }

@@ -84,11 +84,11 @@ void SkillTreeUI::backgroundcreate () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜Žçš„é»‘è‰²é®ç½©
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜Žåº¦ä¸º120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize  );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
+    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize  );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
     this->addChild ( darkLayer , 0 );
-    //å¤§æ¡†æž¶
+    //´ó¿ò¼Ü
     auto IntimacyFace = Sprite::create ( "UIresource/SkillTree/background1.png" );
     IntimacyFace->setTag ( 101 );
     if (IntimacyFace == nullptr)
@@ -97,13 +97,13 @@ void SkillTreeUI::backgroundcreate () {
     }
     else
     {
-        // èŽ·å–åŽŸå§‹å›¾ç‰‡çš„å®½é«˜
+        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
         float originalWidth = IntimacyFace->getContentSize ().width;
         float originalHeight = IntimacyFace->getContentSize ().height;
-        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŽŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
+        // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀý
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
+        // Ñ¡Ôñ×îÐ¡µÄËõ·Å±ÈÀý£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äÐÎ
         float scale = std::min ( scaleX , scaleY );
         IntimacyFace->setScale ( scale / 1.5 );
         IntimacyFace->setPosition ( Vec2 ( currentx , currenty ) );
@@ -171,7 +171,7 @@ void SkillTreeUI::Buttons_switching () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    //å›¾æ ‡æ˜¾ç¤º
+    //Í¼±êÏÔÊ¾
     auto bagkey = Sprite::create ( "UIresource/beibao/bagkey.png" );
     auto Skillkey = Sprite::create ( "UIresource/beibao/Skillkey.png" );
     auto intimacykey = Sprite::create ( "UIresource/beibao/intimacykey.png" );
@@ -182,18 +182,18 @@ void SkillTreeUI::Buttons_switching () {
     }
     else
     {
-        // èŽ·å–åŽŸå§‹å›¾ç‰‡çš„å®½é«˜
+        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
         float originalWidth = bagkey->getContentSize ().width;
         float originalHeight = bagkey->getContentSize ().height;
-        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŽŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
+        // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀý
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
+        // Ñ¡Ôñ×îÐ¡µÄËõ·Å±ÈÀý£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äÐÎ
         float scale = std::min ( scaleX , scaleY );
         bagkey->setScale ( scale / 16.5 );
-        bagkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.25 , currenty + visibleSize.height * 0.315 ) );//0.305æ˜¯é€‰ä¸­æ—¶ä½ç½®
+        bagkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.25 , currenty + visibleSize.height * 0.315 ) );//0.305ÊÇÑ¡ÖÐÊ±Î»ÖÃ
         Skillkey->setScale ( scale / 16.5 );
-        Skillkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.19 , currenty + visibleSize.height * 0.305 ) );//0.315æ˜¯æœªé€‰ä¸­æ—¶ä½ç½®
+        Skillkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.19 , currenty + visibleSize.height * 0.305 ) );//0.315ÊÇÎ´Ñ¡ÖÐÊ±Î»ÖÃ
         intimacykey->setScale ( scale / 16.5 );
         intimacykey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.13 , currenty + visibleSize.height * 0.315 ) );
         quitkey->setScale ( scale / 16.5 );
@@ -204,14 +204,14 @@ void SkillTreeUI::Buttons_switching () {
         this->addChild ( quitkey , 2 );
     }
 
-    //åŠ¨ç”»ä»¥åŠåˆ‡æ¢Layer
+    //¶¯»­ÒÔ¼°ÇÐ»»Layer
     auto listener = EventListenerMouse::create ();
     listener->onMouseDown = [this , bagkey , Skillkey , intimacykey ,quitkey]( EventMouse* event ) {
         Vec2 mousePos = Vec2 ( event->getCursorX () , event->getCursorY () );
         mousePos = this->convertToNodeSpace ( mousePos );
         //CCLOG ( "X:%f,Y:%f" , event->getCursorX () , event->getCursorY () );
         if (bagkey->getBoundingBox ().containsPoint ( mousePos )) {
-            // ç§»é™¤å½“å‰çš„Layer
+            // ÒÆ³ýµ±Ç°µÄLayer
             std::string nowScene = SceneName;
             this->removeFromParent ();
             Director::getInstance ()->getRunningScene ()->addChild ( InventoryUI::create ( inventory , nowScene ) , 20 );
@@ -234,14 +234,14 @@ void SkillTreeUI::Buttons_switching () {
 }
 
 void SkillTreeUI::close () {
-    // è®¾ç½®é”®ç›˜ç›‘å¬å™¨  
+    // ÉèÖÃ¼üÅÌ¼àÌýÆ÷  
     auto listenerClose = EventListenerKeyboard::create ();
     listenerClose->onKeyPressed = [this]( EventKeyboard::KeyCode keyCode , Event* event ) {
         if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
             this->removeFromParent ();
         }
         };
-    // å°†ç›‘å¬å™¨æ·»åŠ åˆ°äº‹ä»¶åˆ†å‘å™¨ä¸­  
+    // ½«¼àÌýÆ÷Ìí¼Óµ½ÊÂ¼þ·Ö·¢Æ÷ÖÐ  
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listenerClose , this );
 }
 

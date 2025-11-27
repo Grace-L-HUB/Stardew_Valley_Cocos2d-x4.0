@@ -23,11 +23,11 @@ bool Cow::init () {
 		return false;
 	}
 
-	// è®¾ç½®ä¸åŒæ–¹å‘çš„å›¾æ ‡
-	// å‰åŽå·¦å³å›¾ç‰‡æ ¹æ®ç§»åŠ¨æ–¹å‘ä¿®æ”¹
-	this->initWithFile ( cow_icon[0]); // é»˜è®¤å›¾æ ‡ä¸ºå‰é¢
+	// ÉèÖÃ²»Í¬·½ÏòµÄÍ¼±ê
+	// Ç°ºó×óÓÒÍ¼Æ¬¸ù¾ÝÒÆ¶¯·½ÏòÐÞ¸Ä
+	this->initWithFile ( cow_icon[0]); // Ä¬ÈÏÍ¼±êÎªÇ°Ãæ
 
-	// æ¯éš”ä¸€æ®µæ—¶é—´è¿›è¡Œéšæœºç§»åŠ¨
+	// Ã¿¸ôÒ»¶ÎÊ±¼ä½øÐÐËæ»úÒÆ¶¯
 	schedule ( [this]( float deltaTime ) {
 		this->RandomMove ();
 	} , 7.0f , "cow_random_move_key" );

@@ -1,6 +1,6 @@
 #pragma once
 //quitUI.h
-//退出界面
+//???????
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

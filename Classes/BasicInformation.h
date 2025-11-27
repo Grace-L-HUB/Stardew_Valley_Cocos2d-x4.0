@@ -14,13 +14,13 @@ public:
     CropBasicInformation(){}
 
    
-    // ç¬¬ä¸€é˜¶æ®µçš„å›¾åƒ
+    // µÚÒ»½×¶ÎµÄÍ¼Ïñ
     std::string firstpath;
-    // ç¬¬äºŒé˜¶æ®µçš„å›¾åƒ
+    // µÚ¶ş½×¶ÎµÄÍ¼Ïñ
     std::string secondpath;
-    // ç¬¬ä¸‰é˜¶æ®µçš„å›¾åƒ
+    // µÚÈı½×¶ÎµÄÍ¼Ïñ
     std::string thirdpath;
-    // é€‚å®œç”Ÿé•¿çš„å­£èŠ‚
+    // ÊÊÒËÉú³¤µÄ¼¾½Ú
     std::string season;
    
 

@@ -3,7 +3,7 @@
 #include "AppDelegate.h"
 #include <NPC.h>
 
-class Timesystem : public cocos2d::Node {  // ç»§æ‰¿è‡ªNode
+class Timesystem : public cocos2d::Node {  // ¼Ì³Ğ×ÔNode
 public:
     bool init ( std::string place );
 
@@ -11,7 +11,7 @@ public:
 
     void UpdateEnergy();
 
-    // å…¶ä»–æˆå‘˜å˜é‡å’Œæ–¹æ³•
+    // ÆäËû³ÉÔ±±äÁ¿ºÍ·½·¨
     cocos2d::Label* timer_label_day;
     cocos2d::Label* timer_label_hour;
     cocos2d::Label* timer_label_season;
@@ -26,6 +26,6 @@ public:
 
     cocos2d::Sprite* daily_record;
 
-    // æ‰€å¤„çš„åœºæ™¯
+    // Ëù´¦µÄ³¡¾°
     std::string Place;
 };

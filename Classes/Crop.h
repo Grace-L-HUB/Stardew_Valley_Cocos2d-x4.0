@@ -8,36 +8,36 @@
 #include <string>
 
 enum Phase {
-    SEED,    //ç§å­
-    GROWING, //ç”Ÿé•¿ä¸­
-    MATURE,  //æˆç†Ÿ
-    SAPLESS, // æ¯èçŠ¶æ€ 
-    DEAD     //æ¯æ­» åœ¨å­£èŠ‚æ›´æ¢åä½œç‰©éœ€è®¾ä¸ºæ¯æ­»çŠ¶æ€ 
+    SEED,    //ÖÖ×Ó
+    GROWING, //Éú³¤ÖĞ
+    MATURE,  //³ÉÊì
+    SAPLESS, // ¿İÎ®×´Ì¬ 
+    DEAD     //¿İËÀ ÔÚ¼¾½Ú¸ü»»ºó×÷ÎïĞèÉèÎª¿İËÀ×´Ì¬ 
 };
 
 class Crop :public Item {
 private:
-    const std::string season; //ä½œç‰©ç”Ÿé•¿çš„å­£èŠ‚
-    int mature_needed;  //è¾¾åˆ°æˆç†Ÿæ‰€éœ€å¤©æ•°
-    Phase phase;      //å½“å‰é˜¶æ®µï¼Œå¯¹åº”`SEED` `GROWING` `MATURE`ä¸‰ä¸ªé˜¶æ®µ 
-    bool harvestable;         //æ˜¯å¦å¯æ”¶è·
+    const std::string season; //×÷ÎïÉú³¤µÄ¼¾½Ú
+    int mature_needed;  //´ïµ½³ÉÊìËùĞèÌìÊı
+    Phase phase;      //µ±Ç°½×¶Î£¬¶ÔÓ¦`SEED` `GROWING` `MATURE`Èı¸ö½×¶Î 
+    bool harvestable;         //ÊÇ·ñ¿ÉÊÕ»ñ
 public:
-    //å­˜æ”¾ä½œç‰©ä¸åŒæ—¶æœŸå¯¹åº”çš„å›¾ç‰‡è·¯å¾„
+    //´æ·Å×÷Îï²»Í¬Ê±ÆÚ¶ÔÓ¦µÄÍ¼Æ¬Â·¾¶
     const std::string growing_pic;
     const std::string mature_pic;
-    // ç§æ¤åœ°å—ç¼–å·
+    // ÖÖÖ²µØ¿é±àºÅ
     int nums;
-    //å½“å¤©æ˜¯å¦æµ‡è¿‡æ°´ æ¯å¤©æ›´æ–°ä¸ºfalse
+    //µ±ÌìÊÇ·ñ½½¹ıË® Ã¿Ìì¸üĞÂÎªfalse
     bool watered;            
-    // ç§æ¤çš„æ—¥æœŸ
+    // ÖÖÖ²µÄÈÕÆÚ
     int plant_day;     
-    //ä½œç‰©ç±»
+    //×÷ÎïÀà
     Crop(const std::string& crop_name, const std::string& initial_pic,
         const std::string& growing_pic, const std::string& mature_pic, const std::string& season,
         const Phase& current_phase = SEED, const int value = 1, const int plant_day = 0,
         const bool is_harvestable = false, const int mature_limit = 4);
     Crop(const Crop& other);
-    // é»˜è®¤åˆå§‹åŒ–å‡½æ•°
+    // Ä¬ÈÏ³õÊ¼»¯º¯Êı
     Crop():Item("Unkown", "Unkown", 0), growing_pic("Unkown"), mature_pic("Unkown"),
         season("Unkown"), mature_needed(0), phase(Phase::SEED),
         plant_day(0), harvestable(false), watered(false), nums(500) {}
@@ -47,52 +47,52 @@ public:
 
 
     const std::string& GetSeason() const { return season; }
-    //åˆ¤æ–­æ˜¯å¦ä¸ºç§å­çŠ¶æ€
+    //ÅĞ¶ÏÊÇ·ñÎªÖÖ×Ó×´Ì¬
     bool IsSeed() const { return phase == SEED; }
-    //åˆ¤æ–­æ˜¯å¦ä¸ºæˆç†ŸçŠ¶æ€
+    //ÅĞ¶ÏÊÇ·ñÎª³ÉÊì×´Ì¬
     bool IsMature() const { return phase == MATURE; }
-    //è·å–ä½œç‰©ç§æ¤çš„å¤©æ•°
+    //»ñÈ¡×÷ÎïÖÖÖ²µÄÌìÊı
     int GetGrowthProgress() const { return plant_day; }
-    //è·å–å½“å‰çš„`phase`
+    //»ñÈ¡µ±Ç°µÄ`phase`
     Phase GetPhase() const { return phase; }
-    //è·å–ä½œç‰©å½“å‰æ˜¯å¦å¯ä»¥æ”¶è·
+    //»ñÈ¡×÷Îïµ±Ç°ÊÇ·ñ¿ÉÒÔÊÕ»ñ
     bool IsHarvestable() const { return harvestable; }
-    // æµ‡æ°´
+    // ½½Ë®
     void Water();
-    // æ›´æ–°ä½œç‰©çŠ¶æ€ æ¯è¿›å…¥æ–°çš„ä¸€å¤©æ—¶éœ€è°ƒç”¨
+    // ¸üĞÂ×÷Îï×´Ì¬ Ã¿½øÈëĞÂµÄÒ»ÌìÊ±Ğèµ÷ÓÃ
     void UpdateGrowth();
-    //è®¾ç½®çŠ¶æ€ä¸ºDEAD growth_progressè®¾ä¸º-1 harvestableä¸ºflase
+    //ÉèÖÃ×´Ì¬ÎªDEAD growth_progressÉèÎª-1 harvestableÎªflase
     void SetDead();
-    //é‡æ–°è®¾ç½®ç‰©å“ä»·å€¼ æˆç†Ÿä½œç‰©éœ€æ›´æ–°å…¶ä»·å€¼
+    //ÖØĞÂÉèÖÃÎïÆ·¼ÛÖµ ³ÉÊì×÷ÎïĞè¸üĞÂÆä¼ÛÖµ
     void SetValue(const int update_value);
 
-    //ç”¨äºåˆ¤æ–­å½“å‰å¯¹è±¡ä¸otherå¯¹è±¡èƒ½å¦åœ¨èƒŒåŒ…ä¸­å…¬ç”¨å­˜å‚¨èƒŒåŒ…æ ¼ä½
+    //ÓÃÓÚÅĞ¶Ïµ±Ç°¶ÔÏóÓëother¶ÔÏóÄÜ·ñÔÚ±³°üÖĞ¹«ÓÃ´æ´¢±³°ü¸ñÎ»
     virtual bool CanBeDepositTogether(const Item& other) const;
 
-    //è·å–shared_ptr<Crop>ç±»å‹çš„çš„å‰¯æœ¬ 
-    //ç§æ¤æ—¶ä½¿ç”¨è¯¥æ–¹æ³•
-    //ä»¥ä¾¿åç»­é“²é™¤æˆ–æ”¶è·ååŠæ—¶é€šè¿‡reseté”€æ¯å¯¹è±¡
-    //é¿å…æ‰‹åŠ¨è°ƒç”¨newå’Œdeleteå¯èƒ½å‡ºç°çš„é—®é¢˜
+    //»ñÈ¡shared_ptr<Crop>ÀàĞÍµÄµÄ¸±±¾ 
+    //ÖÖÖ²Ê±Ê¹ÓÃ¸Ã·½·¨
+    //ÒÔ±ãºóĞø²ù³ı»òÊÕ»ñºó¼°Ê±Í¨¹ıresetÏú»Ù¶ÔÏó
+    //±ÜÃâÊÖ¶¯µ÷ÓÃnewºÍdelete¿ÉÄÜ³öÏÖµÄÎÊÌâ
     virtual std::shared_ptr<Item> GetCopy() const;
 
     std::shared_ptr<Crop> GetCropCopy() const;
 
-    //æ”¶è·
-    //æ­¤å¤„ä»…æä¾›èƒ½å¦æ”¶è·çš„æ¡ä»¶åˆ¤æ–­å’Œé”€æ¯å¯¹åº”Cropå¯¹è±¡çš„æ“ä½œ
+    //ÊÕ»ñ
+    //´Ë´¦½öÌá¹©ÄÜ·ñÊÕ»ñµÄÌõ¼şÅĞ¶ÏºÍÏú»Ù¶ÔÓ¦Crop¶ÔÏóµÄ²Ù×÷
 
 
-    //è·å–ç‰©å“æ“ä½œéœ€è¿›ä¸€æ­¥ç»“åˆç©å®¶ç±»
-    //å¯¹åº”å®ä¾‹ä¸å¯æ”¶è·æˆ–ä¼ å…¥çš„shared_ptr<Crop>ä¸ºç©ºå‡è¿”å›false
-    //å¯¹åº”å®ä¾‹å¯æ”¶è·åˆ™é”€æ¯å¯¹åº”å¯¹è±¡è¿”å›true
+    //»ñÈ¡ÎïÆ·²Ù×÷Ğè½øÒ»²½½áºÏÍæ¼ÒÀà
+    //¶ÔÓ¦ÊµÀı²»¿ÉÊÕ»ñ»ò´«ÈëµÄshared_ptr<Crop>Îª¿Õ¾ù·µ»Øfalse
+    //¶ÔÓ¦ÊµÀı¿ÉÊÕ»ñÔòÏú»Ù¶ÔÓ¦¶ÔÏó·µ»Øtrue
     static bool Harvest(std::shared_ptr<Crop> to_harvest);
 
 
-    //é“²é™¤
-    //æä¾›é”€æ¯å¯¹åº”Cropå¯¹è±¡çš„æ“ä½œ
+    //²ù³ı
+    //Ìá¹©Ïú»Ù¶ÔÓ¦Crop¶ÔÏóµÄ²Ù×÷
 
 
-    //è‹¥ä¼ å…¥çš„shared_ptr<Crop>ä¸ºç©ºè¿”å›false
-    //å¦åˆ™é”€æ¯å¯¹åº”å¯¹è±¡å¹¶è¿”å›true
+    //Èô´«ÈëµÄshared_ptr<Crop>Îª¿Õ·µ»Øfalse
+    //·ñÔòÏú»Ù¶ÔÓ¦¶ÔÏó²¢·µ»Øtrue
     static bool Remove(std::shared_ptr<Crop> to_remove);
 
 

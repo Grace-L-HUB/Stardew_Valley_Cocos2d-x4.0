@@ -1,7 +1,7 @@
 #include "NPC.h"
 #include "AppDelegate.h"
 
-// NPC ç±»æ„é€ å‡½æ•°  
+// NPC Àà¹¹Ôìº¯Êı  
 NPC::NPC ( const std::string& name , const cocos2d::Vec2& position ,
     const std::vector<std::vector<std::string>>& animationFrames ,
     const std::vector<cocos2d::Vec2>& validPositions )
@@ -10,16 +10,16 @@ NPC::NPC ( const std::string& name , const cocos2d::Vec2& position ,
 
     // CCLOG ( "Number of valid positions: %zu" , nonTransparentPixels.size () );
 
-    this->sprite = cocos2d::Sprite::create ( animationFrames[1][0] ); // ä½¿ç”¨ä¸‹æ–¹å‘çš„ç¬¬ä¸€å¸§ä½œä¸ºåˆå§‹å›¾åƒ  
+    this->sprite = cocos2d::Sprite::create ( animationFrames[1][0] ); // Ê¹ÓÃÏÂ·½ÏòµÄµÚÒ»Ö¡×÷Îª³õÊ¼Í¼Ïñ  
     if (!this->sprite) {
         // CCLOG ( "Error: Sprite could not be created from %s" , animationFrames[1][0].c_str () );
-        return; // å¤„ç†é”™è¯¯æƒ…å†µï¼Œä¾‹å¦‚è¿”å›æˆ–æŠ›å‡ºå¼‚å¸¸  
+        return; // ´¦Àí´íÎóÇé¿ö£¬ÀıÈç·µ»Ø»òÅ×³öÒì³£  
     }
     this->sprite->setPosition ( position );
-    // è®¾ç½® NPC çš„ç¼©æ”¾  
+    // ÉèÖÃ NPC µÄËõ·Å  
     this->sprite->setScale ( 3.0f );
 
-    // åˆ›å»ºå››ä¸ªæ–¹å‘çš„åŠ¨ç”»  
+    // ´´½¨ËÄ¸ö·½ÏòµÄ¶¯»­  
     CreateAnimation ( name + "_upAnimation" , animations[0] , 0.3f );
     CreateAnimation ( name + "_downAnimation" , animations[1] , 0.3f );
     CreateAnimation ( name + "_leftAnimation" , animations[2] , 0.3f );
@@ -30,24 +30,24 @@ NPC::NPC ( const std::string& name , const cocos2d::Vec2& position ,
 void NPC::RandomMove () {
     // CCLOG ( "RandomMove method called" );
 
-    // å®šä¹‰å¯ç§»åŠ¨çš„æ–¹å‘ï¼Œåˆ†åˆ«ä¸ºä¸Šã€ä¸‹ã€å·¦ã€å³  
+    // ¶¨Òå¿ÉÒÆ¶¯µÄ·½Ïò£¬·Ö±ğÎªÉÏ¡¢ÏÂ¡¢×ó¡¢ÓÒ  
     std::vector<cocos2d::Vec2> directions = {
-        cocos2d::Vec2 ( 0, 50 ),    // ä¸Š  
-        cocos2d::Vec2 ( 0, -50 ),   // ä¸‹  
-        cocos2d::Vec2 ( -50, 0 ),   // å·¦  
-        cocos2d::Vec2 ( 50, 0 )     // å³  
+        cocos2d::Vec2 ( 0, 50 ),    // ÉÏ  
+        cocos2d::Vec2 ( 0, -50 ),   // ÏÂ  
+        cocos2d::Vec2 ( -50, 0 ),   // ×ó  
+        cocos2d::Vec2 ( 50, 0 )     // ÓÒ  
     };
 
-    // éšæœºé€‰æ‹©ä¸€ä¸ªæ–¹å‘  
+    // Ëæ»úÑ¡ÔñÒ»¸ö·½Ïò  
     int randomIndex = rand () % directions.size ();
     cocos2d::Vec2 moveDirection = directions[randomIndex];
 
-    // è®¡ç®—ç›®æ ‡ä½ç½®  
+    // ¼ÆËãÄ¿±êÎ»ÖÃ  
     cocos2d::Vec2 targetPosition = position + moveDirection;
 
     // CCLOG ( "Attempting to move to position: (%f, %f)" , targetPosition.x , targetPosition.y );
 
-    // åˆ¤æ–­ç›®æ ‡ä½ç½®æ˜¯å¦æœ‰æ•ˆï¼Œè¿™é‡Œä¼ å…¥æ–¹å‘  
+    // ÅĞ¶ÏÄ¿±êÎ»ÖÃÊÇ·ñÓĞĞ§£¬ÕâÀï´«Èë·½Ïò  
     if (IsPositionValid ( targetPosition , moveDirection )) {
         MoveToPosition ( targetPosition );
     }
@@ -56,31 +56,31 @@ void NPC::RandomMove () {
     }
 }
 
-// æ£€æŸ¥ç›®æ ‡ä½ç½®æ˜¯å¦æœ‰æ•ˆ  
+// ¼ì²éÄ¿±êÎ»ÖÃÊÇ·ñÓĞĞ§  
 bool NPC::IsPositionValid ( const cocos2d::Vec2& targetPosition , const cocos2d::Vec2& direction ) {
     // CCLOG ( "Checking if position is valid: (%f, %f)" , targetPosition.x , targetPosition.y );
 
-    // æ£€æŸ¥åœ¨ç»™å®šæ–¹å‘ä¸Šå‰å››ä¸ªåƒç´   
+    // ¼ì²éÔÚ¸ø¶¨·½ÏòÉÏÇ°ËÄ¸öÏñËØ  
     for (int i = 1; i <= 4; ++i) {
         cocos2d::Vec2 checkPosition = targetPosition + direction * static_cast<float>(i);
-        bool isTransparent = true; // å‡è®¾æ˜¯é€æ˜çš„  
+        bool isTransparent = true; // ¼ÙÉèÊÇÍ¸Ã÷µÄ  
 
-        // æ£€æŸ¥è¯¥ä½ç½®æ˜¯å¦åœ¨ nonTransparentPixels åŒºåŸŸå†…  
+        // ¼ì²é¸ÃÎ»ÖÃÊÇ·ñÔÚ nonTransparentPixels ÇøÓòÄÚ  
         for (const auto& pixel : nonTransparentPixels) {
-            if (pixel.distance ( checkPosition ) < 36) { // å¦‚æœåœ¨è·ç¦»å†…ï¼Œè¡¨ç¤ºè¯¥ä½ç½®ä¸é€æ˜  
+            if (pixel.distance ( checkPosition ) < 36) { // Èç¹ûÔÚ¾àÀëÄÚ£¬±íÊ¾¸ÃÎ»ÖÃ²»Í¸Ã÷  
                 // CCLOG ( "Found non-transparent pixel at: (%f, %f)" , checkPosition.x , checkPosition.y );
-                isTransparent = false; // å‘ç°ä¸é€æ˜åƒç´   
+                isTransparent = false; // ·¢ÏÖ²»Í¸Ã÷ÏñËØ  
                 break;
             }
         }
 
-        if (!isTransparent) { // å¦‚æœå‘ç°ä¸é€æ˜åƒç´ ï¼Œè¿”å› false  
+        if (!isTransparent) { // Èç¹û·¢ÏÖ²»Í¸Ã÷ÏñËØ£¬·µ»Ø false  
             // CCLOG ( "Position (%f, %f) is not valid due to non-transparent pixel." , checkPosition.x , checkPosition.y );
             return false;
         }
     }
 
-    // å¦‚æœæ‰€æœ‰æ£€æŸ¥çš„åƒç´ å‡é€æ˜ï¼Œåˆ™è¿”å› true  
+    // Èç¹ûËùÓĞ¼ì²éµÄÏñËØ¾ùÍ¸Ã÷£¬Ôò·µ»Ø true  
     // CCLOG ( "Position (%f, %f) is valid." , targetPosition.x , targetPosition.y );
     return true;
 }
@@ -99,14 +99,14 @@ void NPC::CreateAnimation ( const std::string& animationName , const std::vector
 
 
 void NPC::PlayAnimation ( const std::string& animationName , bool loop ) {
-    // åœ¨æ’­æ”¾æ–°çš„åŠ¨ç”»å‰ï¼Œåœæ­¢å½“å‰åŠ¨ç”»  
-    this->sprite->stopAllActions (); // ä¸¢å¼ƒæ‰€æœ‰åŠ¨ç”»
+    // ÔÚ²¥·ÅĞÂµÄ¶¯»­Ç°£¬Í£Ö¹µ±Ç°¶¯»­  
+    this->sprite->stopAllActions (); // ¶ªÆúËùÓĞ¶¯»­
 
     auto animation = cocos2d::AnimationCache::getInstance ()->getAnimation ( animationName );
     if (animation) {
         auto animateAction = cocos2d::Animate::create ( animation );
 
-        // å¦‚æœå¾ªç¯æ’­æ”¾ï¼Œæˆ‘ä»¬ä½¿ç”¨ RepeatForever  
+        // Èç¹ûÑ­»·²¥·Å£¬ÎÒÃÇÊ¹ÓÃ RepeatForever  
         if (loop) {
             auto repeatAction = cocos2d::RepeatForever::create ( animateAction );
             sprite->runAction ( repeatAction );
@@ -121,7 +121,7 @@ void NPC::PlayAnimation ( const std::string& animationName , bool loop ) {
 void NPC::MoveToPosition ( const cocos2d::Vec2& targetPosition ) {
     //CCLOG ( "Moving to position: (%f, %f)" , targetPosition.x , targetPosition.y );
 
-    // åˆ¤æ–­æœå‘å¹¶æ’­æ”¾å¯¹åº”åŠ¨ç”»  
+    // ÅĞ¶Ï³¯Ïò²¢²¥·Å¶ÔÓ¦¶¯»­  
     std::string animationName;
     if (targetPosition.x < position.x) {
         animationName = name + "_leftAnimation";
@@ -138,31 +138,31 @@ void NPC::MoveToPosition ( const cocos2d::Vec2& targetPosition ) {
 
 
 
-    // åªåœ¨å½“å‰åŠ¨ç”»ä¸æ˜¯ç›®æ ‡åŠ¨ç”»æ—¶æ’­æ”¾åŠ¨ç”»  
+    // Ö»ÔÚµ±Ç°¶¯»­²»ÊÇÄ¿±ê¶¯»­Ê±²¥·Å¶¯»­  
     if (currentAnimationName != animationName) {
         PlayAnimation ( animationName , true );
-        currentAnimationName = animationName; // è·Ÿè¸ªå½“å‰åŠ¨ç”»åç§°  
+        currentAnimationName = animationName; // ¸ú×Ùµ±Ç°¶¯»­Ãû³Æ  
     }
 
-    // åˆ›å»ºä¸€ä¸ªç§»åŠ¨åŠ¨ä½œ  
+    // ´´½¨Ò»¸öÒÆ¶¯¶¯×÷  
     auto moveAction = cocos2d::MoveTo::create ( 6.0f , targetPosition );
     auto moveDone = cocos2d::CallFunc::create ( [this , targetPosition]() {
-        position = targetPosition; // æ›´æ–°å½“å‰ä½ç½®  
-        // å¯ä»¥æ’­æ”¾åœæ­¢åŠ¨ç”»  
-        currentAnimationName = ""; // ç§»åŠ¨å®Œæˆåé‡ç½®åŠ¨ç”»çŠ¶æ€  
+        position = targetPosition; // ¸üĞÂµ±Ç°Î»ÖÃ  
+        // ¿ÉÒÔ²¥·ÅÍ£Ö¹¶¯»­  
+        currentAnimationName = ""; // ÒÆ¶¯Íê³ÉºóÖØÖÃ¶¯»­×´Ì¬  
     } );
 
     this->sprite->runAction ( cocos2d::Sequence::create ( moveAction , moveDone , nullptr ) );
 
     if (moveAction->isDone ()) {
-        PlayAnimation ( "standAnimation" , true ); // åœ¨ç§»åŠ¨å®Œæˆåæ’­æ”¾ç«™ç«‹åŠ¨ç”»  
-        currentAnimationName = "standAnimation"; // æ›´æ–°çŠ¶æ€  
+        PlayAnimation ( "standAnimation" , true ); // ÔÚÒÆ¶¯Íê³Éºó²¥·ÅÕ¾Á¢¶¯»­  
+        currentAnimationName = "standAnimation"; // ¸üĞÂ×´Ì¬  
     }
 }
 
 
 
-// è·å–å¯¹è¯ä¿¡æ¯çš„å‡½æ•°
+// »ñÈ¡¶Ô»°ĞÅÏ¢µÄº¯Êı
 std::vector<std::vector<std::string>> getDialog ( std::string npc , std::string relation_ship ) {
     if (npc_relationship->getRelationship ( "player" , npc ) >= 80) {
         return {
@@ -172,7 +172,7 @@ std::vector<std::vector<std::string>> getDialog ( std::string npc , std::string 
             {"I thought you might like this.", "This is so thoughtful of you!", "Why not?", "I just don't.", "That's rude!"}
         };
     }
-    else if (relation_ship == "éå¸¸å·®") {
+    else if (relation_ship == "·Ç³£²î") {
         return {
             {"I'm busy, I don't have time for you.", "Okay", "How have you been?", "Can we talk?", "Sure"},
             {"Why are you bothering me?", "Just wanted to check in.", "I don't care.", "Leave me alone!", "Okay"},
@@ -180,7 +180,7 @@ std::vector<std::vector<std::string>> getDialog ( std::string npc , std::string 
             {"I don't want to talk to you.", "Why not?", "I just don't.", "That's rude!", "Okay"}
         };
     }
-    else if (relation_ship == "ä¸€èˆ¬") {
+    else if (relation_ship == "Ò»°ã") {
         return {
             {"Hello, is there something you need?", "Nothing, just wanted to ask you.", "How have you been?", "Can we talk?", "Sure"},
             {"How have you been?", "Pretty good, just busy with work.", "What about you?", "Let's catch up!", "Okay"},
@@ -188,7 +188,7 @@ std::vector<std::vector<std::string>> getDialog ( std::string npc , std::string 
             {"What do you think about our relationship?", "It's average, nothing special.", "I hope it improves.", "Let's work on it.", "Okay"}
         };
     }
-    else if (relation_ship == "å‹å¥½") {
+    else if (relation_ship == "ÓÑºÃ") {
         return {
             {"Hey, how's it going?", "I'm good, thanks!", "What about you?", "Let's hang out!", "Sure"},
             {"What are you up to?", "Just relaxing, you?", "Same here, want to chat?", "Sure, let's talk.", "Okay"},
@@ -196,7 +196,7 @@ std::vector<std::vector<std::string>> getDialog ( std::string npc , std::string 
             {"How do you feel about us?", "I think we're getting along well.", "I agree, it's nice.", "Let's keep it that way.", "Okay"}
         };
     }
-    else if (relation_ship == "äº²å¯†") {
+    else if (relation_ship == "Ç×ÃÜ") {
         return {
             {"Let's go on a date.", "Oh, I have a gift for you.", "Let's do this more often.", "Absolutely!", "Sure"},
             {"We should go on a trip together!", "That sounds amazing!", "I can't wait!", "Yeah!", "Okay"},
@@ -207,7 +207,7 @@ std::vector<std::vector<std::string>> getDialog ( std::string npc , std::string 
     return {};
 }
 
-// è·å–èŠ‚æ—¥å¯¹è¯ä¿¡æ¯çš„å‡½æ•°
+// »ñÈ¡½ÚÈÕ¶Ô»°ĞÅÏ¢µÄº¯Êı
 std::vector<std::vector<std::string>> getFestivalDialog ( std::string npc , std::string relation_ship ) {
     if (npc_relationship->getRelationship ( "player" , npc ) >= 80) {
         return {
@@ -217,7 +217,7 @@ std::vector<std::vector<std::string>> getFestivalDialog ( std::string npc , std:
             {"I thought you might like this.", "This is so thoughtful of you!", "Why not?", "I just don't.", "That's rude!"}
         };
     }
-    else if (relation_ship == "éå¸¸å·®") {
+    else if (relation_ship == "·Ç³£²î") {
         return {
             {"I'm busy, I don't have time for you.", "Okay", "How have you been?", "Can we talk?", "Sure"},
             {"Why are you bothering me?", "Just wanted to check in.", "I don't care.", "Leave me alone!", "Okay"},
@@ -225,7 +225,7 @@ std::vector<std::vector<std::string>> getFestivalDialog ( std::string npc , std:
             {"I don't want to talk to you.", "Why not?", "I just don't.", "That's rude!", "Okay"}
         };
     }
-    else if (relation_ship == "ä¸€èˆ¬") {
+    else if (relation_ship == "Ò»°ã") {
         return {
             {"Hello, is there something you need?", "Nothing, just wanted to ask you.", "How have you been?", "Can we talk?", "Sure"},
             {"How have you been?", "Pretty good, just busy with work.", "What about you?", "Let's catch up!", "Okay"},
@@ -233,7 +233,7 @@ std::vector<std::vector<std::string>> getFestivalDialog ( std::string npc , std:
             {"What do you think about our relationship?", "It's average, nothing special.", "I hope it improves.", "Let's work on it.", "Okay"}
         };
     }
-    else if (relation_ship == "å‹å¥½") {
+    else if (relation_ship == "ÓÑºÃ") {
         return {
             {"Hey, how's it going?", "I'm good, thanks!", "What about you?", "Let's hang out!", "Sure"},
             {"What are you up to?", "Just relaxing, you?", "Same here, want to chat?", "Sure, let's talk.", "Okay"},
@@ -241,7 +241,7 @@ std::vector<std::vector<std::string>> getFestivalDialog ( std::string npc , std:
             {"How do you feel about us?", "I think we're getting along well.", "I agree, it's nice.", "Let's keep it that way.", "Okay"}
         };
     }
-    else if (relation_ship == "äº²å¯†") {
+    else if (relation_ship == "Ç×ÃÜ") {
         return {
             {"Let's go on a date.", "Oh, I have a gift for you.", "Let's do this more often.", "Absolutely!", "Sure"},
             {"We should go on a trip together!", "That sounds amazing!", "I can't wait!", "Yeah!", "Okay"},
@@ -252,22 +252,22 @@ std::vector<std::vector<std::string>> getFestivalDialog ( std::string npc , std:
     return {};
 }
 
-// è·å– NPC å¤§å¤´ç…§è·¯å¾„
+// »ñÈ¡ NPC ´óÍ·ÕÕÂ·¾¶
 std::string getNPCportraits ( std::string name , std::string status ) {
     std::map<std::string , std::map<std::string , std::string>> npcPortraits;
 
     // Abigail
-    // å¤å­£
+    // ÏÄ¼¾
     npcPortraits["Abigail"]["SummerNormal"] = "Portraits/Abigail/Abigail_Beach-0.png";
     npcPortraits["Abigail"]["SummerSmile"] = "Portraits/Abigail/Abigail_Beach-1.png";
     npcPortraits["Abigail"]["SummerAngry"] = "Portraits/Abigail/Abigail_Beach-5.png";
     npcPortraits["Abigail"]["SummerAmazed"] = "Portraits/Abigail/Abigail_Beach-7.png";
-    // å†¬å­£
+    // ¶¬¼¾
     npcPortraits["Abigail"]["WinterNormal"] = "Portraits/Abigail/Abigail_Winter-0.png";
     npcPortraits["Abigail"]["WinterSmile"] = "Portraits/Abigail/Abigail_Winter-1.png";
     npcPortraits["Abigail"]["WinterAngry"] = "Portraits/Abigail/Abigail_Winter-5.png";
     npcPortraits["Abigail"]["WinterAmazed"] = "Portraits/Abigail/Abigail_Winter-7.png";
-    // æ™®é€š
+    // ÆÕÍ¨
     npcPortraits["Abigail"]["Normal"] = "Portraits/Abigail/Abigail-0.png";
     npcPortraits["Abigail"]["Smile"] = "Portraits/Abigail/Abigail-1.png";
     npcPortraits["Abigail"]["Angry"] = "Portraits/Abigail/Abigail-5.png";
@@ -275,17 +275,17 @@ std::string getNPCportraits ( std::string name , std::string status ) {
 
 
     // Alex
-    // å¤å­£
+    // ÏÄ¼¾
     npcPortraits["Alex"]["SummerNormal"] = "Portraits/Alex/Alex_Beach-0.png";
     npcPortraits["Alex"]["SummerSmile"] = "Portraits/Alex/Alex_Beach-1.png";
     npcPortraits["Alex"]["SummerAngry"] = "Portraits/Alex/Alex_Beach-4.png";
     npcPortraits["Alex"]["SummerAmazed"] = "Portraits/Alex/Alex_Beach-6.png";
-    // å†¬å­£
+    // ¶¬¼¾
     npcPortraits["Alex"]["WinterNormal"] = "Portraits/Alex/Alex_Winter-0.png";
     npcPortraits["Alex"]["WinterSmile"] = "Portraits/Alex/Alex_Winter-1.png";
     npcPortraits["Alex"]["WinterAngry"] = "Portraits/Alex/Alex_Winter-5.png";
     npcPortraits["Alex"]["WinterAmazed"] = "Portraits/Alex/Alex_Winter-7.png";
-    // æ™®é€š
+    // ÆÕÍ¨
     npcPortraits["Alex"]["Normal"] = "Portraits/Alex/Alex-0.png";
     npcPortraits["Alex"]["Smile"] = "Portraits/Alex/Alex-1.png";
     npcPortraits["Alex"]["Angry"] = "Portraits/Alex/Alex-5.png";
@@ -293,17 +293,17 @@ std::string getNPCportraits ( std::string name , std::string status ) {
 
 
     // Caroline
-    // å¤å­£
+    // ÏÄ¼¾
     npcPortraits["Caroline"]["SummerNormal"] = "Portraits/Caroline/Caroline_Beach-0.png";
     npcPortraits["Caroline"]["SummerSmile"] = "Portraits/Caroline/Caroline_Beach-1.png";
     npcPortraits["Caroline"]["SummerAngry"] = "Portraits/Caroline/Caroline_Beach-2.png";
     npcPortraits["Caroline"]["SummerAmazed"] = "Portraits/Caroline/Caroline_Beach-3.png";
-    // å†¬å­£
+    // ¶¬¼¾
     npcPortraits["Caroline"]["WinterNormal"] = "Portraits/Caroline/Caroline_Winter-0.png";
     npcPortraits["Caroline"]["WinterSmile"] = "Portraits/Caroline/Caroline_Winter-1.png";
     npcPortraits["Caroline"]["WinterAngry"] = "Portraits/Caroline/Caroline_Winter-2.png";
     npcPortraits["Caroline"]["WinterAmazed"] = "Portraits/Caroline/Caroline_Winter-3.png";
-    // æ™®é€š
+    // ÆÕÍ¨
     npcPortraits["Caroline"]["Normal"] = "Portraits/Caroline/Caroline-0.png";
     npcPortraits["Caroline"]["Smile"] = "Portraits/Caroline/Caroline-1.png";
     npcPortraits["Caroline"]["Angry"] = "Portraits/Caroline/Caroline-2.png";
@@ -311,17 +311,17 @@ std::string getNPCportraits ( std::string name , std::string status ) {
 
 
     // Elliott
-    // å¤å­£
+    // ÏÄ¼¾
     npcPortraits["Elliott"]["SummerNormal"] = "Portraits/Elliott/Elliott_Beach-0.png";
     npcPortraits["Elliott"]["SummerSmile"] = "Portraits/Elliott/Elliott_Beach-5.png";
     npcPortraits["Elliott"]["SummerAngry"] = "Portraits/Elliott/Elliott_Beach-1.png";
     npcPortraits["Elliott"]["SummerAmazed"] = "Portraits/Elliott/Elliott_Beach-8.png";
-    // å†¬å­£
+    // ¶¬¼¾
     npcPortraits["Elliott"]["WinterNormal"] = "Portraits/Elliott/Elliott_Winter-0.png";
     npcPortraits["Elliott"]["WinterSmile"] = "Portraits/Elliott/Elliott_Winter-5.png";
     npcPortraits["Elliott"]["WinterAngry"] = "Portraits/Elliott/Elliott_Winter-1.png";
     npcPortraits["Elliott"]["WinterAmazed"] = "Portraits/Elliott/Elliott_Winter-8.png";
-    // æ™®é€š
+    // ÆÕÍ¨
     npcPortraits["Elliott"]["Normal"] = "Portraits/Elliott/Elliott-0.png";
     npcPortraits["Elliott"]["Smile"] = "Portraits/Elliott/Elliott-5.png";
     npcPortraits["Elliott"]["Angry"] = "Portraits/Elliott/Elliott-1.png";
@@ -329,32 +329,32 @@ std::string getNPCportraits ( std::string name , std::string status ) {
 
 
     // Emily
-    // å¤å­£
+    // ÏÄ¼¾
     npcPortraits["Emily"]["SummerNormal"] = "Portraits/Emily/Emily_Beach-0.png";
     npcPortraits["Emily"]["SummerSmile"] = "Portraits/Emily/Emily_Beach-1.png";
     npcPortraits["Emily"]["SummerAngry"] = "Portraits/Emily/Emily_Beach-2.png";
     npcPortraits["Emily"]["SummerAmazed"] = "Portraits/Emily/Emily_Beach-6.png";
-    // å†¬å­£
+    // ¶¬¼¾
     npcPortraits["Emily"]["WinterNormal"] = "Portraits/Emily/Emily_Winter-0.png";
     npcPortraits["Emily"]["WinterSmile"] = "Portraits/Emily/Emily_Winter-1.png";
     npcPortraits["Emily"]["WinterAngry"] = "Portraits/Emily/Emily_Winter-2.png";
     npcPortraits["Emily"]["WinterAmazed"] = "Portraits/Emily/Emily_Winter-6.png";
-    // æ™®é€š
+    // ÆÕÍ¨
     npcPortraits["Emily"]["Normal"] = "Portraits/Emily/Emily-0.png";
     npcPortraits["Emily"]["Smile"] = "Portraits/Emily/Emily-1.png";
     npcPortraits["Emily"]["Angry"] = "Portraits/Emily/Emily-2.png";
     npcPortraits["Emily"]["Amazed"] = "Portraits/Emily/Emily-6.png";
-    // å¦‚æœç»™å®š NPC åç§°åœ¨æ˜ å°„ä¸­å­˜åœ¨  
+    // Èç¹û¸ø¶¨ NPC Ãû³ÆÔÚÓ³ÉäÖĞ´æÔÚ  
     if (npcPortraits.find ( name ) != npcPortraits.end ()) {
-        // è¿”å›ç›¸åº”çŠ¶æ€çš„å¤´åƒè·¯å¾„  
+        // ·µ»ØÏàÓ¦×´Ì¬µÄÍ·ÏñÂ·¾¶  
         return npcPortraits[name][status];
     }
 
-    // å¦‚æœ NPC åç§°ä¸å­˜åœ¨ï¼Œåˆ™è¿”å›ç©ºå­—ç¬¦ä¸²æˆ–é”™è¯¯ä¿¡æ¯  
-    return "ERROR"; // æˆ–è€…å¯ä»¥è¿”å›é»˜è®¤å¤´åƒè·¯å¾„  
+    // Èç¹û NPC Ãû³Æ²»´æÔÚ£¬Ôò·µ»Ø¿Õ×Ö·û´®»ò´íÎóĞÅÏ¢  
+    return "ERROR"; // »òÕß¿ÉÒÔ·µ»ØÄ¬ÈÏÍ·ÏñÂ·¾¶  
 }
 
-// è·å– Abigail åŠ¨ç”»å¸§ä¿¡æ¯çš„å‡½æ•°  
+// »ñÈ¡ Abigail ¶¯»­Ö¡ĞÅÏ¢µÄº¯Êı  
 std::vector<std::vector<std::string>> getAbigailAnimations (std::string season) {
     if (season == "Winter") {
         return {
@@ -382,7 +382,7 @@ std::vector<std::vector<std::string>> getAbigailAnimations (std::string season) 
     }
 }
 
-// è·å– Alex åŠ¨ç”»ä¿¡æ¯çš„å‡½æ•°
+// »ñÈ¡ Alex ¶¯»­ĞÅÏ¢µÄº¯Êı
 std::vector<std::vector<std::string>> getAlexAnimations (std::string season) {
     if (season == "Winter") {
         return {
@@ -410,7 +410,7 @@ std::vector<std::vector<std::string>> getAlexAnimations (std::string season) {
     }
 }
 
-// è·å– Caroline åŠ¨ç”»ä¿¡æ¯çš„å‡½æ•°
+// »ñÈ¡ Caroline ¶¯»­ĞÅÏ¢µÄº¯Êı
 std::vector<std::vector<std::string>> getCarolineAnimations (std::string season) {
     if (season == "Winter") {
         return {
@@ -438,7 +438,7 @@ std::vector<std::vector<std::string>> getCarolineAnimations (std::string season)
     }
 }
 
-// è·å– Elliott åŠ¨ç”»ä¿¡æ¯çš„å‡½æ•°
+// »ñÈ¡ Elliott ¶¯»­ĞÅÏ¢µÄº¯Êı
 std::vector<std::vector<std::string>> getElliottAnimations (std::string season) {
     if (season == "Winter") {
         return {
@@ -466,7 +466,7 @@ std::vector<std::vector<std::string>> getElliottAnimations (std::string season) 
     }
 }
 
-// è·å– Emily åŠ¨ç”»ä¿¡æ¯çš„å‡½æ•°
+// »ñÈ¡ Emily ¶¯»­ĞÅÏ¢µÄº¯Êı
 std::vector<std::vector<std::string>> getEmilyAnimations (std::string season) {
     if (season == "Winter") {
         return {
@@ -494,7 +494,7 @@ std::vector<std::vector<std::string>> getEmilyAnimations (std::string season) {
     }
 }
 
-// è·å–èŠ‚æ—¥æ—¶çš„ Fisherman çš„å›¾å‡½æ•°
+// »ñÈ¡½ÚÈÕÊ±µÄ Fisherman µÄÍ¼º¯Êı
 std::vector<std::string> getFisherman ( std::string season ) {
     if (season == "Summer") {
         return{

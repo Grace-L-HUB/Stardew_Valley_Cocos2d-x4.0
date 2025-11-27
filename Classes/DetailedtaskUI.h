@@ -1,6 +1,6 @@
 #pragma once
 //DetailedtaskUI.h
-//浠诲姟鍏蜂綋鐣岄潰
+//任务具体界面
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

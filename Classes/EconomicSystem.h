@@ -9,32 +9,32 @@ using namespace std;
 
 class EconomicSystem {
 public:
-    // æ„é€ å‡½æ•°å’Œææ„å‡½æ•°  
+    // ¹¹Ôìº¯ÊıºÍÎö¹¹º¯Êı  
     EconomicSystem ( Inventory* mybag , Inventory* goods);
     ~EconomicSystem ();
 
-    // å¢åŠ é‡‘å¸çš„å‡½æ•°  
+    // Ôö¼Ó½ğ±ÒµÄº¯Êı  
     void addGold ( int amount );
 
-    // å‡å°‘é‡‘å¸çš„å‡½æ•°  
+    // ¼õÉÙ½ğ±ÒµÄº¯Êı  
     void subtractGold ( int amount );
 
-    // è¯»å–æ‹¥æœ‰é‡‘å¸æ•°é‡çš„å‡½æ•°  
+    // ¶ÁÈ¡ÓµÓĞ½ğ±ÒÊıÁ¿µÄº¯Êı  
     int getGoldAmount () const;
 
-    // è´­ä¹°å‡½æ•°  
+    // ¹ºÂòº¯Êı  
     void buyItem ( const string& itemName );
 
-    // å‡ºå”®å‡½æ•°  
+    // ³öÊÛº¯Êı  
     void sellItem ( const string& itemName , int count = 1 );
 
 private:
-    // ä¿å­˜é‡‘å¸æ•°é‡
+    // ±£´æ½ğ±ÒÊıÁ¿
     int goldAmount;
 
-    Inventory* _mybag; // æŒ‡å‘è‡ªå·±èƒŒåŒ…å®ä¾‹çš„æŒ‡é’ˆ  
+    Inventory* _mybag; // Ö¸Ïò×Ô¼º±³°üÊµÀıµÄÖ¸Õë  
 
-    Inventory* _goods; // æŒ‡å‘å•†å“å®ä¾‹çš„æŒ‡é’ˆ  
+    Inventory* _goods; // Ö¸ÏòÉÌÆ·ÊµÀıµÄÖ¸Õë  
 };
 
 #endif  // ECONOMIC_SYSTEM_H

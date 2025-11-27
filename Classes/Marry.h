@@ -1,6 +1,6 @@
 #pragma once
 //Marry.h
-//婚姻显示界面
+//???????????
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

@@ -21,28 +21,28 @@ public:
 
     static  Forest* create();
 
-    // åˆ¤æ–­è§’è‰²çš„ä½ç½®
+    // ÅĞ¶Ï½ÇÉ«µÄÎ»ÖÃ
     void checkPlayerPosition();
 
-    // è¿”å›ä½œç‰©åºå·
+    // ·µ»Ø×÷ÎïĞòºÅ
     int getRegionNumber(Vec2 pos);
 
-    // ä¸‹é›¨æ•ˆæœ
+    // ÏÂÓêĞ§¹û
     void createRainEffect();
 
-    // æ›´æ”¹é›¨æ»´ç”Ÿå‘½å‘¨æœŸ
+    // ¸ü¸ÄÓêµÎÉúÃüÖÜÆÚ
     void updaterain(float deltaTime);
 
-    // åˆ›å»ºä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨äºä¿å­˜æ‰€æœ‰éé€æ˜åƒç´ çš„åæ ‡
+    // ´´½¨Ò»¸öÁĞ±í£¬ÓÃÓÚ±£´æËùÓĞ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
     std::vector<cocos2d::Vec2> nonTransparentPixels;
   
-    // æ¢å¤ç§æ¤
+    // »Ö¸´ÖÖÖ²
     void AllInitialize_ore(); 
 
-    // å‰å¾€å†œåœº
+    // Ç°ÍùÅ©³¡
     Rect farm_area = Rect(1100, 2500, 150, 300);
 
-    // å‰å¾€å°é•‡
+    // Ç°ÍùĞ¡Õò
     Rect town_area = Rect(2500, 1850, 400, 150);
 
     cocos2d::ParticleRain* emitter;
@@ -50,16 +50,16 @@ public:
    
 private:
 
-    /* é€€å‡ºæŒ‰é’® */
+    /* ÍË³ö°´Å¥ */
     Sprite* button;
 
-    // é€€å‡ºæŒ‰é’®
+    // ÍË³ö°´Å¥
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;
 
     bool isEnterKeyPressed = false;
-    // åˆ¤æ–­ç æ ‘Lé”®æ˜¯å¦æŒ‰ä¸‹
+    // ÅĞ¶Ï¿³Ê÷L¼üÊÇ·ñ°´ÏÂ
     bool isLKeyPressed = false;
 
 

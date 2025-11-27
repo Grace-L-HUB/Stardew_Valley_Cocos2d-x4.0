@@ -1,8 +1,8 @@
 #include "Generaltem.h"
 
-// åŠ¨ç‰©è®¾å®šä¸ºè´­ä¹°åç›´æ¥åŠ å…¥ç‰§åœºï¼Œåœ¨èƒŒåŒ…ä¸­ä¸å¯è§
+// ¶¯ÎïÉè¶¨Îª¹ºÂòºóÖ±½Ó¼ÓÈëÄÁ³¡£¬ÔÚ±³°üÖĞ²»¿É¼û
 
-// åŠ¨ç‰©  
+// ¶¯Îï  
 Item AnimalChicken("AnimalChicken", "Item/Surpermarket/Animal/Brown_Chicken.png", 500, 99);
 Item AnimalDuck("AnimalDuck", "Item/Surpermarket/Animal/Duck.png", 1200, 99);
 Item AnimalGoat("AnimalGoat", "Item/Surpermarket/Animal/Goat.png", 1000, 99);
@@ -11,7 +11,7 @@ Item AnimalRabbit("AnimalRabbit", "Item/Surpermarket/Animal/Rabbit.png", 800, 99
 Item AnimalSheep("AnimalSheep", "Item/Surpermarket/Animal/Sheep.png", 1000, 99);
 Item AnimalCow("AnimalCow", "Item/Surpermarket/Animal/White_Cow.png", 800, 99);
 
-// æ˜¥å­£ç§å­ç‰©å“åˆ—è¡¨  
+// ´º¼¾ÖÖ×ÓÎïÆ·ÁĞ±í  
 Item Bean_Starter ( "Bean_Starter" , "Item/Surpermarket/Spring/Bean_Starter.png" , 60 , 99 );
 Item Carrot_Seeds ( "Carrot_Seeds" , "Item/Surpermarket/Spring/Carrot_Seeds.png" , 100 , 99 );
 Item Cauliflower_Seeds ( "Cauliflower_Seeds" , "Item/Surpermarket/Spring/Cauliflower_Seeds.png" , 100 , 99 );
@@ -26,7 +26,7 @@ Item Rice_Shoot ( "Rice_Shoot" , "Item/Surpermarket/Spring/Rice_Shoot.png" , 20 
 Item Strawberry_Seeds ( "Strawberry_Seeds" , "Item/Surpermarket/Spring/Strawberry_Seeds.png" , 100 , 99 );
 Item Tulip_Bulb ( "Tulip_Bulb" , "Item/Surpermarket/Spring/Tulip_Bulb.png" , 20 , 99 );
 
-// å¤å­£ç§å­ç‰©å“åˆ—è¡¨  
+// ÏÄ¼¾ÖÖ×ÓÎïÆ·ÁĞ±í  
 Item Amaranth_Seeds ( "Amaranth_Seeds" , "Item/Surpermarket/Summer/Amaranth_Seeds.png" , 70 , 99 );
 Item Artichoke_Seeds ( "Artichoke_Seeds" , "Item/Surpermarket/Summer/Artichoke_Seeds.png" , 30 , 99 );
 Item Beet_Seeds ( "Beet_Seeds" , "Item/Surpermarket/Summer/Beet_Seeds.png" , 100 , 99 );
@@ -53,10 +53,10 @@ Item Tomato_Seeds ( "Tomato_Seeds" , "Item/Surpermarket/Summer/Tomato_Seeds.png"
 Item Wheat_Seeds ( "Wheat_Seeds" , "Item/Surpermarket/Summer/Wheat_Seeds.png" , 100 , 99 );
 Item Yam_Seeds ( "Yam_Seeds" , "Item/Surpermarket/Summer/Yam_Seeds.png" , 60 , 99 );
 
-// å†¬å­£ç§å­ç‰©å“åˆ—è¡¨  
-Item Powdermelon_Seeds ( "Powdermelon_Seeds" , "Item/Surpermarket/Summer/Powdermelon_Seeds.png" , 1 , 99 ); // è¯·æ³¨æ„ï¼Œæ¸¸æˆä¸­æ²¡æœ‰å†¬å­£ç§å­è¿™ä¸ªç‰©å“  
+// ¶¬¼¾ÖÖ×ÓÎïÆ·ÁĞ±í  
+Item Powdermelon_Seeds ( "Powdermelon_Seeds" , "Item/Surpermarket/Summer/Powdermelon_Seeds.png" , 1 , 99 ); // Çë×¢Òâ£¬ÓÎÏ·ÖĞÃ»ÓĞ¶¬¼¾ÖÖ×ÓÕâ¸öÎïÆ·  
 
-// å·¥å…·åˆ—è¡¨  
+// ¹¤¾ßÁĞ±í  
 Item Backpack_36 ( "36_Backpack" , "Item/Surpermarket/Tools/36_Backpack.png" , 2000 , 99 );
 Item Backpack ( "Backpack" , "Item/Surpermarket/Tools/Backpack.png" , 2000 , 99 );
 Item Advanced_Iridium_Rod ( "Advanced_Iridium_Rod" , "Item/Surpermarket/Tools/Advanced_Iridium_Rod.png" , 2000 , 99 );
@@ -87,7 +87,7 @@ Item Trash_Can_Copper ( "Trash_Can_Copper" , "Item/Surpermarket/Tools/Trash_Can_
 Item Watering_Can ( "Watering_Can" , "Item/Surpermarket/Tools/Watering_Can.png" , 200 , 99 );
 Item Trash_Can_Steel ( "Trash_Can_Steel" , "Item/Surpermarket/Tools/Trash_Can_Steel.png" , 500 , 99 );
 
-// æ ‘è‹—åˆ—è¡¨  
+// Ê÷ÃçÁĞ±í  
 Item Apple_Sapling ( "Apple_Sapling" , "Item/Surpermarket/Tree/Apple_Sapling.png" , 1000 , 99 );
 Item Apricot_Sapling ( "Apricot_Sapling" , "Item/Surpermarket/Tree/Apricot_Sapling.png" , 2000 , 99 );
 Item Banana_Sapling ( "Banana_Sapling" , "Item/Surpermarket/Tree/Banana_Sapling.png" , 2000 , 99 );
@@ -97,12 +97,12 @@ Item Orange_Sapling ( "Orange_Sapling" , "Item/Surpermarket/Tree/Orange_Sapling.
 Item Peach_Sapling ( "Peach_Sapling" , "Item/Surpermarket/Tree/Peach_Sapling.png" , 3000 , 99 );
 Item Pomegranate_Sapling ( "Pomegranate_Sapling" , "Item/Surpermarket/Tree/Pomegranate_Sapling.png" , 3000 , 99 );
 
-// å®çŸ³
+// ±¦Ê¯
 Item amethyst("Amethyst", "Ore/Amethyst3.png", 1000, 99);
 Item emerald("Emerald", "Ore/Emerald3.png", 1000, 99);
 Item ruby("Ruby", "Ore/Ruby3.png", 1000, 99);
 
-// æˆç†Ÿä½œç‰©
+// ³ÉÊì×÷Îï
 Item Wheat("wheat", "crop/wheat4.png", 1000, 99);
 Item Corn("corn", "crop/corn4.png", 1000, 99);
 Item Potato("potato", "crop/Potato4.png", 1000, 99);

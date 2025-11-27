@@ -21,33 +21,33 @@ public:
 
     static Cave* create();
 
-    // åˆ¤æ–­è§’è‰²çš„ä½ç½®
+    // ÅĞ¶Ï½ÇÉ«µÄÎ»ÖÃ
     void checkPlayerPosition();
 
-    // è¿”å›ä½œç‰©åºå·
+    // ·µ»Ø×÷ÎïĞòºÅ
     int getRegionNumber(Vec2 pos);
 
-    // åˆ›å»ºä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨äºä¿å­˜æ‰€æœ‰éé€æ˜åƒç´ çš„åæ ‡
+    // ´´½¨Ò»¸öÁĞ±í£¬ÓÃÓÚ±£´æËùÓĞ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
     std::vector<cocos2d::Vec2> nonTransparentPixels;
   
-    // æ¢å¤ç§æ¤
+    // »Ö¸´ÖÖÖ²
     void AllInitialize_ore(); 
 
-    // ç¦»å¼€å±±æ´
+    // Àë¿ªÉ½¶´
     Rect Out_cave = Rect(720, 1100, 150, 150);
 
 private:
 
-    /* é€€å‡ºæŒ‰é’® */
+    /* ÍË³ö°´Å¥ */
     Sprite* button;
 
-    // é€€å‡ºæŒ‰é’®
+    // ÍË³ö°´Å¥
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;
 
     bool isEnterKeyPressed = false;
-    // åˆ¤æ–­æŒ–çŸ¿Mé”®æ˜¯å¦æŒ‰ä¸‹
+    // ÅĞ¶ÏÍÚ¿óM¼üÊÇ·ñ°´ÏÂ
     bool isMKeyPressed = false;
 
 

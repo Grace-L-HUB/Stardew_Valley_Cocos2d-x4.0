@@ -5,11 +5,11 @@
 
 class TaskManagement {
 public:
-	/* åˆå§‹ä¿¡æ¯
-	*  ä»»åŠ¡ç§ç±»ï¼šNPCå‘å¸ƒã€ç³»ç»Ÿå‘å¸ƒã€èŠ‚æ—¥åº†å…¸å‘å¸ƒ
-	*  NPCå‘å¸ƒåˆ™ä¼ é€’NPCåå­—
-	*  ä»»åŠ¡å†…å®¹ï¼šNPCå‘å¸ƒä¸ç³»ç»Ÿå‘å¸ƒå‡æä¾›éœ€è¦çš„ç‰©å“ï¼ŒèŠ‚æ—¥åº†å…¸å•ç‹¬æä¾›
-	*  å¥–åŠ±ï¼šNPCå‘å¸ƒåŠ é‡‘å¸æˆ–ç‰©å“ä»¥åŠå¯¹åº”å¥½æ„Ÿåº¦ï¼Œç³»ç»Ÿå‘å¸ƒåŠ é‡‘å¸ï¼ŒèŠ‚æ—¥åº†å…¸å‘å¸ƒåŠ ä¸æ‰€æœ‰äººçš„å¥½æ„Ÿåº¦ä»¥åŠç‰¹æ®Šæ”¶é›†ç‰©å“å¥–åŠ±
+	/* ³õÊ¼ĞÅÏ¢
+	*  ÈÎÎñÖÖÀà£ºNPC·¢²¼¡¢ÏµÍ³·¢²¼¡¢½ÚÈÕÇìµä·¢²¼
+	*  NPC·¢²¼Ôò´«µİNPCÃû×Ö
+	*  ÈÎÎñÄÚÈİ£ºNPC·¢²¼ÓëÏµÍ³·¢²¼¾ùÌá¹©ĞèÒªµÄÎïÆ·£¬½ÚÈÕÇìµäµ¥¶ÀÌá¹©
+	*  ½±Àø£ºNPC·¢²¼¼Ó½ğ±Ò»òÎïÆ·ÒÔ¼°¶ÔÓ¦ºÃ¸Ğ¶È£¬ÏµÍ³·¢²¼¼Ó½ğ±Ò£¬½ÚÈÕÇìµä·¢²¼¼ÓÓëËùÓĞÈËµÄºÃ¸Ğ¶ÈÒÔ¼°ÌØÊâÊÕ¼¯ÎïÆ·½±Àø
 	*/
 	enum TaskType {
 		NPC_TASK,
@@ -18,16 +18,16 @@ public:
 	};
 
 	struct Task {
-		std::string name;               // ä»»åŠ¡åç§°  
-		TaskType type;                  // ä»»åŠ¡ç±»å‹  
-		std::string npcName;            // å‘å¸ƒä»»åŠ¡çš„ NPC åå­—ï¼ˆNPC_TASK ä½¿ç”¨ï¼‰  
-		std::vector<Item> requiredItems; // éœ€è¦çš„ç‰©å“ï¼ˆå¯é€‰ï¼‰  
-		int rewardCoins;                // å¥–åŠ±é‡‘å¸ï¼ˆSYSTEM_TASK å’Œ NPC_TASK ä½¿ç”¨ï¼‰  
-		std::vector<Item> specialRewards; // èŠ‚æ—¥åº†å…¸ç‰¹æ®Šæ”¶é›†ç‰©å“ï¼ˆFESTIVAL_TASK ä½¿ç”¨ï¼‰  
-		float relationshipPoints;       // å¯¹åº”çš„å¥½æ„Ÿåº¦ï¼ˆNPC_TASK å’Œ FESTIVAL_TASK ä½¿ç”¨ï¼‰  
-		std::string description;        // ä»»åŠ¡è¯¦ç»†è¯´æ˜  
-		std::string startSeason;          // ä»»åŠ¡åˆå§‹æ—¥æœŸ  
-		std::string endSeason;            // ä»»åŠ¡æˆªè‡³æ—¥æœŸ  
+		std::string name;               // ÈÎÎñÃû³Æ  
+		TaskType type;                  // ÈÎÎñÀàĞÍ  
+		std::string npcName;            // ·¢²¼ÈÎÎñµÄ NPC Ãû×Ö£¨NPC_TASK Ê¹ÓÃ£©  
+		std::vector<Item> requiredItems; // ĞèÒªµÄÎïÆ·£¨¿ÉÑ¡£©  
+		int rewardCoins;                // ½±Àø½ğ±Ò£¨SYSTEM_TASK ºÍ NPC_TASK Ê¹ÓÃ£©  
+		std::vector<Item> specialRewards; // ½ÚÈÕÇìµäÌØÊâÊÕ¼¯ÎïÆ·£¨FESTIVAL_TASK Ê¹ÓÃ£©  
+		float relationshipPoints;       // ¶ÔÓ¦µÄºÃ¸Ğ¶È£¨NPC_TASK ºÍ FESTIVAL_TASK Ê¹ÓÃ£©  
+		std::string description;        // ÈÎÎñÏêÏ¸ËµÃ÷  
+		std::string startSeason;          // ÈÎÎñ³õÊ¼ÈÕÆÚ  
+		std::string endSeason;            // ÈÎÎñ½ØÖÁÈÕÆÚ  
 
 		Task ( const std::string& name , TaskType type , const std::string& desc , const std::string& start , const std::string& end )
 			: name ( name ) , type ( type ) , rewardCoins ( 0 ) , relationshipPoints ( 0.0f ) , description ( desc ) , startSeason ( start ) , endSeason ( end ) {
@@ -36,31 +36,31 @@ public:
 
 	TaskManagement ();
 
-	// åˆ›å»ºä»»åŠ¡  
+	// ´´½¨ÈÎÎñ  
 	void createTask ( const Task& task );
 
-	// è·å–å·²ç»åˆ›å»ºçš„ä»»åŠ¡
+	// »ñÈ¡ÒÑ¾­´´½¨µÄÈÎÎñ
 	std::vector<Task> returnTasks () { return tasks; }
 
-	// è·å–å·²ç»æ¥å—çš„ä»»åŠ¡
+	// »ñÈ¡ÒÑ¾­½ÓÊÜµÄÈÎÎñ
 	std::vector<Task> returnAcceptTasks () { return acceptTasks; }
 
-	// æ·»åŠ å·²æ¥å—çš„ä»»åŠ¡
+	// Ìí¼ÓÒÑ½ÓÊÜµÄÈÎÎñ
 	void AddAcceptTask ( const Task& task );
 
-	// å®Œæˆä»»åŠ¡å¹¶å¤„ç†å¥–åŠ±  
+	// Íê³ÉÈÎÎñ²¢´¦Àí½±Àø  
 	void completeTask ( const std::string& task_name );
 
-	//ä»»åŠ¡æ¥å—åä»å‘å¸ƒä»»åŠ¡ä¸­åˆ é™¤
+	//ÈÎÎñ½ÓÊÜºó´Ó·¢²¼ÈÎÎñÖĞÉ¾³ı
 	void DeleteAcceptTask ( const Task& task );
 
-	// è¿”å›ç‰©å“å¯¹åº”çš„ä»»åŠ¡
+	// ·µ»ØÎïÆ·¶ÔÓ¦µÄÈÎÎñ
 	std::string findTaskByRequiredItems ( const std::string& itemName );
 
 protected:
 
-	std::vector<Task> tasks;              // å­˜å‚¨ä»»åŠ¡çš„å®¹å™¨
+	std::vector<Task> tasks;              // ´æ´¢ÈÎÎñµÄÈİÆ÷
 
-	std::vector<Task> acceptTasks;        // å‚¨å­˜å·²æ¥å—ä»»åŠ¡çš„å®¹å™¨
+	std::vector<Task> acceptTasks;        // ´¢´æÒÑ½ÓÊÜÈÎÎñµÄÈİÆ÷
 
 };

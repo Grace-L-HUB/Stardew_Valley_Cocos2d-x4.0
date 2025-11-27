@@ -20,23 +20,23 @@ class Sheep :public Livestock {
 private:
 	int current_frame = 0;
 public:
-	// æ„é€ å‡½æ•°
+	// ¹¹Ôìº¯Êı
 	Sheep ( const cocos2d::Rect& area );
 
-	//è™šææ„å‡½æ•°
+	//ĞéÎö¹¹º¯Êı
 	virtual ~Sheep () {};
 
-	// é™æ€createå‡½æ•°
+	// ¾²Ì¬createº¯Êı
 	static Sheep* create ( const cocos2d::Rect& area );
 
-	// initåˆå§‹åŒ–
+	// init³õÊ¼»¯
 	virtual bool init ();
 
-	// äº§å‡ºç¾Šæ¯›
-	// è¦è·å–Woolåœ¨åŸºç±»Itemä»¥å¤–çš„ç‹¬æœ‰æˆå‘˜ï¼ˆå¦‚energy_provided)
-	// éœ€è¦ä½¿ç”¨std::xxx_pointer_cast(å¦‚std::dynamic_pointer_cast<Wool>()å°†æŒ‡é’ˆåŸºç±»å‹è½¬æ¢ä¸ºWool
+	// ²ú³öÑòÃ«
+	// Òª»ñÈ¡WoolÔÚ»ùÀàItemÒÔÍâµÄ¶ÀÓĞ³ÉÔ±£¨Èçenergy_provided)
+	// ĞèÒªÊ¹ÓÃstd::xxx_pointer_cast(Èçstd::dynamic_pointer_cast<Wool>()½«Ö¸Õë»ùÀàĞÍ×ª»»ÎªWool
 	virtual std::shared_ptr<Item> ProduceProduct ();
 
-	//ç§»åŠ¨æ—¶æ›´æ–°å›¾åƒ
+	//ÒÆ¶¯Ê±¸üĞÂÍ¼Ïñ
 	virtual void UpdateTexture ( float deltaTime );
 };

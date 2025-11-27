@@ -1,23 +1,23 @@
 #include "EconomicSystem.h"  
 #include "EventManager.h"
-#include "cocos2d.h"  // ȷ������ cocos2d.h ��ʹ�� CCLOG  
+#include "cocos2d.h"  // ??????? cocos2d.h ????? CCLOG  
 #include <iostream>  
 
 extern int GoldAmount;
 
-// ���캯����ʼ���������Ϊ4000  
+// ???????????????????4000  
 EconomicSystem::EconomicSystem ( Inventory* mybag , Inventory* goods)
     : goldAmount (GoldAmount) , _mybag ( mybag ) , _goods ( goods ) {
-    // ��ʼ���������������ִ��  
+    // ?????????????????????  
 }
 
-// ��������  
+// ????????  
 EconomicSystem::~EconomicSystem () {
-    // ��������  
+    // ????????  
     GoldAmount = goldAmount;
 }
 
-// ���ӽ�ҵĺ���  
+// ??????????  
 void EconomicSystem::addGold ( int amount ) {
     if (amount > 0) {
         int oldAmount = goldAmount;
@@ -30,7 +30,7 @@ void EconomicSystem::addGold ( int amount ) {
     }
 }
 
-// ���ٽ�ҵĺ���  
+// ??????????  
 void EconomicSystem::subtractGold ( int amount ) {
     if (amount > 0 && amount <= goldAmount) {
         int oldAmount = goldAmount;
@@ -48,12 +48,12 @@ void EconomicSystem::subtractGold ( int amount ) {
     }
 }
 
-// ��ȡӵ�н�������ĺ���  
+// ?????��???????????  
 int EconomicSystem::getGoldAmount () const {
     return goldAmount;
 }
 
-// ������  
+// ??????  
 void EconomicSystem::buyItem ( const string& itemName ) {
     Item item = _goods->GetItemByName ( itemName );
 
@@ -68,11 +68,11 @@ void EconomicSystem::buyItem ( const string& itemName ) {
     }
 }
 
-// ���ۺ���  
+// ???????  
 void EconomicSystem::sellItem ( const string& itemName , int count) {
-    Item item = _mybag->GetItemByName ( itemName ); // �ӱ����л�ȡ��Ʒ  
+    Item item = _mybag->GetItemByName ( itemName ); // ??????��?????  
 
-    int itemValue = item.GetValue (); // ��ȡ�����۸�  
+    int itemValue = item.GetValue (); // ??????????  
     addGold ( itemValue * count );
     _mybag->RemoveItem ( item , count );
     CCLOG ( "Sold item: %s for %d gold." , itemName.c_str () , itemValue * count );

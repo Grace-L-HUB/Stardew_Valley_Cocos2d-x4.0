@@ -16,7 +16,7 @@ bool FishingGame::init() {
     position.x += 100;
     position.y -= 70;
 
-    //èƒŒæ™¯åˆå§‹åŒ–
+    //±³¾°³õÊ¼»¯
     background = cocos2d::Sprite::create ( "Beach/fishing_icon.png" );
     background->setAnchorPoint ( cocos2d::Vec2 ( 0 , 0 ) );
     background->setScale ( kBackgroundScale );
@@ -26,7 +26,7 @@ bool FishingGame::init() {
     float background_width = background->getContentSize ().width * kBackgroundScale;
     float background_height = background->getContentSize ().height * kBackgroundScale;
     
-    // è¿›åº¦æ¡åˆå§‹åŒ–
+    // ½ø¶ÈÌõ³õÊ¼»¯
     progress_bar = cocos2d::ProgressTimer::create ( cocos2d::Sprite::create ( "Beach/progress_bar.png" ) );
     progress_bar->setAnchorPoint ( cocos2d::Vec2 ( 0 , 0 ) );
     progress_bar->setScaleX ( kBackgroundScale * kProgressBarBasicScaleX );
@@ -36,22 +36,22 @@ bool FishingGame::init() {
     progress_bar->setBarChangeRate ( cocos2d::Vec2 ( 0 , 1 ) );
     progress_bar->setPosition ( cocos2d::Vec2 ( position.x + background_width * kProgressBarBeginX / kBackgroundWidth ,
         position.y + background_height * kProgressBarBeginY / kBackgroundHeight ) );
-    progress_bar->setPercentage ( 3 ); // åˆå§‹å€¼5%
+    progress_bar->setPercentage ( 3 ); // ³õÊ¼Öµ5%
     this->addChild ( progress_bar , 5 );
 
     auto icon_pos = position;
     icon_pos.x +=  background_width * kIconBeginX / kBackgroundWidth;
     icon_pos.y = icon_pos.y + background_height * kIconBeginY / kBackgroundHeight;
 
-    // é±¼ç²¾çµåˆå§‹åŒ–
+    // Óã¾«Áé³õÊ¼»¯
     fish = cocos2d::Sprite::create ( "Beach/fishlike_icon.png" );
-    fishlike_icon_height = icon_pos.y; // åˆå§‹ä½ç½®
+    fishlike_icon_height = icon_pos.y; // ³õÊ¼Î»ÖÃ
     fish->setAnchorPoint ( cocos2d::Vec2 ( 0 , 0 ) );
     fish->setScale ( kBackgroundScale*kFishBasicScale );
     fish->setPosition ( cocos2d::Vec2 ( icon_pos.x , fishlike_icon_height ) );
     this->addChild ( fish , 10 );
 
-    // ç»¿è‰²æµ®æ ‡åˆå§‹åŒ–
+    // ÂÌÉ«¸¡±ê³õÊ¼»¯
     green_bar = cocos2d::Sprite::create ( "Beach/green_bar.png" );
     green_bar->setAnchorPoint ( cocos2d::Vec2 ( 0 , 0 ) );
     green_bar->setScale ( kBackgroundScale );
@@ -60,16 +60,16 @@ bool FishingGame::init() {
     green_bar->setPosition ( cocos2d::Vec2 ( icon_pos.x , green_bar_height ) );
     this->addChild ( green_bar , 5 );
 
-    // æ·»åŠ äº‹ä»¶ç›‘å¬å™¨
+    // Ìí¼ÓÊÂ¼ş¼àÌıÆ÷
     AddMouseListener ();
 
-    // å®šæ—¶å™¨æ›´æ–°é±¼å’Œæµ®æ ‡çš„ä½ç½®
+    // ¶¨Ê±Æ÷¸üĞÂÓãºÍ¸¡±êµÄÎ»ÖÃ
     this->schedule ( CC_SCHEDULE_SELECTOR ( FishingGame::UpdateGame ) , 0.016f );
 
     return true;
 }
 
-// é¼ æ ‡æ´»åŠ¨ç›‘å¬
+// Êó±ê»î¶¯¼àÌı
 void FishingGame::AddMouseListener () {
     auto listener = cocos2d::EventListenerMouse::create ();
     listener->onMouseDown = [this]( cocos2d::EventMouse* event ) {
@@ -85,20 +85,20 @@ void FishingGame::AddMouseListener () {
 void FishingGame::UpdateGame ( float dt ) {
     float movable_height = background->getContentSize ().height * kIconHeight / kBackgroundHeight * kBackgroundScale;
 
-    // æ›´æ–°ç»¿è‰²æµ®æ ‡
+    // ¸üĞÂÂÌÉ«¸¡±ê
     if (is_pressing) {
-        green_bar_height += 300 * dt; // ä¸Šå‡é€Ÿåº¦
+        green_bar_height += 300 * dt; // ÉÏÉıËÙ¶È
     }
     else {
-        green_bar_height -= 350 * dt; // ä¸‹é™é€Ÿåº¦
+        green_bar_height -= 350 * dt; // ÏÂ½µËÙ¶È
     }
 
-    // é™åˆ¶ç»¿è‰²æµ®æ ‡çš„ç§»åŠ¨èŒƒå›´
+    // ÏŞÖÆÂÌÉ«¸¡±êµÄÒÆ¶¯·¶Î§
     green_bar_height = std::max ( position.y , std::min ( position.y + movable_height - green_bar->getContentSize ().height * kGreeenBarBasicScaleY * kBackgroundScale
         , green_bar_height ) );
     green_bar->setPositionY ( green_bar_height );
 
-    // è®¾ç½®é±¼çš„æ•è·éš¾åº¦
+    // ÉèÖÃÓãµÄ²¶»ñÄÑ¶È
     float fish_move_range = [this]() {
         int catching_difficulty;
         switch (fish_type) {
@@ -127,44 +127,44 @@ void FishingGame::UpdateGame ( float dt ) {
         }
     }();
 
-    // é±¼çš„éšæœºç§»åŠ¨å’Œæ§åˆ¶ç§»åŠ¨èŒƒå›´
+    // ÓãµÄËæ»úÒÆ¶¯ºÍ¿ØÖÆÒÆ¶¯·¶Î§
     fishlike_icon_height += cocos2d::RandomHelper::random_real ( -movable_height , movable_height ) * dt * kBackgroundScale * fish_move_range;
     fishlike_icon_height = std::max ( position.y , std::min ( position.y + movable_height - fish->getContentSize ().height * kFishBasicScale * kBackgroundScale ,
         fishlike_icon_height ) );
     fish->setPositionY ( fishlike_icon_height );
 
-    // æ£€æŸ¥ç»¿è‰²æµ®æ ‡ä¸é±¼çš„ä½ç½®
+    // ¼ì²éÂÌÉ«¸¡±êÓëÓãµÄÎ»ÖÃ
     CheckFishInBar ();
 }
 
 void FishingGame::CheckFishInBar () {
-    //ç»¿è‰²æµ®æ ‡çš„é¡¶éƒ¨å’Œåº•éƒ¨ä½ç½®
+    //ÂÌÉ«¸¡±êµÄ¶¥²¿ºÍµ×²¿Î»ÖÃ
     float green_bar_bottom = green_bar_height;
     float green_bar_top = green_bar_bottom + green_bar->getContentSize ().height * green_bar->getScaleY ();
 
-    // é±¼çš„é¡¶éƒ¨å’Œåº•éƒ¨ä½ç½®
+    // ÓãµÄ¶¥²¿ºÍµ×²¿Î»ÖÃ
     float fish_top = fishlike_icon_height + fish->getContentSize ().height * fish->getScaleY ();
     float fish_bottom = fishlike_icon_height/* - fish->getContentSize ().height * fish->getScaleY ()*/;
 
-    // åˆ¤æ–­é±¼æ˜¯å¦åœ¨ç»¿è‰²æµ®æ ‡åŒºåŸŸå†…
+    // ÅĞ¶ÏÓãÊÇ·ñÔÚÂÌÉ«¸¡±êÇøÓòÄÚ
     //if (fish_top > green_bar_bottom && fish_bottom < green_bar_top) {
-    //    // é±¼åœ¨ç»¿è‰²æµ®æ ‡åŒºåŸŸå†…ï¼Œè¿›åº¦æ¡å¢åŠ 
+    //    // ÓãÔÚÂÌÉ«¸¡±êÇøÓòÄÚ£¬½ø¶ÈÌõÔö¼Ó
     //    progress_bar->setPercentage ( progress_bar->getPercentage () + 0.4f );
     //}
     //else {
-    //    // é±¼ä¸åœ¨ç»¿è‰²æµ®æ ‡åŒºåŸŸå†…ï¼Œè¿›åº¦æ¡å‡å°‘
+    //    // Óã²»ÔÚÂÌÉ«¸¡±êÇøÓòÄÚ£¬½ø¶ÈÌõ¼õÉÙ
     //    progress_bar->setPercentage ( progress_bar->getPercentage () - 0.55f );
     //}
     if (fish_bottom > green_bar_bottom && fish_top < green_bar_top) {
-        // é±¼åœ¨ç»¿è‰²æµ®æ ‡åŒºåŸŸå†…ï¼Œè¿›åº¦æ¡å¢åŠ 
+        // ÓãÔÚÂÌÉ«¸¡±êÇøÓòÄÚ£¬½ø¶ÈÌõÔö¼Ó
         progress_bar->setPercentage ( progress_bar->getPercentage () + 0.4f );
     }
     else {
-        // é±¼ä¸åœ¨ç»¿è‰²æµ®æ ‡åŒºåŸŸå†…ï¼Œè¿›åº¦æ¡å‡å°‘
+        // Óã²»ÔÚÂÌÉ«¸¡±êÇøÓòÄÚ£¬½ø¶ÈÌõ¼õÉÙ
         progress_bar->setPercentage ( progress_bar->getPercentage () - 0.55f );
     }
 
-    // æ£€æŸ¥æ¸¸æˆç»“æŸæ¡ä»¶
+    // ¼ì²éÓÎÏ·½áÊøÌõ¼ş
     if (progress_bar->getPercentage () >= 100) {
         CCLOG ( "You caught the fish!" );
         EndGame ( true );
@@ -177,10 +177,10 @@ void FishingGame::CheckFishInBar () {
 
 void FishingGame::EndGame ( bool success ) {
     if (success) {
-        // å‘èƒŒåŒ…ä¸­åŠ å…¥å¯¹åº”é±¼
+        // Ïò±³°üÖĞ¼ÓÈë¶ÔÓ¦Óã
         std::shared_ptr<Fish> fish_caught = std::make_shared<Fish> ( fish_type );
         inventory->AddItem ( *fish_caught );
-        //æ ¹æ®æ‰€é’“é±¼çš„éš¾åº¦å¢åŠ ç»éªŒ
+        //¸ù¾İËùµöÓãµÄÄÑ¶ÈÔö¼Ó¾­Ñé
         int experience_to_add = 0;
         int difficulty = fish_caught->GetCatchingDiffuculty ();
         experience_to_add = 10 * difficulty;
@@ -189,10 +189,10 @@ void FishingGame::EndGame ( bool success ) {
         CCLOG ( "Player wins!" );
     }
     else {
-        // é±¼é€ƒè„±çš„é€»è¾‘
+        // ÓãÌÓÍÑµÄÂß¼­
         CCLOG ( "Player loses!" );
     }
-    ////æ¢å¤å…¶ä»–èŠ‚ç‚¹çš„æ´»åŠ¨
+    ////»Ö¸´ÆäËû½ÚµãµÄ»î¶¯
     //this->getParent ()->resume ();
     //player1->resume ();
 

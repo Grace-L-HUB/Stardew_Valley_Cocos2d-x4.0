@@ -1,6 +1,6 @@
 #pragma once
 //mailBoxUI.h
-//淇＄棰嗗彇浠诲姟
+//信箱领取任务
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

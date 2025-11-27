@@ -10,18 +10,18 @@
 
 class Tree :public Item {
 public:
-    // å­˜æ”¾ä½œç‰©ä¸åŒæ—¶æœŸå¯¹åº”çš„å›¾ç‰‡è·¯å¾„
+    // ´æ·Å×÷Îï²»Í¬Ê±ÆÚ¶ÔÓ¦µÄÍ¼Æ¬Â·¾¶
     const std::string G_Cut_pic; //
     const std::string Y_Ini_pic; //
-    // æ”¾ç½®åœ°å—ä½ç½®
+    // ·ÅÖÃµØ¿éÎ»ÖÃ
     cocos2d::Vec2 position;
-    // è¢«æŒ–å»çš„æ—¥å­
+    // ±»ÍÚÈ¥µÄÈÕ×Ó
     int mining_day;     
-    // æŒ–çŸ¿åæ¢å¤æ‰€éœ€è¦çš„æ—¶é—´
+    // ÍÚ¿óºó»Ö¸´ËùĞèÒªµÄÊ±¼ä
     int recover_time;      
-    // æ˜¯å¦å¯æŒ–å–
+    // ÊÇ·ñ¿ÉÍÚÈ¡
     bool available;  
-    // è¢«ç çš„æ¬¡æ•°
+    // ±»¿³µÄ´ÎÊı
     int removetimes;
 
     
@@ -29,24 +29,24 @@ public:
        const std::string& G_Cut_pic, const std::string& Y_Ini_pic,
         const int value, int recover_time, cocos2d::Vec2 position);
     Tree(const Tree& other);
-    // é»˜è®¤åˆå§‹åŒ–å‡½æ•°
+    // Ä¬ÈÏ³õÊ¼»¯º¯Êı
     Tree() :Item("Unkown", "Unkown"), G_Cut_pic("Unkown"), Y_Ini_pic("Unkown"), recover_time(0),
         mining_day(0), position(1000,1000), available(true), removetimes(2) {}
 
 
     virtual ~Tree() {};
 
-    //è·å–ä½œç‰©å½“å‰æ˜¯å¦å¯ä»¥æ”¶è·
+    //»ñÈ¡×÷Îïµ±Ç°ÊÇ·ñ¿ÉÒÔÊÕ»ñ
     bool IsHarvestable() const { return available; }
-    //é‡æ–°è®¾ç½®ç‰©å“ä»·å€¼ æˆç†Ÿä½œç‰©éœ€æ›´æ–°å…¶ä»·å€¼
+    //ÖØĞÂÉèÖÃÎïÆ·¼ÛÖµ ³ÉÊì×÷ÎïĞè¸üĞÂÆä¼ÛÖµ
     void SetValue(const int update_value);
-    //ç”¨äºåˆ¤æ–­å½“å‰å¯¹è±¡ä¸otherå¯¹è±¡èƒ½å¦åœ¨èƒŒåŒ…ä¸­å…¬ç”¨å­˜å‚¨èƒŒåŒ…æ ¼ä½
+    //ÓÃÓÚÅĞ¶Ïµ±Ç°¶ÔÏóÓëother¶ÔÏóÄÜ·ñÔÚ±³°üÖĞ¹«ÓÃ´æ´¢±³°ü¸ñÎ»
     virtual bool CanBeDepositTogether(const Item& other) const;
 
-    //è·å–shared_ptr<Crop>ç±»å‹çš„çš„å‰¯æœ¬ 
-    //ç§æ¤æ—¶ä½¿ç”¨è¯¥æ–¹æ³•
-    //ä»¥ä¾¿åç»­é“²é™¤æˆ–æ”¶è·ååŠæ—¶é€šè¿‡reseté”€æ¯å¯¹è±¡
-    //é¿å…æ‰‹åŠ¨è°ƒç”¨newå’Œdeleteå¯èƒ½å‡ºç°çš„é—®é¢˜
+    //»ñÈ¡shared_ptr<Crop>ÀàĞÍµÄµÄ¸±±¾ 
+    //ÖÖÖ²Ê±Ê¹ÓÃ¸Ã·½·¨
+    //ÒÔ±ãºóĞø²ù³ı»òÊÕ»ñºó¼°Ê±Í¨¹ıresetÏú»Ù¶ÔÏó
+    //±ÜÃâÊÖ¶¯µ÷ÓÃnewºÍdelete¿ÉÄÜ³öÏÖµÄÎÊÌâ
     virtual std::shared_ptr<Item> GetCopy() const;
 
     std::shared_ptr<Tree> GetTreeCopy() const;

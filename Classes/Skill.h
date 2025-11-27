@@ -2,59 +2,59 @@
 #include<iostream>
 #include<unordered_map>
 
-//è€•ç§æŠ€èƒ½ï¼Œé€šè¿‡æ”¶è·å†œäº§å“ï¼ˆå†œä½œç‰©ï¼Œç•œäº§å“ï¼‰è·å–ç»éªŒ
+//¸ûÖÖ¼¼ÄÜ£¬Í¨¹ıÊÕ»ñÅ©²úÆ·£¨Å©×÷Îï£¬Ğó²úÆ·£©»ñÈ¡¾­Ñé
 const int farming_skill = 0;
-//é‡‡çŸ¿æŠ€èƒ½ é€šè¿‡æ•²ç¢å²©çŸ³è·å–ç»éªŒ æ¯æ¬¡å‡çº§å¢åŠ é•å·¥å…·çš„ç†Ÿç»ƒåº¦
+//²É¿ó¼¼ÄÜ Í¨¹ıÇÃËéÑÒÊ¯»ñÈ¡¾­Ñé Ã¿´ÎÉı¼¶Ôö¼Ó¸ä¹¤¾ßµÄÊìÁ·¶È
 const int mining_skill = 1;
-//é‡‡é›†æŠ€èƒ½ é€šè¿‡é‡‡é›†ç‰©å“å’Œç ä¼æ ‘æœ¨è·å–ç»éªŒ æ¯æ¬¡å‡çº§å¢åŠ æ–§å·¥å…·çš„ç†Ÿç»ƒåº¦
+//²É¼¯¼¼ÄÜ Í¨¹ı²É¼¯ÎïÆ·ºÍ¿³·¥Ê÷Ä¾»ñÈ¡¾­Ñé Ã¿´ÎÉı¼¶Ôö¼Ó¸«¹¤¾ßµÄÊìÁ·¶È
 const int foraging_skill = 2;
-//é’“é±¼æŠ€èƒ½ é€šè¿‡æˆåŠŸå®Œæˆé’“é±¼å°æ¸¸æˆè·å–ç»éªŒ
+//µöÓã¼¼ÄÜ Í¨¹ı³É¹¦Íê³ÉµöÓãĞ¡ÓÎÏ·»ñÈ¡¾­Ñé
 const int fishing_skill = 3;
-//æˆ˜æ–—æŠ€èƒ½ æ˜¯å¦å®ç°å¾…å®š
+//Õ½¶·¼¼ÄÜ ÊÇ·ñÊµÏÖ´ı¶¨
 const int combat_skill = 4;
 
 class Skill {
 private:
-    int type;                // æŠ€èƒ½ç±»å‹ï¼ˆä¾‹å¦‚ farming_skillï¼‰
-    int level;               // å½“å‰æŠ€èƒ½ç­‰çº§ï¼Œé»˜è®¤åˆå§‹ç­‰çº§ä¸º0çº§
-    //experience å’Œ experience_needed å‡é‡‡ç”¨æ€»ç´¯è®¡å€¼
-    int experience;          // å½“å‰æŠ€èƒ½ç»éªŒå€¼
-    int experience_needed;   // å‡çº§æ‰€éœ€ç»éªŒ
+    int type;                // ¼¼ÄÜÀàĞÍ£¨ÀıÈç farming_skill£©
+    int level;               // µ±Ç°¼¼ÄÜµÈ¼¶£¬Ä¬ÈÏ³õÊ¼µÈ¼¶Îª0¼¶
+    //experience ºÍ experience_needed ¾ù²ÉÓÃ×ÜÀÛ¼ÆÖµ
+    int experience;          // µ±Ç°¼¼ÄÜ¾­ÑéÖµ
+    int experience_needed;   // Éı¼¶ËùĞè¾­Ñé
 
-    // æ ¹æ®ç­‰çº§åŠ¨æ€è®¡ç®—å‡çº§æ‰€éœ€ç»éªŒ
+    // ¸ù¾İµÈ¼¶¶¯Ì¬¼ÆËãÉı¼¶ËùĞè¾­Ñé
     int CalculateExperienceNeeded ( const int level ) const;
 
 public:
-    //é»˜è®¤æ„é€ å‡½æ•°
+    //Ä¬ÈÏ¹¹Ôìº¯Êı
     Skill () {}
 
-    // æ„é€ å‡½æ•° 
+    // ¹¹Ôìº¯Êı 
     Skill ( const int skill_type );
 
-    // è·å–æŠ€èƒ½ç±»å‹
+    // »ñÈ¡¼¼ÄÜÀàĞÍ
     int GetType() const { return type; }
 
-    // è·å–å½“å‰æŠ€èƒ½ç­‰çº§
+    // »ñÈ¡µ±Ç°¼¼ÄÜµÈ¼¶
     int GetLevel() const { return level; }
 
-    // è·å–å½“å‰ç»éªŒå€¼
+    // »ñÈ¡µ±Ç°¾­ÑéÖµ
     int GetExperience() const { return experience; }
 
-    // è·å–å‡çº§æ‰€éœ€ç»éªŒ
+    // »ñÈ¡Éı¼¶ËùĞè¾­Ñé
     int GetExperienceNeeded() const { return experience_needed; }
 
-    // å¢åŠ ç»éªŒå€¼ï¼Œå¹¶è‡ªåŠ¨å¤„ç†å‡çº§é€»è¾‘
+    // Ôö¼Ó¾­ÑéÖµ£¬²¢×Ô¶¯´¦ÀíÉı¼¶Âß¼­
     void AddExperience ( const int amount );
 
-    // é‡ç½®æŠ€èƒ½ç­‰çº§å’Œç»éªŒ
+    // ÖØÖÃ¼¼ÄÜµÈ¼¶ºÍ¾­Ñé
     void Reset ();
 
 
 private:
-    // ç­‰çº§æå‡
+    // µÈ¼¶ÌáÉı
     int LevelUp ();
 
-    //å‡çº§å…·ä½“æ•ˆæœå¾…å®š
+    //Éı¼¶¾ßÌåĞ§¹û´ı¶¨
 };
 
 
