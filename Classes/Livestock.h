@@ -8,43 +8,43 @@
 
 class Livestock : public cocos2d::Sprite {
 protected:
-    std::string species;  // ÖÖÀà£¬ÀıÈç"Å£", "Ñò", "¼¦"µÈ
-    std::string icon_path; // Í¼Æ¬Â·¾¶
-    bool can_produce;  // ÊÇ·ñ¿ÉÒÔÉú²ú£¨ÀıÈçÊÇ·ñÒÑ¾­²úÄÌ¡¢ÏÂµ°µÈ£©
-    cocos2d::Rect move_area;  // ÏŞ¶¨¼ÒĞó»î¶¯µÄ¾ØĞÎ·¶Î§
-    int move_direction = 0;  //ÒÆ¶¯µÄ·½Ïò
-    bool moving = false;  //ÒÆ¶¯×´Ì¬£¬ÕıÔÚÒÆ¶¯¸ÄÎªtrue,¾²Ö¹Îªfalse
+    std::string species;  // ç§ç±»ï¼Œä¾‹å¦‚"ç‰›", "ç¾Š", "é¸¡"ç­‰
+    std::string icon_path; // å›¾ç‰‡è·¯å¾„
+    bool can_produce;  // æ˜¯å¦å¯ä»¥ç”Ÿäº§ï¼ˆä¾‹å¦‚æ˜¯å¦å·²ç»äº§å¥¶ã€ä¸‹è›‹ç­‰ï¼‰
+    cocos2d::Rect move_area;  // é™å®šå®¶ç•œæ´»åŠ¨çš„çŸ©å½¢èŒƒå›´
+    int move_direction = 0;  //ç§»åŠ¨çš„æ–¹å‘
+    bool moving = false;  //ç§»åŠ¨çŠ¶æ€ï¼Œæ­£åœ¨ç§»åŠ¨æ”¹ä¸ºtrue,é™æ­¢ä¸ºfalse
 public:
-    // ¹¹Ôìº¯Êı
+    // æ„é€ å‡½æ•°
     Livestock ( const std::string& species , const std::string& icon_path , const cocos2d::Rect& area );
 
     virtual bool init ();
 
-    // ¾²Ì¬create·½·¨
+    // é™æ€createæ–¹æ³•
     static Livestock* create ( const std::string& species , const std::string& icon_path , const cocos2d::Rect& area );
 
-    // ĞéÎö¹¹º¯Êı
+    // è™šææ„å‡½æ•°
     virtual ~Livestock ();
 
-    // Ëæ»úÒÆ¶¯µÄ·½·¨
+    // éšæœºç§»åŠ¨çš„æ–¹æ³•
     void RandomMove ();
 
-    // ÉèÖÃ¼ÒĞóÄÜ·ñÉú²ú²úÆ·µÄ×´Ì¬
+    // è®¾ç½®å®¶ç•œèƒ½å¦ç”Ÿäº§äº§å“çš„çŠ¶æ€
     void SetCanProduce ( bool can ) {
         can_produce = can;
     }
 
-    // ¼ÒĞóÊÇ·ñ¿ÉÒÔÉú²ú²úÆ·
+    // å®¶ç•œæ˜¯å¦å¯ä»¥ç”Ÿäº§äº§å“
     bool IsCanProduce () const {
         return can_produce;
     }
 
-    // ²ú³ö²úÆ·µÄĞé·½·¨
+    // äº§å‡ºäº§å“çš„è™šæ–¹æ³•
     virtual std::shared_ptr<Item> ProduceProduct () {
         return nullptr;
     }
 
-    // »ñÈ¡¼ÒĞóµÄÖÖÀà
+    // è·å–å®¶ç•œçš„ç§ç±»
     const std::string& GetSpecies () const {
         return species;
     }

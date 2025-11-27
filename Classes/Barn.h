@@ -27,14 +27,14 @@ public:
 
     static  Barn* create();
 
-    // ÅĞ¶Ï½ÇÉ«µÄÎ»ÖÃ
+    // åˆ¤æ–­è§’è‰²çš„ä½ç½®
     void checkPlayerPosition();
 
 
-    // ´´½¨Ò»¸öÁĞ±í£¬ÓÃÓÚ±£´æËùÓĞ·ÇÍ¸Ã÷ÏñËØµÄ×ø±ê
+    // åˆ›å»ºä¸€ä¸ªåˆ—è¡¨ï¼Œç”¨äºä¿å­˜æ‰€æœ‰éé€æ˜åƒç´ çš„åæ ‡
     std::vector<cocos2d::Vec2> nonTransparentPixels;
 
-    //// Àë¿ªĞóÅïµÄÇøÓò
+    //// ç¦»å¼€ç•œæ£šçš„åŒºåŸŸ
     Rect Out_Barn = Rect(915, 70, 150, 90);
 
     void GetProduction ( cocos2d::EventMouse* event );
@@ -42,10 +42,10 @@ public:
 
 private:
 
-    /* ÍË³ö°´Å¥ */
+    /* é€€å‡ºæŒ‰é’® */
     cocos2d::Sprite* button;
 
-    // ÍË³ö°´Å¥
+    // é€€å‡ºæŒ‰é’®
     cocos2d::MenuItemImage* closeItem;
 
     cocos2d::Menu* menu;

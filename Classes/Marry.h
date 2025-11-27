@@ -1,6 +1,6 @@
 #pragma once
 //Marry.h
-//»éÒöÏÔÊ¾½çÃæ
+//å©šå§»æ˜¾ç¤ºç•Œé¢
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

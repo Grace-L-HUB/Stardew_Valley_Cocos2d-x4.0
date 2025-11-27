@@ -28,7 +28,7 @@ public:
 	int GetPotSize () const;
 	void ClearPot ();
 
-	//仅供调试使用
+	//浠呬緵璋冭瘯浣跨敤
 	void DisplayPotInCCLOG () const;
 	
 };

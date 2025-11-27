@@ -22,65 +22,65 @@ const float kProgressBarBasicScaleX = 3.0f;
 const float kProgressBarBasicScaleY = 143.0f / 5.0f;
 
 
-// µöÓãÓÎÏ·Àà£¬¼Ì³Ğ×Ôcocos2d::Layer¡£
-// °üº¬µöÓãÓÎÏ·µÄËùÓĞÖ÷ÒªÔªËØºÍÂß¼­£¬°üÀ¨ÓãÍ¼±ê¡¢ÂÌÉ«¸¡±ê¡¢½ø¶ÈÌõºÍ±³¾°¡£
+// é’“é±¼æ¸¸æˆç±»ï¼Œç»§æ‰¿è‡ªcocos2d::Layerã€‚
+// åŒ…å«é’“é±¼æ¸¸æˆçš„æ‰€æœ‰ä¸»è¦å…ƒç´ å’Œé€»è¾‘ï¼ŒåŒ…æ‹¬é±¼å›¾æ ‡ã€ç»¿è‰²æµ®æ ‡ã€è¿›åº¦æ¡å’ŒèƒŒæ™¯ã€‚
 class FishingGame : public cocos2d::Layer {
 private:
-    //ÓãÍ¼±ê
+    //é±¼å›¾æ ‡
     cocos2d::Sprite* fish;
-    //ÂÌÉ«¸¡±ê
+    //ç»¿è‰²æµ®æ ‡
     cocos2d::Sprite* green_bar;
-    //½ø¶ÈÌõ
+    //è¿›åº¦æ¡
     cocos2d::ProgressTimer* progress_bar;
     
-    //±³¾°
+    //èƒŒæ™¯
     cocos2d::Sprite* background;
 
-    // ÓãµÄ´¹Ö±Î»ÖÃ
+    // é±¼çš„å‚ç›´ä½ç½®
     float fishlike_icon_height = 0;
-    // ÂÌÉ«¸¡±êµÄ´¹Ö±Î»ÖÃ
+    // ç»¿è‰²æµ®æ ‡çš„å‚ç›´ä½ç½®
     float green_bar_height = 0;
-    // Íæ¼ÒÊÇ·ñ°´×¡Êó±ê
+    // ç©å®¶æ˜¯å¦æŒ‰ä½é¼ æ ‡
     bool is_pressing = false; 
 
-    //±¾´ÎµöÓãµÄÆ·ÖÖ
+    //æœ¬æ¬¡é’“é±¼çš„å“ç§
     int fish_type;
 
-    //µöÓãÓÎÏ·µÄÎ»ÖÃ
+    //é’“é±¼æ¸¸æˆçš„ä½ç½®
     cocos2d::Vec2 position; 
 
 public:
-    // Ä¬ÈÏ¹¹Ôìº¯Êı¡£
+    // é»˜è®¤æ„é€ å‡½æ•°ã€‚
     FishingGame () {};
 
-    // ´øÍæ¼ÒÎ»ÖÃ²ÎÊıµÄ¹¹Ôìº¯Êı¡£
-    // player_pos Íæ¼ÒÎ»ÖÃ¡£
+    // å¸¦ç©å®¶ä½ç½®å‚æ•°çš„æ„é€ å‡½æ•°ã€‚
+    // player_pos ç©å®¶ä½ç½®ã€‚
     FishingGame ( const cocos2d::Vec2& player_pos )
         :position ( player_pos ) {};
 
-    // ´´½¨µöÓãÓÎÏ·ÊµÀıµÄ¾²Ì¬·½·¨¡£
-    // param player_position Íæ¼ÒÎ»ÖÃ¡£
-    // ·µ»Ø´´½¨µÄFishingGameÊµÀıÖ¸Õë¡£
+    // åˆ›å»ºé’“é±¼æ¸¸æˆå®ä¾‹çš„é™æ€æ–¹æ³•ã€‚
+    // param player_position ç©å®¶ä½ç½®ã€‚
+    // è¿”å›åˆ›å»ºçš„FishingGameå®ä¾‹æŒ‡é’ˆã€‚
     static FishingGame* create ( const cocos2d::Vec2& player_position );
 
-    // ³õÊ¼»¯µöÓãÓÎÏ·¡£
-    // ·µ»Ø³õÊ¼»¯ÊÇ·ñ³É¹¦¡£
+    // åˆå§‹åŒ–é’“é±¼æ¸¸æˆã€‚
+    // è¿”å›åˆå§‹åŒ–æ˜¯å¦æˆåŠŸã€‚
     virtual bool init ();
 
-    // ´´½¨µöÓãÓÎÏ·ÊµÀıµÄºê¶¨Òå¡£
+    // åˆ›å»ºé’“é±¼æ¸¸æˆå®ä¾‹çš„å®å®šä¹‰ã€‚
     CREATE_FUNC ( FishingGame );
 
-    // Ìí¼ÓÊó±ê¼àÌıÆ÷¡£
+    // æ·»åŠ é¼ æ ‡ç›‘å¬å™¨ã€‚
     void AddMouseListener ();
 
-    // ¸üĞÂÓÎÏ·×´Ì¬¡£
-    // deltaTime ¾àÀëÉÏ´Î¸üĞÂµÄÊ±¼ä¡£
+    // æ›´æ–°æ¸¸æˆçŠ¶æ€ã€‚
+    // deltaTime è·ç¦»ä¸Šæ¬¡æ›´æ–°çš„æ—¶é—´ã€‚
     void UpdateGame (float deltaTime);
 
-    // ¼ì²éÓãÊÇ·ñÔÚ¸¡±ê·¶Î§ÄÚ¡£
+    // æ£€æŸ¥é±¼æ˜¯å¦åœ¨æµ®æ ‡èŒƒå›´å†…ã€‚
     void CheckFishInBar ();
 
-    // ½áÊøÓÎÏ·¡£
-    // succeed ÓÎÏ·ÊÇ·ñ³É¹¦¡£
+    // ç»“æŸæ¸¸æˆã€‚
+    // succeed æ¸¸æˆæ˜¯å¦æˆåŠŸã€‚
     void EndGame (bool succeed);
 };

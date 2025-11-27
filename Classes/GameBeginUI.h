@@ -1,4 +1,4 @@
-//¸ÃÍ·ÎÄ¼ş¼°ÆäcppÓÃÀ´ÊµÏÖ³õÊ¼¶¯»­ºÍ³õÊ¼½çÃæ
+//è¯¥å¤´æ–‡ä»¶åŠå…¶cppç”¨æ¥å®ç°åˆå§‹åŠ¨ç”»å’Œåˆå§‹ç•Œé¢
 
 #ifndef _SCENE_SEC_H__
 #define _SCENE_SEC_H__
@@ -31,7 +31,7 @@ public:
     void menuCloseCallback ( cocos2d::Ref* pSender );
 
 private:
-    void addfirstscene (const cocos2d::Size& visibleSize, const cocos2d::Vec2& origin);//µÚÒ»¸öÍ¼²ã¶¯»­Ğ§¹û
+    void addfirstscene (const cocos2d::Size& visibleSize, const cocos2d::Vec2& origin);//ç¬¬ä¸€ä¸ªå›¾å±‚åŠ¨ç”»æ•ˆæœ
     void birdfly();
     void scenechangedown ();
     void addLogo_sec ( const cocos2d::Size& visibleSize , const cocos2d::Vec2& origin );
