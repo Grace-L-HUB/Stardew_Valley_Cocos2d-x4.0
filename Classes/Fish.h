@@ -5,27 +5,27 @@ const int kFishTypes = 3;
 const int kFishBasicValue = 100;
 const int kFishBasicEnergy = 15;
 
-//¼ÇÂ¼²»Í¬ÖÖÀàÓãµÄÃû×Ö
+//è®°å½•ä¸åŒç§ç±»é±¼çš„åå­—
 const std::string fish_name[] = {
 	"sartine","tuna","albacore"
 };
 
-//¼ÇÂ¼²»Í¬ÖÖÀàÓãÍ¼Æ¬µÄÂ·¾¶
+//è®°å½•ä¸åŒç§ç±»é±¼å›¾ç‰‡çš„è·¯å¾„
 const std::string fish_path[] = {
 	"Fish/AquariumFish-22.png","Fish/AquariumFish-21.png","Fish/AquariumFish-97.png"
 };
 
 class Fish :public Food {
 private:
-	//²¶»ñÄÑ¶È
+	//æ•è·éš¾åº¦
 	int catching_difficulty;
 
 	int energy_provided;
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	Fish ( int fish_id );
 
-	//Îö¹¹º¯Êı
+	//ææ„å‡½æ•°
 	virtual ~Fish () {};
 
 	virtual std::shared_ptr<Item> GetCopy () const;

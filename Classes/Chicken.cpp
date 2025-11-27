@@ -22,11 +22,11 @@ bool Chicken::init () {
 		return false;
 	}
 
-	// ÉèÖÃ²»Í¬·½ÏòµÄÍ¼±ê
-	// Ç°ºó×óÓÒÍ¼Æ¬¸ù¾ÝÒÆ¶¯·½ÏòÐÞ¸Ä
-	this->initWithFile ( chicken_icon[0] ); // Ä¬ÈÏÍ¼±êÎªÇ°Ãæ
+	// è®¾ç½®ä¸åŒæ–¹å‘çš„å›¾æ ‡
+	// å‰åŽå·¦å³å›¾ç‰‡æ ¹æ®ç§»åŠ¨æ–¹å‘ä¿®æ”¹
+	this->initWithFile ( chicken_icon[0] ); // é»˜è®¤å›¾æ ‡ä¸ºå‰é¢
 
-	// Ã¿¸ôÒ»¶ÎÊ±¼ä½øÐÐËæ»úÒÆ¶¯
+	// æ¯éš”ä¸€æ®µæ—¶é—´è¿›è¡Œéšæœºç§»åŠ¨
 	schedule ( [this]( float deltaTime ) {
 		this->RandomMove ();
 	} , 7.0f , "chicken_random_move_key" );

@@ -9,15 +9,15 @@ const int kDefaultSize = kRowSize * 2;
 
 class Inventory {
 private:
-	//±³°üÈİÁ¿
+	//èƒŒåŒ…å®¹é‡
 	int capacity;
 
-	//µ±Ç°Ñ¡ÖĞµÄÎïÆ·Î»ÖÃ
+	//å½“å‰é€‰ä¸­çš„ç‰©å“ä½ç½®
 	int selected_position;
 
-	//map´æ´¢£¬ÎïÆ·ÔÚ±³°üÖĞµÄÎ»ÖÃ×÷Îªkey£¨ÒÔ×óÉÏ½ÇÎª1£¬°´´Ó×óµ½ÓÒ¡¢´ÓÉÏµ½ÏÂµİÔö£©
-	//std::pair´æ´¢¶ÔÓ¦µÄItemÖ¸Õë(Ê¹ÓÃshared_ptr)ºÍ±³°ü¸ÃÎ»ÖÃ/¸ñ×ÓÖĞ¶à¸ö´æ·ÅµÄ¸ÃÖÖÎïÆ·¸öÊı£¨ÈçÄ¾Í·£¬99±íÊ¾±³°üÖĞµÄ¸ÃÒ»¸ö¸ñ×ÓÖĞ´æ´¢ÁË99¸öÄ¾Í·£©
-	//¶ÔÓÚÔÚÒ»¸ö¸ñ×ÓÖĞ´æ·ÅµÄItem£¬Ö»¶ÔÓ¦Ò»¸öshared_ptr
+	//mapå­˜å‚¨ï¼Œç‰©å“åœ¨èƒŒåŒ…ä¸­çš„ä½ç½®ä½œä¸ºkeyï¼ˆä»¥å·¦ä¸Šè§’ä¸º1ï¼ŒæŒ‰ä»å·¦åˆ°å³ã€ä»ä¸Šåˆ°ä¸‹é€’å¢ï¼‰
+	//std::pairå­˜å‚¨å¯¹åº”çš„ItemæŒ‡é’ˆ(ä½¿ç”¨shared_ptr)å’ŒèƒŒåŒ…è¯¥ä½ç½®/æ ¼å­ä¸­å¤šä¸ªå­˜æ”¾çš„è¯¥ç§ç‰©å“ä¸ªæ•°ï¼ˆå¦‚æœ¨å¤´ï¼Œ99è¡¨ç¤ºèƒŒåŒ…ä¸­çš„è¯¥ä¸€ä¸ªæ ¼å­ä¸­å­˜å‚¨äº†99ä¸ªæœ¨å¤´ï¼‰
+	//å¯¹äºåœ¨ä¸€ä¸ªæ ¼å­ä¸­å­˜æ”¾çš„Itemï¼Œåªå¯¹åº”ä¸€ä¸ªshared_ptr
 	std::map<int , std::pair<std::shared_ptr<Item> , int>> package;
 
 public:
@@ -27,88 +27,88 @@ public:
 
 	~Inventory ();
 
-	bool is_updated = false;//¼ì²â±³°üÊÇ·ñ¸üĞÂ¹ı
+	bool is_updated = false;//æ£€æµ‹èƒŒåŒ…æ˜¯å¦æ›´æ–°è¿‡
 
-	//³É¹¦Ìí¼ÓÊ±·µ»Øtrue,Ìí¼ÓÊ§°ÜÊ±·µ»Øfalse
+	//æˆåŠŸæ·»åŠ æ—¶è¿”å›true,æ·»åŠ å¤±è´¥æ—¶è¿”å›false
 	bool AddItem ( const Item& item );
 
-	//³É¹¦Ìí¼ÓËùÓĞ`add_num`¸öitemÊ±·µ»Øtrue,·ñÔò·µ»Øfalse
+	//æˆåŠŸæ·»åŠ æ‰€æœ‰`add_num`ä¸ªitemæ—¶è¿”å›true,å¦åˆ™è¿”å›false
 	bool AddItem ( const Item& item , const int& add_num );
 
-	//ÒÆ³ı`remove_num`¸öÔÚ±³°üÖĞ`position`Î»ÖÃµÄÎïÆ·
-	//Èô`remove_num`³¬¹ı¸Ã¸ñ×ÓÖĞÏÖÓĞÎïÆ·µÄÊıÁ¿£¬ÔòÇå¿Õ¸Ã¸ñ×Ó
-	//·µ»ØÖµ£º
-	//±³°üµÄ`position`Î»ÖÃ´¦Î´·ÅÖÃÎïÆ·Ê±·µ»Ø-1
-	//`remove_num`³¬¹ı¸Ã¸ñ×ÓÖĞÏÖÓĞÎïÆ·µÄÊıÁ¿£¬ÔòÇå¿Õ¸Ã¸ñ×Ó£¬²¢·µ»Ø1
-	//Õı³£ÒÆ³ı±³°üÖĞ`position`´¦µÄ`remove_num`¸öÎïÆ·Ê±£¬·µ»Ø0;
+	//ç§»é™¤`remove_num`ä¸ªåœ¨èƒŒåŒ…ä¸­`position`ä½ç½®çš„ç‰©å“
+	//è‹¥`remove_num`è¶…è¿‡è¯¥æ ¼å­ä¸­ç°æœ‰ç‰©å“çš„æ•°é‡ï¼Œåˆ™æ¸…ç©ºè¯¥æ ¼å­
+	//è¿”å›å€¼ï¼š
+	//èƒŒåŒ…çš„`position`ä½ç½®å¤„æœªæ”¾ç½®ç‰©å“æ—¶è¿”å›-1
+	//`remove_num`è¶…è¿‡è¯¥æ ¼å­ä¸­ç°æœ‰ç‰©å“çš„æ•°é‡ï¼Œåˆ™æ¸…ç©ºè¯¥æ ¼å­ï¼Œå¹¶è¿”å›1
+	//æ­£å¸¸ç§»é™¤èƒŒåŒ…ä¸­`position`å¤„çš„`remove_num`ä¸ªç‰©å“æ—¶ï¼Œè¿”å›0;
 	int RemoveItem ( const int& position , const int& remove_num = 1 );
 
-	//Çå¿Õ±³°üÖĞ`position`Î»ÖÃµÄ¸ñ×Ó
+	//æ¸…ç©ºèƒŒåŒ…ä¸­`position`ä½ç½®çš„æ ¼å­
 	bool ClearGrid ( const int& position );
 
-	//»ñÈ¡`selected_position`µÄItem
-	//Î´ÕÒµ½Ôò·µ»Ønullptr
+	//è·å–`selected_position`çš„Item
+	//æœªæ‰¾åˆ°åˆ™è¿”å›nullptr
 	std::shared_ptr<Item> GetSelectedItem ()const;
 
-	//»ñÈ¡`selected_position`µÄItemµÄ¸±±¾£¨ÓÃÓÚÈçÖÖ×ÓÖÖÖ²µÈĞèÒª»ñÈ¡¶à¸ö²»Í¬ItemÊµÀıµÄ³¡¾°)
-	//Î´ÕÒµ½»ò¿½±´Ê§°ÜÔò·µ»Ønullptr
+	//è·å–`selected_position`çš„Itemçš„å‰¯æœ¬ï¼ˆç”¨äºå¦‚ç§å­ç§æ¤ç­‰éœ€è¦è·å–å¤šä¸ªä¸åŒItemå®ä¾‹çš„åœºæ™¯)
+	//æœªæ‰¾åˆ°æˆ–æ‹·è´å¤±è´¥åˆ™è¿”å›nullptr
 	std::shared_ptr<Item> GetSelectedItemCopy ();
 
 
 	std::shared_ptr<Item> GetItemAt ( int position ) const {
 		auto it = package.find ( position );
 		if (it != package.end ()) {
-			return it->second.first; // ·µ»Ø´æ´¢µÄ Item  
+			return it->second.first; // è¿”å›å­˜å‚¨çš„ Item  
 		}
-		return nullptr; // Èç¹ûÃ»ÓĞÕÒµ½ Item£¬·µ»Ø nullptr  
+		return nullptr; // å¦‚æœæ²¡æœ‰æ‰¾åˆ° Itemï¼Œè¿”å› nullptr  
 	}
 
-	// »ñÈ¡Ö¸¶¨Î»ÖÃÖĞµÄÎïÆ·¸öÊı  
+	// è·å–æŒ‡å®šä½ç½®ä¸­çš„ç‰©å“ä¸ªæ•°  
 	int GetItemCountAt ( int position ) const {
 		auto it = package.find ( position );
 		if (it != package.end ()) {
-			return it->second.second; // ·µ»Ø¸ÃÎ»ÖÃµÄÎïÆ·¸öÊı  
+			return it->second.second; // è¿”å›è¯¥ä½ç½®çš„ç‰©å“ä¸ªæ•°  
 		}
-		return 0; // Èç¹û¸ÃÎ»ÖÃÃ»ÓĞÎïÆ·£¬·µ»Ø 0  
+		return 0; // å¦‚æœè¯¥ä½ç½®æ²¡æœ‰ç‰©å“ï¼Œè¿”å› 0  
 	}
 
-	// »ñÈ¡±³°üÖĞÖ¸¶¨Ãû³ÆµÄ Item  
+	// è·å–èƒŒåŒ…ä¸­æŒ‡å®šåç§°çš„ Item  
 	Item Inventory::GetItemByName ( const std::string& itemName ) const {
 		for (const auto& entry : package) {
 			if (entry.second.first->GetName () == itemName) {
-				return *(entry.second.first); // ·µ»ØÕÒµ½µÄ Item  
+				return *(entry.second.first); // è¿”å›æ‰¾åˆ°çš„ Item  
 			}
 		}
 	}
 
-	// Ê¹ÓÃ Item ºÍÊıÁ¿ÒÆ³ıÎïÆ·  
+	// ä½¿ç”¨ Item å’Œæ•°é‡ç§»é™¤ç‰©å“  
 	int Inventory::RemoveItem ( const Item& item , const int& remove_num = 1 ) {
 		for (auto it = package.begin (); it != package.end (); ++it) {
 			if (it->second.first->GetName () == item.GetName ()) {
-				// Èç¹ûÒÆ³ıÊıÁ¿³¬¹ıÏÖÓĞÊıÁ¿  
+				// å¦‚æœç§»é™¤æ•°é‡è¶…è¿‡ç°æœ‰æ•°é‡  
 				is_updated = true;
 				if (remove_num >= it->second.second) {
 					
-					package.erase ( it ); // Çå¿Õ¸Ã¸ñ×Ó  
-					return 1; // Çå¿Õ¸ñ×Ó  
+					package.erase ( it ); // æ¸…ç©ºè¯¥æ ¼å­  
+					return 1; // æ¸…ç©ºæ ¼å­  
 				}
 				else {
-					it->second.second -= remove_num; // ¼õÉÙÊıÁ¿  
-					return 0; // Õı³£ÒÆ³ı  
+					it->second.second -= remove_num; // å‡å°‘æ•°é‡  
+					return 0; // æ­£å¸¸ç§»é™¤  
 
 				}
 			}
 		}
-		return -1; // Ã»ÓĞÕÒµ½¸ÃÎïÆ·  
+		return -1; // æ²¡æœ‰æ‰¾åˆ°è¯¥ç‰©å“  
 	}
 
 
-	//ÔÚ`new_position`ºÏ·¨Ê±£¬½«`selected_position`ÉèÖÃÎª`new_position`
-	// ºÏ·¨µÄ`new_position`Ó¦µ±ÎªÔÚ[1,kRowSize]¼äµÄÕûÊı£¨Ö»ÄÜÉèÖÃÎïÆ·À¸×î¶¥Ò»À¸µÄÎ»ÖÃÎª`selected_position`
-	//ÈôÔ­`selected_position`´¦ÓĞItem£¬¸üĞÂÆäÎªunusable×´Ì¬
-	//Èô`new_position`<1 || `new_position`>kRowSize ·µ»Ø-1
-	//Èô`new_position`´¦ÓĞItem,¸üĞÂÆäÎªusable×´Ì¬£¬·µ»Ø0
-	//Èô`new_position`´¦ÎŞItem,·µ»Ø-1
+	//åœ¨`new_position`åˆæ³•æ—¶ï¼Œå°†`selected_position`è®¾ç½®ä¸º`new_position`
+	// åˆæ³•çš„`new_position`åº”å½“ä¸ºåœ¨[1,kRowSize]é—´çš„æ•´æ•°ï¼ˆåªèƒ½è®¾ç½®ç‰©å“æ æœ€é¡¶ä¸€æ çš„ä½ç½®ä¸º`selected_position`
+	//è‹¥åŸ`selected_position`å¤„æœ‰Itemï¼Œæ›´æ–°å…¶ä¸ºunusableçŠ¶æ€
+	//è‹¥`new_position`<1 || `new_position`>kRowSize è¿”å›-1
+	//è‹¥`new_position`å¤„æœ‰Item,æ›´æ–°å…¶ä¸ºusableçŠ¶æ€ï¼Œè¿”å›0
+	//è‹¥`new_position`å¤„æ— Item,è¿”å›-1
 	int SetSelectedItem (const int new_position);
 
 	Inventory& operator=( const Inventory& other ) {
@@ -120,6 +120,6 @@ public:
 		return *this;
 	}
 
-	//Ïò¿ØÖÆÌ¨Êä³öPackageĞÅÏ¢£¬½öÓÃÓÚµ÷ÊÔ
+	//å‘æ§åˆ¶å°è¾“å‡ºPackageä¿¡æ¯ï¼Œä»…ç”¨äºè°ƒè¯•
 	void DisplayPackageInCCLOG ();
 };

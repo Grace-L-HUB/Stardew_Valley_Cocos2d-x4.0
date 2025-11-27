@@ -35,6 +35,6 @@ std::shared_ptr<Food> Food::create ( FoodType type ) {
 
 
 std::shared_ptr<Item> Food::GetCopy () const  {
-	auto copy = std::make_shared<Food> ( *this );  // Ê¹ÓÃFoodµÄ¸´ÖÆ¹¹Ôìº¯Êı
+	auto copy = std::make_shared<Food> ( *this );  // ä½¿ç”¨Foodçš„å¤åˆ¶æ„é€ å‡½æ•°
 	return copy;
 }

@@ -43,11 +43,11 @@ void DetailedtaskUI::backgroundcreate () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize  );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
+    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜Žçš„é»‘è‰²é®ç½©
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜Žåº¦ä¸º120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize  );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
     this->addChild ( darkLayer , 0 );
-    //´ó¿ò¼Ü
+    //å¤§æ¡†æž¶
     auto mail = Sprite::create ( "UIresource/xinxiang/renwu2.png" );
     if (mail == nullptr)
     {
@@ -55,13 +55,13 @@ void DetailedtaskUI::backgroundcreate () {
     }
     else
     {
-        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+        // èŽ·å–åŽŸå§‹å›¾ç‰‡çš„å®½é«˜
         float originalWidth = mail->getContentSize ().width;
         float originalHeight = mail->getContentSize ().height;
-        // ¸ù¾ÝÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀý
+        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŽŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // Ñ¡Ôñ×îÐ¡µÄËõ·Å±ÈÀý£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äÐÎ
+        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
         float scale = std::min ( scaleX , scaleY );
         mail->setScale ( scale );
         mail->setPosition ( Vec2 ( currentx , currenty ) );
@@ -122,10 +122,10 @@ void DetailedtaskUI::displayTask ( TaskManagement::Task task ) {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
 
-    // ´´½¨Ò»¸ö×Ö·û´®ÒÔ´æ´¢ËùÓÐÈÎÎñµÄÐÅÏ¢  
+    // åˆ›å»ºä¸€ä¸ªå­—ç¬¦ä¸²ä»¥å­˜å‚¨æ‰€æœ‰ä»»åŠ¡çš„ä¿¡æ¯  
     std::string allTasksInfo;
 
-    // ¸ñÊ½»¯ÈÎÎñÐÅÏ¢  
+    // æ ¼å¼åŒ–ä»»åŠ¡ä¿¡æ¯  
     std::string taskInfo = "------------------------\n";
     taskInfo += "Task Name: " + task.name + "\n";
     taskInfo += "Task Type: " + std::to_string ( task.type ) + "\n";
@@ -136,20 +136,20 @@ void DetailedtaskUI::displayTask ( TaskManagement::Task task ) {
     taskInfo += "Enhance favorability: " + std::to_string ( task.relationshipPoints ) + "\n";
     taskInfo += "------------------------\n";
 
-    allTasksInfo += taskInfo; // ½«Ã¿¸öÈÎÎñÐÅÏ¢Ìí¼Óµ½×Ü×Ö·û´®ÖÐ  
+    allTasksInfo += taskInfo; // å°†æ¯ä¸ªä»»åŠ¡ä¿¡æ¯æ·»åŠ åˆ°æ€»å­—ç¬¦ä¸²ä¸­  
 
-    // ´´½¨±êÇ©À´ÏÔÊ¾ÈÎÎñÐÅÏ¢  
+    // åˆ›å»ºæ ‡ç­¾æ¥æ˜¾ç¤ºä»»åŠ¡ä¿¡æ¯  
     auto taskMessage = Label::createWithSystemFont ( allTasksInfo , "fonts/Comic Sans MS.ttf" , 80 );
     taskMessage->setTextColor ( Color4B::BLACK );
 
-    // ÉèÖÃ±êÇ©µÄÎ»ÖÃ  
+    // è®¾ç½®æ ‡ç­¾çš„ä½ç½®  
     Vec2 visibleSize = Director::getInstance ()->getVisibleSize ();
     taskMessage->setPosition ( Vec2 ( currentx , currenty ) );
 
-    // ½«±êÇ©Ìí¼Óµ½LayerÖÐ  
+    // å°†æ ‡ç­¾æ·»åŠ åˆ°Layerä¸­  
     this->addChild ( taskMessage , 2 );
 
-    //È·¶¨½ÓÊÜÈÎÎñ
+    //ç¡®å®šæŽ¥å—ä»»åŠ¡
     auto OK = ui::Button::create ( "UIresource/create/OK.png" , "UIresource/create/OK.png" );
     float originalWidth = OK->getContentSize ().width;
     float originalHeight = OK->getContentSize ().height;

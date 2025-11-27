@@ -88,11 +88,11 @@ void NPCtalkUI::backgroundcreate () {
     updateCoordinate ( currentx , currenty );
     CCLOG ( "%f %f" , currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 5 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
-    darkLayer->setPosition ( position - visibleSize );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
+    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜çš„é»‘è‰²é®ç½©
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 5 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜åº¦ä¸º120
+    darkLayer->setPosition ( position - visibleSize );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
     this->addChild ( darkLayer , 0 );
-    //¶Ô»°¿ò
+    //å¯¹è¯æ¡†
     auto dialogBox = Sprite::create ( "npc/kuang.png" );
     if (dialogBox == nullptr)
     {
@@ -110,7 +110,7 @@ void NPCtalkUI::backgroundcreate () {
 
         this->addChild ( dialogBox , 1 );
     }
-    //Í·Ïñ
+    //å¤´åƒ
     std::string photo;
     if (Season == "Spring" || Season == "Autumn") {
         photo = getNPCportraits ( npc->GetName () , "Normal" );
@@ -130,7 +130,7 @@ void NPCtalkUI::backgroundcreate () {
 
     this->addChild ( characterPhoto , 2 );
 
-    //ĞÕÃû
+    //å§“å
     std::string name = npc->GetName ();
     auto NameLabel =Label::createWithSystemFont ( name , "fonts/Comic Sans MS.ttf" , 40 );
     NameLabel->setTextColor ( cocos2d::Color4B::BLACK );
@@ -138,7 +138,7 @@ void NPCtalkUI::backgroundcreate () {
     this->addChild ( NameLabel , 2 );
 }
 
-//¶Ô»°Ñ¡ÖĞ¿òÌí¼Ó
+//å¯¹è¯é€‰ä¸­æ¡†æ·»åŠ 
 void NPCtalkUI::SelectedBox () {
     Vec2 position = player1->getPosition ();
     float currentx = position.x , currenty = position.y;
@@ -160,7 +160,7 @@ void NPCtalkUI::SelectedBox () {
         float scaleY = visibleSize.height / originalHeight;
         float scale = std::min ( scaleX , scaleY );
         Selectedbox1->setScale ( scale * 0.5 );
-        //²îÊÇ0.064£¬µÚÒ»¸öÎ»ÖÃÔÚSelectedbox1µÄY»ù´¡ÉÏ¼Ó0.064
+        //å·®æ˜¯0.064ï¼Œç¬¬ä¸€ä¸ªä½ç½®åœ¨Selectedbox1çš„YåŸºç¡€ä¸ŠåŠ 0.064
         Selectedbox1->setPosition ( Vec2 ( currentx - visibleSize.width * 0.17 , currenty - visibleSize.height * 0.21 ) );
         Selectedbox2->setScale ( scale * 0.5 );
         Selectedbox2->setPosition ( Vec2 ( currentx - visibleSize.width * 0.17 , currenty - visibleSize.height * 0.274 ) );
@@ -174,17 +174,17 @@ void NPCtalkUI::SelectedBox () {
         this->addChild ( Selectedbox3 , 0 );
         this->addChild ( Selectedbox4 , 0 );
 
-        // NPC ¶Ô»°Ìí¼Ó
+        // NPC å¯¹è¯æ·»åŠ 
         std::vector<std::vector<std::string>> npc_Dialog = getDialog(npc->GetName() , 
             NPC_RELATIONSHIP->getRelationshipLevel ("player" , npc->GetName ()));
         
         int choose = rand() % npc_Dialog.size();
-        // NPC ¶Ô»°
+        // NPC å¯¹è¯
         auto NPC_talk_Label = Label::createWithSystemFont ( npc_Dialog[choose][0] , "fonts/Comic Sans MS.ttf" , 40);
         NPC_talk_Label->setTextColor ( cocos2d::Color4B::BLACK );
         NPC_talk_Label->setPosition ( Vec2 ( currentx - visibleSize.width * 0.17 , currenty - visibleSize.height * 0.14 ) );
         this->addChild ( NPC_talk_Label , 2 );
-        // ËÄ¸ö»Ø´ğ
+        // å››ä¸ªå›ç­”
         auto Player_talk_Label1 = Label::createWithSystemFont ( npc_Dialog[choose][1] , "fonts/Comic Sans MS.ttf" , 30 );
         Player_talk_Label1->setTextColor ( cocos2d::Color4B::BLACK );
         Player_talk_Label1->setPosition ( Vec2 ( currentx - visibleSize.width * 0.17 , currenty - visibleSize.height * 0.21 ) );
@@ -206,17 +206,17 @@ void NPCtalkUI::SelectedBox () {
         this->addChild ( Player_talk_Label4 , 2 );
 
 
-        // Êó±êÒÆ¶¯ÊÂ¼ş  
+        // é¼ æ ‡ç§»åŠ¨äº‹ä»¶  
         auto listener = EventListenerMouse::create ();
         listener->onMouseMove = [=]( EventMouse* event ) {
             Vec2 mousePosition = Vec2 ( event->getCursorX () , event->getCursorY () );
             mousePosition = this->convertToNodeSpace ( mousePosition );
-            // ¼ì²éÃ¿¸ö Selectedbox  
+            // æ£€æŸ¥æ¯ä¸ª Selectedbox  
             if (Selectedbox1->getBoundingBox ().containsPoint ( mousePosition )) {
-                Selectedbox1->setLocalZOrder ( 2 ); // ÏÔÊ¾ÔÚÉÏ²ã  
+                Selectedbox1->setLocalZOrder ( 2 ); // æ˜¾ç¤ºåœ¨ä¸Šå±‚  
             }
             else {
-                Selectedbox1->setLocalZOrder ( 0 ); // Òş²ØÔÚÏÂ²ã  
+                Selectedbox1->setLocalZOrder ( 0 ); // éšè—åœ¨ä¸‹å±‚  
             }
             if (Selectedbox2->getBoundingBox ().containsPoint ( mousePosition )) {
                 Selectedbox2->setLocalZOrder ( 2 );
@@ -242,30 +242,30 @@ void NPCtalkUI::SelectedBox () {
             Vec2 mousePosition = Vec2 ( event->getCursorX () , event->getCursorY () );
             mousePosition = this->convertToNodeSpace ( mousePosition );
 
-            // ¼ì²éÃ¿¸ö Selectedbox  
+            // æ£€æŸ¥æ¯ä¸ª Selectedbox  
             if (Selectedbox1 && Selectedbox1->getBoundingBox ().containsPoint ( mousePosition )) {
                 if (npc_relationship->getRelationship ( "player" , npc->GetName () ) < 60) {
                     npc_relationship->increaseRelationship ( "player" , npc->GetName () , 10.2 );
                 }
                 this->removeFromParent ();
-                return; // ÌáÇ°·µ»Ø£¬±ÜÃâÖ´ĞĞºóĞøÑ¡Ôñ¿ò¼ì²é  
+                return; // æå‰è¿”å›ï¼Œé¿å…æ‰§è¡Œåç»­é€‰æ‹©æ¡†æ£€æŸ¥  
             }
             if (Selectedbox2 && Selectedbox2->getBoundingBox ().containsPoint ( mousePosition )) {
                 if (npc_relationship->getRelationship ( "player" , npc->GetName () ) < 60) {
                     npc_relationship->increaseRelationship ( "player" , npc->GetName () , 5.0001 );
                 }
                 this->removeFromParent ();
-                return; // ÌáÇ°·µ»Ø  
+                return; // æå‰è¿”å›  
             }
             if (Selectedbox3 && Selectedbox3->getBoundingBox ().containsPoint ( mousePosition )) {
                 npc_relationship->decreaseRelationship ( "player" , npc->GetName () , 0.001 );
                 this->removeFromParent ();
-                return; // ÌáÇ°·µ»Ø  
+                return; // æå‰è¿”å›  
             }
             if (Selectedbox4 && Selectedbox4->getBoundingBox ().containsPoint ( mousePosition )) {
                 npc_relationship->decreaseRelationship ( "player" , npc->GetName () , 5.01 );
                 this->removeFromParent ();
-                return; // ÌáÇ°·µ»Ø  
+                return; // æå‰è¿”å›  
             }
             };
 

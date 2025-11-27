@@ -3,9 +3,9 @@
 
 #include "Item.h"  
 
-// ¶¯ÎïÉè¶¨Îª¹ºÂòºóÖ±½Ó¼ÓÈëÄÁ³¡£¬ÔÚ±³°üÖĞ²»¿É¼û  
+// åŠ¨ç‰©è®¾å®šä¸ºè´­ä¹°åç›´æ¥åŠ å…¥ç‰§åœºï¼Œåœ¨èƒŒåŒ…ä¸­ä¸å¯è§  
 
-// ¶¯Îï  
+// åŠ¨ç‰©  
 extern Item AnimalChicken;
 extern Item AnimalDuck;
 extern Item AnimalGoat;
@@ -14,7 +14,7 @@ extern Item AnimalRabbit;
 extern Item AnimalSheep;
 extern Item AnimalCow;
 
-// ´º¼¾ÖÖ×ÓÎïÆ·ÁĞ±í  
+// æ˜¥å­£ç§å­ç‰©å“åˆ—è¡¨  
 extern Item Bean_Starter;
 extern Item Carrot_Seeds;
 extern Item Cauliflower_Seeds;
@@ -29,7 +29,7 @@ extern Item Rice_Shoot;
 extern Item Strawberry_Seeds;
 extern Item Tulip_Bulb;
 
-// ÏÄ¼¾ÖÖ×ÓÎïÆ·ÁĞ±í  
+// å¤å­£ç§å­ç‰©å“åˆ—è¡¨  
 extern Item Amaranth_Seeds;
 extern Item Artichoke_Seeds;
 extern Item Beet_Seeds;
@@ -56,10 +56,10 @@ extern Item Tomato_Seeds;
 extern Item Wheat_Seeds;
 extern Item Yam_Seeds;
 
-// ¶¬¼¾ÖÖ×ÓÎïÆ·ÁĞ±í  
-extern Item Powdermelon_Seeds; // Çë×¢Òâ£¬ÓÎÏ·ÖĞÃ»ÓĞ¶¬¼¾ÖÖ×ÓÕâ¸öÎïÆ·  
+// å†¬å­£ç§å­ç‰©å“åˆ—è¡¨  
+extern Item Powdermelon_Seeds; // è¯·æ³¨æ„ï¼Œæ¸¸æˆä¸­æ²¡æœ‰å†¬å­£ç§å­è¿™ä¸ªç‰©å“  
 
-// ¹¤¾ßÁĞ±í  
+// å·¥å…·åˆ—è¡¨  
 extern Item Backpack_36;
 extern Item Backpack;
 extern Item Advanced_Iridium_Rod;
@@ -90,7 +90,7 @@ extern Item Trash_Can_Copper;
 extern Item Watering_Can;
 extern Item Trash_Can_Steel;
 
-// Ê÷ÃçÁĞ±í  
+// æ ‘è‹—åˆ—è¡¨  
 extern Item Apple_Sapling;
 extern Item Apricot_Sapling;
 extern Item Banana_Sapling;
@@ -100,12 +100,12 @@ extern Item Orange_Sapling;
 extern Item Peach_Sapling;
 extern Item Pomegranate_Sapling;
 
-// ±¦Ê¯Àà
+// å®çŸ³ç±»
 extern Item amethyst;
 extern Item emerald;
 extern Item ruby;
 
-// ³ÉÊì×÷Îï
+// æˆç†Ÿä½œç‰©
 extern Item Wheat;
 extern Item Corn;
 extern Item Potato;

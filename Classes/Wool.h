@@ -7,10 +7,10 @@ class Wool :public Item {
 private:
 
 public:
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	Wool ();
 
-	//ĞéÎö¹¹º¯Êı
+	//è™šææ„å‡½æ•°
 	virtual ~Wool ();
 
 };

@@ -10,10 +10,10 @@ Item::Item(const Item& other)
 }
 
 std::shared_ptr<Item> Item::GetCopy() const {
-    auto copy = std::make_shared<Item>(*this);  // Ê¹ÓÃItemµÄ¸´ÖÆ¹¹Ôìº¯Êı
+    auto copy = std::make_shared<Item>(*this);  // ä½¿ç”¨Itemçš„å¤åˆ¶æ„é€ å‡½æ•°
     return copy;
 }
 
 void Item::Use() {
-    // ÎïÆ·µÄÊ¹ÓÃÂß¼­£¨¸ù¾İÊµ¼ÊĞèÒªÊµÏÖ£©
+    // ç‰©å“çš„ä½¿ç”¨é€»è¾‘ï¼ˆæ ¹æ®å®é™…éœ€è¦å®ç°ï¼‰
 }

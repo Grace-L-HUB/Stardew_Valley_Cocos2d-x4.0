@@ -13,24 +13,24 @@ class Cow :public Livestock {
 private:
 	int current_frame = 0;
 public:
-	// ¹¹Ôìº¯Êı
+	// æ„é€ å‡½æ•°
 	Cow ( const cocos2d::Rect& area );
 
-	//ĞéÎö¹¹º¯Êı
+	//è™šææ„å‡½æ•°
 	virtual ~Cow ();
 
-	// ¾²Ì¬createº¯Êı
+	// é™æ€createå‡½æ•°
 	static Cow* create ( const cocos2d::Rect& area );
 
-	// init³õÊ¼»¯
+	// initåˆå§‹åŒ–
 	virtual bool init ();
 
-	// ²ú³öÅ£ÄÌ
-	// Òª»ñÈ¡MilkÔÚ»ùÀàItemÒÔÍâµÄ¶ÀÓĞ³ÉÔ±£¨Èçenergy)
-	// ĞèÒªÊ¹ÓÃstd::xxx_pointer_cast(Èçstd::dynamic_pointer_cast<Food>()½«Ö¸Õë»ùÀàĞÍ×ª»»ÎªFood
+	// äº§å‡ºç‰›å¥¶
+	// è¦è·å–Milkåœ¨åŸºç±»Itemä»¥å¤–çš„ç‹¬æœ‰æˆå‘˜ï¼ˆå¦‚energy)
+	// éœ€è¦ä½¿ç”¨std::xxx_pointer_cast(å¦‚std::dynamic_pointer_cast<Food>()å°†æŒ‡é’ˆåŸºç±»å‹è½¬æ¢ä¸ºFood
 	virtual std::shared_ptr<Item> ProduceProduct ();
 
-	//ÒÆ¶¯Ê±¸üĞÂÍ¼Ïñ
+	//ç§»åŠ¨æ—¶æ›´æ–°å›¾åƒ
 	virtual void UpdateTexture ( float deltaTime );
 
 };

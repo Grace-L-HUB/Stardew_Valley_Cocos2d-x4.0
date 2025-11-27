@@ -1,6 +1,6 @@
 #pragma once
 //SkillTreeUI.h
-//人物技能树界面
+//浜虹墿鎶�鑳芥爲鐣岄潰
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 #include "SkillTree.h"

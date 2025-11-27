@@ -2,7 +2,7 @@
 #include"Item.h"
 #include<memory>
 
-//Ê³ÎïÀàĞÍÃ¶¾Ù£¬ĞÂÔöÀàĞÍÊ±ÔÚ´ËÌí¼Ó
+//é£Ÿç‰©ç±»å‹æšä¸¾ï¼Œæ–°å¢ç±»å‹æ—¶åœ¨æ­¤æ·»åŠ 
 enum class FoodType {
 	Milk,
 	Egg,
@@ -11,24 +11,24 @@ enum class FoodType {
 	Omelet
 };
 
-//²»Í¬Ê³ÎïµÄ¼Û¸ñ
+//ä¸åŒé£Ÿç‰©çš„ä»·æ ¼
 const int kMilkValue = 100;
 const int kEggValue = 40;
 
-//²»Í¬Ê³ÎïÌá¹©µÄÄÜÁ¿
+//ä¸åŒé£Ÿç‰©æä¾›çš„èƒ½é‡
 const int kEggEnergy = 15;
 const int kMilkEnergy = 30;
 
 class Food :public Item {
 private:
-	//³ÔµôºóÄÜÌá¹©µÄÄÜÁ¿
+	//åƒæ‰åèƒ½æä¾›çš„èƒ½é‡
 	int energy;
 public:
 
-	//¹¹Ôìº¯Êı
+	//æ„é€ å‡½æ•°
 	Food ( const std::string& name , const std::string& path1 , const int value , int energy , int num_limit = 99 );
 
-	//¸´ÖÆ¹¹Ôìº¯Êı
+	//å¤åˆ¶æ„é€ å‡½æ•°
 	Food ( const Food& other ) :Item ( other ) , energy ( other.energy ) {};
 
 	static std::shared_ptr<Food> create ( FoodType type );

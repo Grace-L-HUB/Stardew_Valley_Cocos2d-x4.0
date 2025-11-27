@@ -86,11 +86,11 @@ void intimacyUI::backgroundcreate () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 5 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize / 2 );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
+    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜çš„é»‘è‰²é®ç½©
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 5 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜åº¦ä¸º120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize / 2 );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
     this->addChild ( darkLayer , 0 );
-    //´ó¿ò¼Ü
+    //å¤§æ¡†æ¶
     auto IntimacyFace = Sprite::create ( "UIresource/qinmidu/intimacyDisplay.png" );
     IntimacyFace->setTag ( 101 );
     if (IntimacyFace == nullptr)
@@ -99,13 +99,13 @@ void intimacyUI::backgroundcreate () {
     }
     else
     {
-        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+        // è·å–åŸå§‹å›¾ç‰‡çš„å®½é«˜
         float originalWidth = IntimacyFace->getContentSize ().width;
         float originalHeight = IntimacyFace->getContentSize ().height;
-        // ¸ù¾İÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀı
+        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
+        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
         float scale = std::min ( scaleX , scaleY );
         IntimacyFace->setScale ( scale / 1.5 );
         IntimacyFace->setPosition ( Vec2 ( currentx , currenty + 13 ) );
@@ -171,7 +171,7 @@ void intimacyUI::characterInfo ( const string& name , const string& status , Vec
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    //ÈËÎïÍ·Ïñ
+    //äººç‰©å¤´åƒ
     std::string photo = getNPCportraits ( name , status );
     auto characterPhoto = Sprite::create ( photo );
     cocos2d::log("%s", photo.c_str());
@@ -188,7 +188,7 @@ void intimacyUI::characterInfo ( const string& name , const string& status , Vec
         characterPhoto->setPosition(Pos_photo);
         this->addChild(characterPhoto, 2);
     }
-    //ĞÕÃû
+    //å§“å
     auto NameLabel = Label::createWithSystemFont ( name , "fonts/Comic Sans MS.ttf" , 35 );
     NameLabel->setTextColor ( cocos2d::Color4B::BLACK );
     NameLabel->setPosition ( Vec2 ( Pos_photo.x + visibleSize.width * 0.1 , Pos_photo.y ) );
@@ -200,7 +200,7 @@ void intimacyUI::intimacyDisplay ( const string& name , Vec2 Pos ) {
     int emptyheart_num = 10 - fullheart_num;
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
 
-    //°®ĞÄÏÔÊ¾
+    //çˆ±å¿ƒæ˜¾ç¤º
     for (int i = 0; i < 10; i++) {
         if (fullheart_num > 0)
         {
@@ -236,7 +236,7 @@ void intimacyUI::intimacyDisplay ( const string& name , Vec2 Pos ) {
         }
     }
 
-    //ÊÇ·ñËµ¹ı»°ÏÔÊ¾
+    //æ˜¯å¦è¯´è¿‡è¯æ˜¾ç¤º
     if (NPC_RELATIONSHIP->getRelationship ( "player" , name ) != 0)
     {
         auto IsTalked = Sprite::create ( "UIresource/qinmidu/is.png" );
@@ -250,7 +250,7 @@ void intimacyUI::intimacyDisplay ( const string& name , Vec2 Pos ) {
             float originalHeight = IsTalked->getContentSize ().height;
             float scaleX = visibleSize.width / originalWidth;
             float scaleY = visibleSize.height / originalHeight;
-            // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
+            // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
             float scale = std::min ( scaleX , scaleY );
             IsTalked->setScale ( scale * 0.026 );
             IsTalked->setPosition ( Vec2 ( Pos.x + visibleSize.width * 0.374 , Pos.y - 27 ) );
@@ -259,7 +259,7 @@ void intimacyUI::intimacyDisplay ( const string& name , Vec2 Pos ) {
         }
     }
 
-    //ËÍÀñÏÔÊ¾
+    //é€ç¤¼æ˜¾ç¤º
     int GiftTime = 0;
     CCLOG ( "%d" , NPC_RELATIONSHIP->NpcGiftTIme ( name ) );
     if (NPC_RELATIONSHIP->NpcGiftTIme ( name ) > 0)
@@ -282,7 +282,7 @@ void intimacyUI::intimacyDisplay ( const string& name , Vec2 Pos ) {
                 float originalHeight = IsGifted->getContentSize ().height;
                 float scaleX = visibleSize.width / originalWidth;
                 float scaleY = visibleSize.height / originalHeight;
-                // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
+                // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
                 float scale = std::min ( scaleX , scaleY );
                 IsGifted->setScale ( scale * 0.026 );
                 IsGifted->setPosition ( Vec2 ( Pos.x + visibleSize.width * 0.271 + i * 50.0f , Pos.y - 27 ) );
@@ -298,7 +298,7 @@ void intimacyUI::Buttons_switching () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    //Í¼±êÏÔÊ¾
+    //å›¾æ ‡æ˜¾ç¤º
     auto bagkey = Sprite::create ( "UIresource/beibao/bagkey.png" );
     auto Skillkey = Sprite::create ( "UIresource/beibao/Skillkey.png" );
     auto intimacykey = Sprite::create ( "UIresource/beibao/intimacykey.png" );
@@ -309,18 +309,18 @@ void intimacyUI::Buttons_switching () {
     }
     else
     {
-        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+        // è·å–åŸå§‹å›¾ç‰‡çš„å®½é«˜
         float originalWidth = bagkey->getContentSize ().width;
         float originalHeight = bagkey->getContentSize ().height;
-        // ¸ù¾İÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀı
+        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
+        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
         float scale = std::min ( scaleX , scaleY );
         bagkey->setScale ( scale / 16.5 );
-        bagkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.25 , currenty + visibleSize.height * 0.315 ) );//0.305ÊÇÑ¡ÖĞÊ±Î»ÖÃ
+        bagkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.25 , currenty + visibleSize.height * 0.315 ) );//0.305æ˜¯é€‰ä¸­æ—¶ä½ç½®
         Skillkey->setScale ( scale / 16.5 );
-        Skillkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.19 , currenty + visibleSize.height * 0.315 ) );//0.315ÊÇÎ´Ñ¡ÖĞÊ±Î»ÖÃ
+        Skillkey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.19 , currenty + visibleSize.height * 0.315 ) );//0.315æ˜¯æœªé€‰ä¸­æ—¶ä½ç½®
         intimacykey->setScale ( scale / 16.5 );
         intimacykey->setPosition ( Vec2 ( currentx - visibleSize.width * 0.13 , currenty + visibleSize.height * 0.305 ) );
         quitkey->setScale ( scale / 16.5 );
@@ -331,14 +331,14 @@ void intimacyUI::Buttons_switching () {
         this->addChild ( quitkey , 2 );
     }
 
-    //¶¯»­ÒÔ¼°ÇĞ»»Layer
+    //åŠ¨ç”»ä»¥åŠåˆ‡æ¢Layer
     auto listener = EventListenerMouse::create ();
     listener->onMouseDown = [this , bagkey , Skillkey , intimacykey , quitkey]( EventMouse* event ) {
         Vec2 mousePos = Vec2 ( event->getCursorX () , event->getCursorY () );
         mousePos = this->convertToNodeSpace ( mousePos );
         //CCLOG ( "X:%f,Y:%f" , event->getCursorX () , event->getCursorY () );
         if (bagkey->getBoundingBox ().containsPoint ( mousePos )) {
-            // ÒÆ³ıµ±Ç°µÄLayer
+            // ç§»é™¤å½“å‰çš„Layer
             std::string nowScene = SceneName;
             this->removeFromParent ();
             Director::getInstance ()->getRunningScene ()->addChild ( InventoryUI::create ( inventory , nowScene ) , 20 );
@@ -360,14 +360,14 @@ void intimacyUI::Buttons_switching () {
 }
 
 void intimacyUI::close () {
-    // ÉèÖÃ¼üÅÌ¼àÌıÆ÷  
+    // è®¾ç½®é”®ç›˜ç›‘å¬å™¨  
     auto listenerClose = EventListenerKeyboard::create ();
     listenerClose->onKeyPressed = [this]( EventKeyboard::KeyCode keyCode , Event* event ) {
         if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
             this->removeFromParent ();
         }
         };
-    // ½«¼àÌıÆ÷Ìí¼Óµ½ÊÂ¼ş·Ö·¢Æ÷ÖĞ  
+    // å°†ç›‘å¬å™¨æ·»åŠ åˆ°äº‹ä»¶åˆ†å‘å™¨ä¸­  
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listenerClose , this );
 }
 

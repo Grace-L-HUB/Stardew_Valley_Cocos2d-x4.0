@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include <string>
 
-//ÎïÆ·»ùÀà
+//ç‰©å“åŸºç±»
 class Item {
 protected:
     std::string name;
@@ -12,35 +12,35 @@ protected:
 public:
     Item(const std::string& name, const std::string& path1, const int value = 1, const int& num_limit = 99);
 
-    //ÈôĞè´´½¨SpriteËùÓÃµÄÍ¼Æ¬µØÖ·
+    //è‹¥éœ€åˆ›å»ºSpriteæ‰€ç”¨çš„å›¾ç‰‡åœ°å€
     const std::string initial_pic;
-    // Ã¿¸ö±³°ü¸ñ×ÓÖĞ×î´óÎïÆ·ÊıÁ¿
+    // æ¯ä¸ªèƒŒåŒ…æ ¼å­ä¸­æœ€å¤§ç‰©å“æ•°é‡
     const int max_count_in_one_grid;
 
     Item(const Item& other);
 
     virtual ~Item () {};
 
-    //·µ»Ø¶ÔÓ¦ItemµÄname
+    //è¿”å›å¯¹åº”Itemçš„name
     const std::string& GetName() const { return name; }
 
-    //·µ»ØÎïÆ·¼ÛÖµ
+    //è¿”å›ç‰©å“ä»·å€¼
     int GetValue() const { return value; }
 
-    //ÅĞ¶ÏÎïÆ·ÊÇ·ñ¿ÉÊ¹ÓÃ£¬¿ÉÓÃÔò·µ»Øtrue, ·ñÔò·µ»Øfalse
+    //åˆ¤æ–­ç‰©å“æ˜¯å¦å¯ä½¿ç”¨ï¼Œå¯ç”¨åˆ™è¿”å›true, å¦åˆ™è¿”å›false
     const bool IsUsable() const { return usable; }
 
-    //½«ÎïÆ·×´Ì¬ÉèÖÃÎª¿ÉÓÃ
+    //å°†ç‰©å“çŠ¶æ€è®¾ç½®ä¸ºå¯ç”¨
     void SetUsable() { usable = true; }
 
-    //½«ÎïÆ·×´Ì¬ÉèÖÃÎª²»¿ÉÓÃ
+    //å°†ç‰©å“çŠ¶æ€è®¾ç½®ä¸ºä¸å¯ç”¨
     void SetUnusable() { usable = false; }
 
-    //ÓÃÓÚÅĞ¶Ïµ±Ç°¶ÔÏóÓëother¶ÔÏóÄÜ·ñÔÚ±³°üÖĞ¹«ÓÃ´æ´¢±³°ü¸ñÎ»
+    //ç”¨äºåˆ¤æ–­å½“å‰å¯¹è±¡ä¸otherå¯¹è±¡èƒ½å¦åœ¨èƒŒåŒ…ä¸­å…¬ç”¨å­˜å‚¨èƒŒåŒ…æ ¼ä½
     virtual bool CanBeDepositTogether(const Item& other) const { return max_count_in_one_grid >= 1 && name == other.GetName(); }
 
     virtual std::shared_ptr<Item> GetCopy() const;
 
-    virtual void Use();  // Ã¿¸öÎïÆ·µÄÊ¹ÓÃ·½·¨
+    virtual void Use();  // æ¯ä¸ªç‰©å“çš„ä½¿ç”¨æ–¹æ³•
 
 };

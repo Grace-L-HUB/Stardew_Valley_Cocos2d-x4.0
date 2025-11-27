@@ -1,6 +1,6 @@
 #pragma once
 //quitUI.h
-//ÍË³ö½çÃæ
+//é€€å‡ºç•Œé¢
 #include "cocos2d.h"  
 #include "AppDelegate.h"
 

@@ -6,17 +6,17 @@ NPC* NPCreate::CreateNPC ( const std::string& name , const cocos2d::Vec2& positi
                          const std::vector<std::vector<std::string>>& animationFrames ,
                          const std::vector<cocos2d::Vec2>& validPositions ) {
     NPC* npc = new NPC ( name , position , animationFrames , validPositions );
-    return npc; // ¼ÇµÃ¼ì²é npc ÊÇ·ñÕıÈ·´´½¨²¢·µ»Ø  
+    return npc; // è®°å¾—æ£€æŸ¥ npc æ˜¯å¦æ­£ç¡®åˆ›å»ºå¹¶è¿”å›  
 }
 
-// ¸üĞÂ CreateMultipleNPCs ·½·¨  
+// æ›´æ–° CreateMultipleNPCs æ–¹æ³•  
 std::vector<NPC*> NPCreate::CreateMultipleNPCs ( const std::vector<std::pair<std::string , 
     cocos2d::Vec2>>& npcData , 
     const std::vector<std::vector<std::vector<std::string>>>& allAnimationFrames ,
     const std::vector<cocos2d::Vec2>& validPositions ) {
-    std::vector<NPC*> npcs; // ÓÃÓÚ´æ´¢´´½¨µÄ NPC  
+    std::vector<NPC*> npcs; // ç”¨äºå­˜å‚¨åˆ›å»ºçš„ NPC  
     for (size_t i = 0; i < npcData.size (); ++i) {
-        npcs.push_back ( CreateNPC ( npcData[i].first , npcData[i].second , allAnimationFrames[i] , validPositions) ); // À©Õ¹Ê¹ÓÃallAnimationFrames  
+        npcs.push_back ( CreateNPC ( npcData[i].first , npcData[i].second , allAnimationFrames[i] , validPositions) ); // æ‰©å±•ä½¿ç”¨allAnimationFrames  
     }
-    return npcs; // ·µ»Ø´´½¨µÄ NPC ÁĞ±í  
+    return npcs; // è¿”å›åˆ›å»ºçš„ NPC åˆ—è¡¨  
 }

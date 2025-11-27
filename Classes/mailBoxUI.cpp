@@ -43,11 +43,11 @@ void mailBoxUI::backgroundcreate () {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    // ´´½¨Ò»¸ö°ëÍ¸Ã÷µÄºÚÉ«ÕÚÕÖ
-    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // ºÚÉ«£¬Í¸Ã÷¶ÈÎª120
-    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize / 2 );// ÉèÖÃÕÚÕÖ²ãµÄÎ»ÖÃ
+    // åˆ›å»ºä¸€ä¸ªåŠé€æ˜çš„é»‘è‰²é®ç½©
+    auto darkLayer = cocos2d::LayerColor::create ( cocos2d::Color4B ( 0 , 0 , 0 , 120 ) , 10 * visibleSize.width , 5 * visibleSize.height );  // é»‘è‰²ï¼Œé€æ˜åº¦ä¸º120
+    darkLayer->setPosition ( Vec2 ( currentx , currenty ) - visibleSize / 2 );// è®¾ç½®é®ç½©å±‚çš„ä½ç½®
     this->addChild ( darkLayer , 0 );
-    //´ó¿ò¼Ü
+    //å¤§æ¡†æ¶
     auto mail = Sprite::create ( "UIresource/xinxiang/renwu2.png" );
     if (mail == nullptr)
     {
@@ -55,13 +55,13 @@ void mailBoxUI::backgroundcreate () {
     }
     else
     {
-        // »ñÈ¡Ô­Ê¼Í¼Æ¬µÄ¿í¸ß
+        // è·å–åŸå§‹å›¾ç‰‡çš„å®½é«˜
         float originalWidth = mail->getContentSize ().width;
         float originalHeight = mail->getContentSize ().height;
-        // ¸ù¾İÆÁÄ»¿í¶ÈºÍÍ¼Æ¬Ô­Ê¼¿í¸ß¼ÆËã±ÈÀı
+        // æ ¹æ®å±å¹•å®½åº¦å’Œå›¾ç‰‡åŸå§‹å®½é«˜è®¡ç®—æ¯”ä¾‹
         float scaleX = visibleSize.width / originalWidth;
         float scaleY = visibleSize.height / originalHeight;
-        // Ñ¡Ôñ×îĞ¡µÄËõ·Å±ÈÀı£¬ÒÔ±£Ö¤Í¼Æ¬ÍêÈ«ÏÔÊ¾ÔÚÆÁÄ»ÉÏÇÒ²»±äĞÎ
+        // é€‰æ‹©æœ€å°çš„ç¼©æ”¾æ¯”ä¾‹ï¼Œä»¥ä¿è¯å›¾ç‰‡å®Œå…¨æ˜¾ç¤ºåœ¨å±å¹•ä¸Šä¸”ä¸å˜å½¢
         float scale = std::min ( scaleX , scaleY );
         mail->setScale ( scale);
         mail->setPosition ( Vec2 ( currentx , currenty ) );
@@ -119,74 +119,74 @@ void mailBoxUI::taskDisplay ( TaskManagement& taskManager ) {
     float currentx = position.x , currenty = position.y;
     updateCoordinate ( currentx , currenty );
     auto visibleSize = Director::getInstance ()->getVisibleSize ();
-    //´´½¨ ScrollView
+    //åˆ›å»º ScrollView
     auto scrollView = cocos2d::ui::ScrollView::create ();
-    scrollView->setDirection ( cocos2d::ui::ScrollView::Direction::VERTICAL ); // ÉèÖÃÎª´¹Ö±¹ö¶¯
-    scrollView->setContentSize ( Size ( 1630 , 600 ) ); // ÉèÖÃScrollView ¿í¶È£¬¸ß¶È
-    scrollView->setPosition ( Vec2 ( currentx - visibleSize.width * 0.589 , currenty - visibleSize.height * 0.2 ) ); // ÉèÖÃÎ»ÖÃ
-    scrollView->setBounceEnabled ( true ); // ÆôÓÃµ¯ĞÔĞ§¹û
-    scrollView->setScrollBarEnabled ( false );    // ½ûÓÃ´¹Ö±ºÍË®Æ½»¬¶¯Ìõ
+    scrollView->setDirection ( cocos2d::ui::ScrollView::Direction::VERTICAL ); // è®¾ç½®ä¸ºå‚ç›´æ»šåŠ¨
+    scrollView->setContentSize ( Size ( 1630 , 600 ) ); // è®¾ç½®ScrollView å®½åº¦ï¼Œé«˜åº¦
+    scrollView->setPosition ( Vec2 ( currentx - visibleSize.width * 0.589 , currenty - visibleSize.height * 0.2 ) ); // è®¾ç½®ä½ç½®
+    scrollView->setBounceEnabled ( true ); // å¯ç”¨å¼¹æ€§æ•ˆæœ
+    scrollView->setScrollBarEnabled ( false );    // ç¦ç”¨å‚ç›´å’Œæ°´å¹³æ»‘åŠ¨æ¡
 
-    // ¼ÆËã×Ü¸ß¶È  
+    // è®¡ç®—æ€»é«˜åº¦  
     float totalItemHeight = 0;
-    const int itemCount = 5; // ÈÎÎñÊıÁ¿  
-    const float itemHeight = 500; // Ã¿¸ö¸ß¶È  
-    totalItemHeight = itemCount * itemHeight; // ¼ÆËã×Ü¸ß¶È  
+    const int itemCount = 5; // ä»»åŠ¡æ•°é‡  
+    const float itemHeight = 500; // æ¯ä¸ªé«˜åº¦  
+    totalItemHeight = itemCount * itemHeight; // è®¡ç®—æ€»é«˜åº¦  
 
-    // ÉèÖÃÄÚ²¿ÈİÆ÷µÄ´óĞ¡  
-    scrollView->setInnerContainerSize ( Size ( 1630 , totalItemHeight ) ); // ÉèÖÃÄÚ²¿ÈİÆ÷µÄ´óĞ¡
+    // è®¾ç½®å†…éƒ¨å®¹å™¨çš„å¤§å°  
+    scrollView->setInnerContainerSize ( Size ( 1630 , totalItemHeight ) ); // è®¾ç½®å†…éƒ¨å®¹å™¨çš„å¤§å°
 
-    // ¼àÌıÊó±ê¹öÂÖÊÂ¼ş
+    // ç›‘å¬é¼ æ ‡æ»šè½®äº‹ä»¶
     auto listener = cocos2d::EventListenerMouse::create ();
     listener->onMouseScroll = [scrollView]( cocos2d::EventMouse* event ) {
-        // »ñÈ¡Êó±ê¹öÂÖµÄÆ«ÒÆÁ¿  
+        // è·å–é¼ æ ‡æ»šè½®çš„åç§»é‡  
         float scrollDelta = event->getScrollY ();
 
-        // »ñÈ¡µ±Ç°µÄ innerContainer  
+        // è·å–å½“å‰çš„ innerContainer  
         auto innerContainer = scrollView->getInnerContainer ();
 
-        // ¼ÆËãĞÂµÄ Y Î»ÖÃ  
+        // è®¡ç®—æ–°çš„ Y ä½ç½®  
         float currentPosY = innerContainer->getPositionY ();
-        float newPosY = currentPosY + scrollDelta * 100; // µ÷ÕûÁéÃô¶È  
+        float newPosY = currentPosY + scrollDelta * 100; // è°ƒæ•´çµæ•åº¦  
 
-        // ÏŞÖÆ¹ö¶¯µÄÉÏÏÂ±ß½ç  
+        // é™åˆ¶æ»šåŠ¨çš„ä¸Šä¸‹è¾¹ç•Œ  
         float lowerLimit = scrollView->getContentSize ().height - innerContainer->getContentSize ().height;
         float upperLimit = -1400;
 
         //CCLOG ( "currentPosY: %f, newPosY: %f, lowerLimit: %f, upperLimit: %f" , currentPosY , newPosY , lowerLimit , upperLimit );
 
-        // Ê¹ÓÃ std::max ºÍ std::min È·±£ newPosY ÔÚ±ß½çÄÚ  
+        // ä½¿ç”¨ std::max å’Œ std::min ç¡®ä¿ newPosY åœ¨è¾¹ç•Œå†…  
         newPosY = std::max ( newPosY , lowerLimit );
         newPosY = std::min ( newPosY , upperLimit );
 
-        // ÉèÖÃĞÂµÄÎ»ÖÃ  
+        // è®¾ç½®æ–°çš„ä½ç½®  
         innerContainer->setPositionY ( newPosY );
 
         };
-    // ½«¼àÌıÆ÷Ìí¼Óµ½ÊÂ¼ş·Ö·¢Æ÷
+    // å°†ç›‘å¬å™¨æ·»åŠ åˆ°äº‹ä»¶åˆ†å‘å™¨
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , this );
 
-    float offsetY = 0;  // ÓÃÀ´´æ´¢ÈÎÎñ¼äµÄ×İÏò¼ä¾à
-    // »ñÈ¡ËùÓĞÈÎÎñ  
+    float offsetY = 0;  // ç”¨æ¥å­˜å‚¨ä»»åŠ¡é—´çš„çºµå‘é—´è·
+    // è·å–æ‰€æœ‰ä»»åŠ¡  
     std::vector<TaskManagement::Task> tasks = taskManager.returnTasks ();
 
-    // ´´½¨Ò»¸ö×Ö·û´®ÒÔ´æ´¢ËùÓĞÈÎÎñµÄĞÅÏ¢  
+    // åˆ›å»ºä¸€ä¸ªå­—ç¬¦ä¸²ä»¥å­˜å‚¨æ‰€æœ‰ä»»åŠ¡çš„ä¿¡æ¯  
     std::string allTasksInfo;
     for (const auto& task : tasks) {
-        //Ìí¼Ó¿ò
+        //æ·»åŠ æ¡†
         auto taskframe = Sprite::create ( "UIresource/SkillTree/background.png" );
         taskframe->setScale ( 1.5f , 0.5f );
         taskframe->setPosition ( Vec2 ( visibleSize.width * 0.6 , 539 + visibleSize.height * 1.4 - offsetY ) );
         scrollView->addChild ( taskframe , 2 );
 
-        // ¸ñÊ½»¯ÈÎÎñĞÅÏ¢  
+        // æ ¼å¼åŒ–ä»»åŠ¡ä¿¡æ¯  
         std::string taskInfo = "Task_Name: " + task.name ;
-        // ´´½¨±êÇ©À´ÏÔÊ¾ÈÎÎñĞÅÏ¢  
+        // åˆ›å»ºæ ‡ç­¾æ¥æ˜¾ç¤ºä»»åŠ¡ä¿¡æ¯  
         auto taskMessage = Label::createWithSystemFont ( taskInfo , "fonts/Comic Sans MS.ttf" , 50 );
         taskMessage->setAnchorPoint ( Vec2 ( 0 , 0.5 ) );
         taskMessage->setTextColor ( Color4B::BLACK );
 
-        // ÉèÖÃ±êÇ©µÄÎ»ÖÃ  
+        // è®¾ç½®æ ‡ç­¾çš„ä½ç½®  
         Vec2 visibleSize = Director::getInstance ()->getVisibleSize ();
         taskMessage->setPosition ( Vec2 (visibleSize.x * 0.35 , 539 + visibleSize.y * 1.4 - offsetY ) );
 
@@ -236,10 +236,10 @@ void mailBoxUI::taskDisplay ( TaskManagement& taskManager ) {
 
         _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , taskframe );
 
-        // ¸üĞÂÏÂÒ»¸öÉÌÆ·µÄÎ»ÖÃÆ«ÒÆÁ¿
-        offsetY += 350;  // Ã¿¸öÈÎÎñ¼äµÄµÄ¼ä¾à
+        // æ›´æ–°ä¸‹ä¸€ä¸ªå•†å“çš„ä½ç½®åç§»é‡
+        offsetY += 350;  // æ¯ä¸ªä»»åŠ¡é—´çš„çš„é—´è·
     }
-    // ½«¹ö¶¯ÊÓÍ¼Ìí¼Óµ½LayerÖĞ
+    // å°†æ»šåŠ¨è§†å›¾æ·»åŠ åˆ°Layerä¸­
     this->addChild ( scrollView , 5 );
 }
 
