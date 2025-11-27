@@ -11,6 +11,7 @@
 #include "ui/CocosGUI.h"
 #include "vector"
 #include "mailBoxUI.h"
+#include "GameStateManager.h"
 
 USING_NS_CC;
 
@@ -29,19 +30,19 @@ bool farm::init ()
     button = cocos2d::Sprite::create ( "CloseNormal.png" );
     this->addChild ( button , 11 );
 
-    // ÉèÖÃ¼ÆÊ±Æ÷±êÇ©
+    // ï¿½ï¿½ï¿½Ã¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ç©
     TimeUI = Timesystem::create ( "farm" );
     this->addChild ( TimeUI , 13 );
 
-    // »Ö¸´ÖÖÖ²
+    // ï¿½Ö¸ï¿½ï¿½ï¿½Ö²
     AllInitialize_crop ();
 
     if (Weather == "Rainy") {
-        // ÏÂÓê
+        // ï¿½ï¿½ï¿½ï¿½
         createRainEffect ();
     }
 
-    // ÉèÖÃ±³¾°Í¼Æ¬
+    // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Í¼Æ¬
     auto background_real = Sprite::create ( "farm/farm.png" );
     background_real->setPosition ( Vec2 ( visibleSize.width / 2 , visibleSize.height / 2 ) );
     this->addChild ( background_real , 1 );
@@ -53,14 +54,14 @@ bool farm::init ()
     background->setScale ( 1.5f );
 
 
-    Vec2 spritePosition = background->getPosition ();   // »ñÈ¡¾«ÁéµÄÎ»ÖÃ£¨ÖÐÐÄµã£©
-    Size spriteSize = background->getContentSize ();    // »ñÈ¡¾«ÁéµÄ³ß´ç£¨¿í¶ÈºÍ¸ß¶È£©
+    Vec2 spritePosition = background->getPosition ();   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Äµã£©
+    Size spriteSize = background->getContentSize ();    // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä³ß´ç£¨ï¿½ï¿½ï¿½ÈºÍ¸ß¶È£ï¿½
 
 
-    // ¼ÆËã×óÏÂ½ÇµÄ×ø±ê
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½Çµï¿½ï¿½ï¿½ï¿½ï¿½
     Vec2 leftBottomPosition = Vec2 (
-        spritePosition.x - background->getScaleX () * spriteSize.width / 2 ,   // ÖÐÐÄµã x ×ø±ê¼õÈ¥¿í¶ÈµÄÒ»°ë
-        spritePosition.y - background->getScaleY () * spriteSize.height / 2   // ÖÐÐÄµã y ×ø±ê¼õÈ¥¸ß¶ÈµÄÒ»°ë
+        spritePosition.x - background->getScaleX () * spriteSize.width / 2 ,   // ï¿½ï¿½ï¿½Äµï¿½ x ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Èµï¿½Ò»ï¿½ï¿½
+        spritePosition.y - background->getScaleY () * spriteSize.height / 2   // ï¿½ï¿½ï¿½Äµï¿½ y ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ß¶Èµï¿½Ò»ï¿½ï¿½
     );
 
 
@@ -70,46 +71,46 @@ bool farm::init ()
         int width = img.getWidth ();
         int height = img.getHeight ();
 
-        // »ñÈ¡ÏñËØÊý¾Ý
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         unsigned char* data = img.getData ();
 
-        // ±éÀúËùÓÐÏñËØ£¬¼ì²éÊÇ·ñÓÐÄÚÈÝ£¨Í¸Ã÷¶È´óÓÚ0£©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Í¸ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½0ï¿½ï¿½
         for (int y = 0; y < height; y = y + 8)
         {
             for (int x = 0; x < width; x = x + 8)
             {
-                // »ñÈ¡µ±Ç°ÏñËØµÄ RGBA Öµ
-                int index = (y * width + x) * 4;  // Ã¿¸öÏñËØÕ¼ÓÃ 4 ¸ö×Ö½Ú (RGBA)
-                unsigned char a = data[index + 3];  // Í¸Ã÷¶È
+                // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Øµï¿½ RGBA Öµ
+                int index = (y * width + x) * 4;  // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ 4 ï¿½ï¿½ï¿½Ö½ï¿½ (RGBA)
+                unsigned char a = data[index + 3];  // Í¸ï¿½ï¿½ï¿½ï¿½
 
-                // Èç¹ûÍ¸Ã÷¶È (alpha) ´óÓÚ 0£¬±íÊ¾´ËÏñËØÓÐÄÚÈÝ
+                // ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ (alpha) ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (a > 0)
                 {
                     float screenX = leftBottomPosition.x + x * background->getScaleX ();
-                    float screenY = leftBottomPosition.y + (height - y - 1) * background->getScaleY ();  // ×¢Òâ Y Öá·´Ïò
-                    nonTransparentPixels.push_back ( Vec2 ( screenX , screenY ) );  // ¼ÇÂ¼ÆÁÄ»×ø±ê
+                    float screenY = leftBottomPosition.y + (height - y - 1) * background->getScaleY ();  // ×¢ï¿½ï¿½ Y ï¿½á·´ï¿½ï¿½
+                    nonTransparentPixels.push_back ( Vec2 ( screenX , screenY ) );  // ï¿½ï¿½Â¼ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
     }
 
-    // ³õÊ¼»¯½ÇÉ«²¢½«ÆäÌí¼Óµ½³¡¾°
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
     if (player1->getParent () == NULL) {
         this->addChild ( player1 , 17 );
         for (auto& pair : F_lastplace) {
-            if (pair.second == true) {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+            if (pair.second == true) {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                 player1->setPosition ( pair.first.second );
                 pair.second = false;
             }
         }
          player1->speed = 4.7f;
-         //½öÎª·½±ã²âÊÔ
+         //ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
        /* player1->speed = 20.0f;*/
         player1->setScale ( 1.5f );
         player1->setAnchorPoint ( Vec2 ( 0.5f , 0.2f ) );
     }
 
-    // Æô¶¯ÈËÎïµÄ¶¨Ê±Æ÷
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½Ê±ï¿½ï¿½
     player1->schedule ( [=]( float dt ) {
         player1->player1_move ();
         } , 0.05f , "player1_move" );
@@ -119,36 +120,36 @@ bool farm::init ()
         } , 0.3f , "player_change" );
 
 
-    // ¼ÆËã±³¾°¾«ÁéµÄËõ·Åºó·¶Î§
+    // ï¿½ï¿½ï¿½ã±³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½Î§
     float scaledWidth = background->getContentSize ().width * background->getScaleX ();
     float scaledHeight = background->getContentSize ().height * background->getScaleY ();
 
-    // ¹¹Ôì Follow µÄ±ß½ç Rect
+    // ï¿½ï¿½ï¿½ï¿½ Follow ï¿½Ä±ß½ï¿½ Rect
     auto followRect = cocos2d::Rect ( leftBottomPosition.x , leftBottomPosition.y , scaledWidth , scaledHeight );
 
-    // ´´½¨ Follow ¶¯×÷²¢ÏÞÖÆÍæ¼ÒÔÚ±³¾°·¶Î§ÄÚÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ Follow ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½Æ¶ï¿½
     auto followAction = Follow::create ( player1 , followRect );
     this->runAction ( followAction );
 
-    // ¶¨ÆÚ¸üÐÂÍæ¼Ò×´Ì¬
+    // ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
     this->schedule ( [this]( float dt ) {
-        this->checkPlayerPosition ();  // ¼ì²éÍæ¼ÒÊÇ·ñ½Ó½üÂÖÀªµã
+        this->checkPlayerPosition ();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         } , 0.01f , "check_position_key" );
 
-    //ÐÅÏäÌí¼Ó£¬ÓÃÀ´ÁìÈ¡ÈÎÎñ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
     auto mailBox = Sprite::create ( "UIresource/xinxiang/xinxiang.png" );
     mailBox->setPosition ( Vec2 ( 260 , 1050 ) );
     mailBox->setScale ( 0.7f );
     this->addChild ( mailBox , 10 );
 
-    //Ïä×ÓÌí¼Ó£¬ÓÃÀ´Âô¶«Î÷
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Box = Sprite::create ( "UIresource/xiangzi/xiangzi.png" );
     Box->setPosition ( Vec2 ( 260 , 1150 ) );
     Box->setAnchorPoint ( Vec2 ( 0 , 0 ) );
     Box->setScale ( 0.7f );
     this->addChild ( Box , 10 );
 
-    //´ó¹øÌí¼Ó ÓÃÀ´×ö·¹
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     auto cooking_pot = CookingPot::create ();
     cooking_pot->setPosition ( -50 , 1000 );
     cooking_pot->setAnchorPoint ( Vec2 ( 0 , 0 ) );
@@ -156,28 +157,28 @@ bool farm::init ()
     this->addChild ( cooking_pot , 10 );
     
 
-    //½»»¥¾àÀë
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     float interactionRadius = 200.0f;
 
     auto listener = EventListenerMouse::create ();
     listener->onMouseDown = [this , mailBox , interactionRadius, cooking_pot]( Event* event ) {
 
-        // »ñÈ¡Êó±êµã»÷µÄÎ»ÖÃ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         auto mouseEvent = static_cast<EventMouse*>(event);
         Vec2 clickPos ( mouseEvent->getCursorX () , mouseEvent->getCursorY () );
         clickPos = this->convertToNodeSpace ( clickPos );
 
         if (Box->getBoundingBox ().containsPoint ( clickPos )) {
 
-            // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ  
+            // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½  
             Vec2 playerPos = player1->getPosition ();
 
             Vec2 BoxPos = Box->getPosition ();
 
-            // ¼ÆËãÍæ¼ÒÓëNPCÖ®¼äµÄ¾àÀë  
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCÖ®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½  
             float distance = playerPos.distance ( BoxPos );
 
-            // ¼ì²é¾àÀëÊÇ·ñÔÚÔÊÐíµÄ·¶Î§ÄÚ  
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½  
             if (distance <= interactionRadius) {
                 if (miniBag->getSelectedSlot ()) {
                     GoldAmount += inventory->GetItemAt ( miniBag->getSelectedSlot () )->GetValue ();
@@ -188,7 +189,7 @@ bool farm::init ()
             }
         }
 
-        //ÅÐ¶ÏÊó±êµã»÷µÄÎ»ÖÃ
+        //ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         if (cooking_pot->getBoundingBox ().containsPoint ( clickPos )) {
             auto selected_item = miniBag->getSelectedItem ();
             if (selected_item != nullptr && std::dynamic_pointer_cast<Food>(selected_item) != nullptr) {
@@ -216,17 +217,17 @@ bool farm::init ()
             cooking_pot->DisplayPotInCCLOG ();
         }
 
-        // ÅÐ¶Ïµã»÷Î»ÖÃÊÇ·ñÔÚÐÅÏä¸½½ü·¶Î§ÄÚ
+        // ï¿½Ð¶Ïµï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¸½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½
         if (button != nullptr && button->getBoundingBox ().containsPoint ( clickPos )) {
             Director::getInstance ()->end ();
         }
         if (mailBox->getBoundingBox ().containsPoint ( clickPos )) {
-            // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ  
+            // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½  
             Vec2 playerPos = player1->getPosition ();
 
-            // ¼ÆËãÍæ¼ÒÓëÐÅÏäÖ®¼äµÄ¾àÀë  
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½  
             float distance = playerPos.distance ( mailBox->getPosition () );
-            // ¼ì²é¾àÀëÊÇ·ñÔÚÔÊÐíµÄ·¶Î§ÄÚ  
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½  
             if (distance <= interactionRadius) {
                 mailBoxUI* mailbox = mailBoxUI::create ();
                 this->addChild ( mailbox , 20 );
@@ -236,7 +237,7 @@ bool farm::init ()
 
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , this );
 
-    // ÉèÖÃ¼üÅÌ¼àÌýÆ÷
+    // ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½
     auto listenerWithPlayer = EventListenerKeyboard::create ();
     listenerWithPlayer->onKeyPressed = [this]( EventKeyboard::KeyCode keyCode , Event* event )
         {
@@ -255,20 +256,20 @@ bool farm::init ()
             }
             else if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
                 static int isOpen = 0;
-                static InventoryUI* currentInventoryUI = nullptr;  // ±£´æµ±Ç°ÏÔÊ¾µÄ InventoryUI  
-                // Èç¹ûµ±Ç°Ã»ÓÐ´ò¿ª InventoryUI£¬Ôò´ò¿ªËü  
+                static InventoryUI* currentInventoryUI = nullptr;  // ï¿½ï¿½ï¿½æµ±Ç°ï¿½ï¿½Ê¾ï¿½ï¿½ InventoryUI  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ã»ï¿½Ð´ï¿½ InventoryUIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
                 if (currentInventoryUI == nullptr || isOpen == 0) {
                     isOpen = 1;
                     CCLOG ( "Opening inventory." );
                     currentInventoryUI = InventoryUI::create ( inventory , "farm" );
-                    this->addChild ( currentInventoryUI , 20 );  // ½« InventoryUI Ìí¼Óµ½ÉÏ²ã  
+                    this->addChild ( currentInventoryUI , 20 );  // ï¿½ï¿½ InventoryUI ï¿½ï¿½ï¿½Óµï¿½ï¿½Ï²ï¿½  
                 }
-                // Èç¹ûÒÑ¾­´ò¿ª InventoryUI£¬Ôò¹Ø±ÕËü  
+                // ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ InventoryUIï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½  
                 else {
                     isOpen = 0;
                     CCLOG ( "Closing inventory." );
-                    this->removeChild ( currentInventoryUI , true );  // ´Óµ±Ç°³¡¾°ÖÐÒÆ³ý InventoryUI  
-                    currentInventoryUI = nullptr;  // ÖØÖÃÖ¸Õë  
+                    this->removeChild ( currentInventoryUI , true );  // ï¿½Óµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ InventoryUI  
+                    currentInventoryUI = nullptr;  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½  
                 }
             }
 
@@ -276,7 +277,7 @@ bool farm::init ()
 
     listenerWithPlayer->onKeyReleased = [this]( EventKeyboard::KeyCode keyCode , Event* event )
         {
-            // ÊÍ·Å Enter ¼üÊ±£¬ÉèÖÃÎª false
+            // ï¿½Í·ï¿½ Enter ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª false
             if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER) {
                 isEnterKeyPressed = false;
             }
@@ -291,10 +292,10 @@ bool farm::init ()
             }
         };
 
-    // ½«¼àÌýÆ÷Ìí¼Óµ½ÊÂ¼þ·Ö·¢Æ÷ÖÐ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Â¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( listenerWithPlayer , this );
 
-    //½çÃæÏÂµÄ±³°üÏÔÊ¾
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
     miniBag = mini_bag::create ( inventory );
     miniBag->setScale ( 1.0f );
     Vec2 pos = miniBag->getPosition ();
@@ -306,7 +307,7 @@ bool farm::init ()
     }
 
 
-    // ¸üÐÂÎïÆ·À¸
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
     schedule ( [=]( float deltaTime ) {
         if (inventory->is_updated == true) {
             miniBag->updateDisplay ();
@@ -335,15 +336,15 @@ void farm::AllInitialize_crop () {
 
     for (auto it = Crop_information.begin (); it != Crop_information.end (); /* no increment here */) {
 
-        auto crop = *it;  // ½âÒýÓÃµü´úÆ÷ÒÔ·ÃÎÊ Crop ¶ÔÏó
+        auto crop = *it;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ Crop ï¿½ï¿½ï¿½ï¿½
         int nums = crop->nums;
 
         cocos2d::log ( "set nums = %d" , nums );
 
-        // »ñÈ¡ÀàÐÍ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
         std::string type = crop->GetName ();
 
-        // ¸ù¾ÝÖ²ÎïµÄ×´Ì¬Ñ¡ÔñÏÔÊ¾µÄ¾«Áé
+        // ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½ï¿½×´Ì¬Ñ¡ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ä¾ï¿½ï¿½ï¿½
         if (crop->GetPhase () == Phase::MATURE) {
             auto test = Sprite::create ( crop->mature_pic );
             this->addChild ( test , 15 - nums / 19 );
@@ -369,20 +370,20 @@ void farm::AllInitialize_crop () {
             test->setScale ( 2.1f );
         }
 
-        // ±éÀúÏÂÒ»¸öÔªËØ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
         ++it;
     }
 
 
 }
 
-// ¼ì²éÍæ¼ÒÊÇ·ñ½Ó½ü±³¾°µÄÂÖÀªµã
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void farm::checkPlayerPosition ()
 {
 
-    // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ
+    // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½
     Vec2 playerPos = player1->getPosition ();
-    //ÌØÊâÎ»ÖÃÏä×ÓÏûÊ§
+    //ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§
     if (playerPos.y < 0) {
         miniBag->setLocalZOrder ( 0 );
     }
@@ -391,9 +392,9 @@ void farm::checkPlayerPosition ()
     }
 
 
-    // ¼ÆËãÍæ¼ÒÓëÏä×ÓÖ®¼äµÄ¾àÀë  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½  
     float distance = playerPos.distance ( Box->getPosition () );
-    // ¼ì²é¾àÀëÊÇ·ñÔÚÔÊÐíµÄ·¶Î§ÄÚ  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½  
     if (distance <= 200.0f) {
         Box->setTexture ( "UIresource/xiangzi/Open.png" );
     }
@@ -401,7 +402,7 @@ void farm::checkPlayerPosition ()
         Box->setTexture ( "UIresource/xiangzi/xiangzi.png" );
     }
 
-    // ¸üÐÂ¼ÆÊ±Æ÷ÏÔÊ¾
+    // ï¿½ï¿½ï¿½Â¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾
     remainingTime++;
     if (remainingTime == 43200 || strength == 0) {
 
@@ -439,7 +440,7 @@ void farm::checkPlayerPosition ()
 
         for (auto it = Crop_information.begin (); it != Crop_information.end ();) {
 
-            auto crop = *it;  // ½âÒýÓÃµü´úÆ÷ÒÔ·ÃÎÊ Crop ¶ÔÏó
+            auto crop = *it;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ Crop ï¿½ï¿½ï¿½ï¿½
 
             if (day == 1) {
                 crop->watered = true;
@@ -448,22 +449,22 @@ void farm::checkPlayerPosition ()
                 crop->watered = true;
             }
 
-            // ÅÐ¶ÏÇ°Ò»ÌìÊÇ·ñ½½Ë®
+            // ï¿½Ð¶ï¿½Ç°Ò»ï¿½ï¿½ï¿½Ç·ï¿½Ë®
             if ((crop->watered == false) && (crop->GetPhase () != Phase::MATURE)) {
-                // ÅÐ¶ÏÊÇ·ñÒÑ¾­½øÈë¿ÝÎ®×´Ì¬
+                // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î®×´Ì¬
                 if (crop->GetPhase () != Phase::SAPLESS) {
                     crop->ChangePhase ( Phase::SAPLESS );
-                    crop->ChangMatureNeeded ( 2 ); // ÑÓ³ÙÁ½ÌìÊÕ»ñ
+                    crop->ChangMatureNeeded ( 2 ); // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½
                     it++;
                 }
                 else {
-                    // É¾³ýÔªËØ²¢¸üÐÂµü´úÆ÷
+                    // É¾ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
                     it = Crop_information.erase ( it );
                 }
 
             }
             else {
-                // ¸üÐÂ×´Ì¬
+                // ï¿½ï¿½ï¿½ï¿½×´Ì¬
                 crop->UpdateGrowth ();
                 it++;
             }
@@ -471,7 +472,7 @@ void farm::checkPlayerPosition ()
         }
 
         for (auto& pair : F_lastplace) {
-            if (pair.first.first == "myhouse") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+            if (pair.first.first == "myhouse") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                 pair.second = true;
             }
         }
@@ -480,11 +481,10 @@ void farm::checkPlayerPosition ()
         frombed = true;
         remainingTime = 10800;
         player1->removeFromParent ();
-        auto nextday = Myhouse::create ();
-        Director::getInstance ()->replaceScene ( nextday );
+        GameStateManager::getInstance().changeState(GameStateType::MYHOUSE, "fade", 1.0f);
 
     }
-    // ¸üÐÂ±êÇ©Î»ÖÃ
+    // ï¿½ï¿½ï¿½Â±ï¿½Ç©Î»ï¿½ï¿½
     float currentx = 0 , currenty = 0;
     if (playerPos.x <= 637) {
         currentx = 637;
@@ -510,10 +510,10 @@ void farm::checkPlayerPosition ()
     button->setPosition ( currentx + 730 , currenty - 590 );
     miniBag->setPosition ( currentx , currenty );
 
-    // ÓëÖÖÖ²ÓÐ¹ØµÄ²Ù×÷
+    // ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Ð¹ØµÄ²ï¿½ï¿½ï¿½
     if (plant_area.containsPoint ( playerPos )) {
 
-        // ÊÇ·ñÖ´ÐÐÖÖÖ²
+        // ï¿½Ç·ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ö²
         if (isPKeyPressed) {
 
             int nums = getRegionNumber ( Vec2 ( playerPos.x + 10 , playerPos.y - 10 ) );
@@ -523,7 +523,7 @@ void farm::checkPlayerPosition ()
             cocos2d::log ( "plant nums = %d" , nums );
 
             for (auto it = Crop_information.begin (); it != Crop_information.end (); /* no increment here */) {
-                if ((*it)->nums == nums) {  // Ê¹ÓÃ *it ½âÒýÓÃµü´úÆ÷
+                if ((*it)->nums == nums) {  // Ê¹ï¿½ï¿½ *it ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
                     Isplant = true;
                     break;
                 }
@@ -541,7 +541,7 @@ void farm::checkPlayerPosition ()
                     auto point = cropbasicinformation.find ( TypeName );
                     if (point != cropbasicinformation.end ()) {
                         cocos2d::log ( "find crop" );
-                        // ÅÐ¶ÏÊÇ·ñ·ûºÏÖÖÖ²µÄ¼¾½Ú
+                        // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½Ä¼ï¿½ï¿½ï¿½
                         if (((cropbasicinformation[TypeName].GetSeason () == Season) || (cropbasicinformation[TypeName].GetSeason () == "All")) && strength >= 10) {
                             inventory->RemoveItem ( *temp );
 
@@ -558,19 +558,19 @@ void farm::checkPlayerPosition ()
                             Crop_information.back ()->nums = nums;
 
                             if (player1->pic_path == "character1/player_right3.png") {
-                                // ³õÊ¼ÉèÖÃ£ºÉèÖÃµÚÒ»¸öÍ¼Æ¬²¢·Å´ó
+                                // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Å´ï¿½
                                 player1->setTexture ( "character1/player_plant3.png" );
                                 player1->setScale ( 2.5f );
 
-                                // ÑÓ³Ù0.3ÃëºóÇÐ»»µ½µÚ¶þ¸öÍ¼Æ¬
+                                // ï¿½Ó³ï¿½0.3ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Í¼Æ¬
                                 player1->scheduleOnce ( [=]( float dt ) {
-                                    player1->setTexture ( "character1/player_plant4.png" );  // ¸ü»»Îªplayer_plant2
+                                    player1->setTexture ( "character1/player_plant4.png" );  // ï¿½ï¿½ï¿½ï¿½Îªplayer_plant2
                                     player1->setScale ( 2.7f );
                                     } , 0.15f , "change_image1_key" );
 
-                                // ÑÓ³Ù0.6ÃëºóÇÐ»»µ½µÚÈý¸öÍ¼Æ¬
+                                // ï¿½Ó³ï¿½0.6ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                                 player1->scheduleOnce ( [=]( float dt ) {
-                                    player1->setTexture ( "character1/player_right3.png" ); // ¸ü»»Îªplayer_left3
+                                    player1->setTexture ( "character1/player_right3.png" ); // ï¿½ï¿½ï¿½ï¿½Îªplayer_left3
                                     player1->setScale ( 1.5f );
                                     auto temp = Sprite::create ( Crop_information.back ()->initial_pic );
                                     this->addChild ( temp , 15 - nums / 19 );
@@ -579,19 +579,19 @@ void farm::checkPlayerPosition ()
                                     } , 0.35f , "change_image2_key" );
                             }
                             else {
-                                // ³õÊ¼ÉèÖÃ£ºÉèÖÃµÚÒ»¸öÍ¼Æ¬²¢·Å´ó
+                                // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Å´ï¿½
                                 player1->setTexture ( "character1/player_plant1.png" );
                                 player1->setScale ( 2.5f );
 
-                                // ÑÓ³Ù0.3ÃëºóÇÐ»»µ½µÚ¶þ¸öÍ¼Æ¬
+                                // ï¿½Ó³ï¿½0.3ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Í¼Æ¬
                                 player1->scheduleOnce ( [=]( float dt ) {
-                                    player1->setTexture ( "character1/player_plant2.png" );  // ¸ü»»Îªplayer_plant2
+                                    player1->setTexture ( "character1/player_plant2.png" );  // ï¿½ï¿½ï¿½ï¿½Îªplayer_plant2
                                     player1->setScale ( 2.7f );
                                     } , 0.15f , "change_image1_key" );
 
-                                // ÑÓ³Ù0.6ÃëºóÇÐ»»µ½µÚÈý¸öÍ¼Æ¬
+                                // ï¿½Ó³ï¿½0.6ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                                 player1->scheduleOnce ( [=]( float dt ) {
-                                    player1->setTexture ( "character1/player_left3.png" ); // ¸ü»»Îªplayer_left3
+                                    player1->setTexture ( "character1/player_left3.png" ); // ï¿½ï¿½ï¿½ï¿½Îªplayer_left3
                                     player1->setScale ( 1.5f );
                                     auto temp = Sprite::create ( Crop_information.back ()->initial_pic );
                                     this->addChild ( temp , 15 - nums / 19 );
@@ -607,32 +607,32 @@ void farm::checkPlayerPosition ()
                 }
             }
         }
-        // ÊÇ·ñÖ´ÐÐ½½Ë®
+        // ï¿½Ç·ï¿½Ö´ï¿½Ð½ï¿½Ë®
         else if (isWKeyPressed) {
 
             int nums = getRegionNumber ( Vec2 ( playerPos.x + 30 , playerPos.y - 10 ) );
 
             for (auto it : Crop_information) {
                 if (it->nums == nums) {
-                    // ¸ÄÎªÒÑ½½Ë®
+                    // ï¿½ï¿½Îªï¿½Ñ½ï¿½Ë®
                     it->watered = true;
 
                     if (player1->pic_path == "character1/player_left3.png") {
-                        // ³õÊ¼ÉèÖÃ£ºÉèÖÃµÚÒ»¸öÍ¼Æ¬²¢·Å´ó
+                        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Å´ï¿½
                         player1->setTexture ( "character1/player_water4.png" );
                         player1->setScale ( 1.7f );
 
-                        // ÑÓ³Ù0.3ÃëºóÇÐ»»µ½µÚ¶þ¸öÍ¼Æ¬
+                        // ï¿½Ó³ï¿½0.3ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Í¼Æ¬
                         player1->scheduleOnce ( [=]( float dt ) {
-                            player1->setTexture ( "character1/player_water3.png" );  // ¸ü»»Îªplayer_water1
+                            player1->setTexture ( "character1/player_water3.png" );  // ï¿½ï¿½ï¿½ï¿½Îªplayer_water1
                             player1->setScale ( 1.7f );
                             } , 0.15f , "change_image1_key" );
 
-                        // ÑÓ³Ù0.6ÃëºóÇÐ»»µ½µÚÈý¸öÍ¼Æ¬
+                        // ï¿½Ó³ï¿½0.6ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                         player1->scheduleOnce ( [=]( float dt ) {
-                            player1->setTexture ( "character1/player_left3.png" ); // ¸ü»»Îªplayer_right3
+                            player1->setTexture ( "character1/player_left3.png" ); // ï¿½ï¿½ï¿½ï¿½Îªplayer_right3
                             player1->setScale ( 1.5f );
-                            // »Ö¸´½ÇÉ«ÆäËûµÄ¶¯×÷È¨ÏÞ
+                            // ï¿½Ö¸ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½È¨ï¿½ï¿½
                             player1->moveDown = true;
                             player1->moveLeft = true;
                             player1->moveUp = true;
@@ -641,21 +641,21 @@ void farm::checkPlayerPosition ()
 
                     }
                     else {
-                        // ³õÊ¼ÉèÖÃ£ºÉèÖÃµÚÒ»¸öÍ¼Æ¬²¢·Å´ó
+                        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Å´ï¿½
                         player1->setTexture ( "character1/player_water2.png" );
                         player1->setScale ( 1.7f );
 
-                        // ÑÓ³Ù0.3ÃëºóÇÐ»»µ½µÚ¶þ¸öÍ¼Æ¬
+                        // ï¿½Ó³ï¿½0.3ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Í¼Æ¬
                         player1->scheduleOnce ( [=]( float dt ) {
-                            player1->setTexture ( "character1/player_water1.png" );  // ¸ü»»Îªplayer_water1
+                            player1->setTexture ( "character1/player_water1.png" );  // ï¿½ï¿½ï¿½ï¿½Îªplayer_water1
                             player1->setScale ( 1.7f );
                             } , 0.15f , "change_image1_key" );
 
-                        // ÑÓ³Ù0.6ÃëºóÇÐ»»µ½µÚÈý¸öÍ¼Æ¬
+                        // ï¿½Ó³ï¿½0.6ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                         player1->scheduleOnce ( [=]( float dt ) {
-                            player1->setTexture ( "character1/player_right3.png" ); // ¸ü»»Îªplayer_right3
+                            player1->setTexture ( "character1/player_right3.png" ); // ï¿½ï¿½ï¿½ï¿½Îªplayer_right3
                             player1->setScale ( 1.5f );
-                            // »Ö¸´½ÇÉ«ÆäËûµÄ¶¯×÷È¨ÏÞ
+                            // ï¿½Ö¸ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½È¨ï¿½ï¿½
                             player1->moveDown = true;
                             player1->moveLeft = true;
                             player1->moveUp = true;
@@ -667,14 +667,14 @@ void farm::checkPlayerPosition ()
             }
 
         }
-        // ÊÇ·ñÖ´ÐÐÊÕ»ñ
+        // ï¿½Ç·ï¿½Ö´ï¿½ï¿½ï¿½Õ»ï¿½
         else if (isGKeyPressed) {
 
             int nums = getRegionNumber ( Vec2 ( playerPos.x + 10 , playerPos.y - 10 ) );
 
 
             for (auto it = Crop_information.begin (); it != Crop_information.end (); /* no increment here */) {
-                if ((*it)->nums == nums) {  // Ê¹ÓÃ *it ½âÒýÓÃµü´úÆ÷
+                if ((*it)->nums == nums) {  // Ê¹ï¿½ï¿½ *it ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½
                     if ((*it)->GetPhase () == Phase::MATURE && strength >= 10) {
 
                         skill_tree->AddExperience ( farming_skill , 10 );
@@ -688,29 +688,29 @@ void farm::checkPlayerPosition ()
                         strength -= 10;
                         TimeUI->UpdateEnergy ();
 
-                        // ¸²¸Ç¾«Áé
+                        // ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½
                         auto test = Sprite::create ( "farm/tile.png" );
                         this->addChild ( test , 15 - nums / 19 );
                         test->setPosition ( 495 + ((nums % 19) - 1) * 48 , 910 - ((nums / 19) - 1) * 48 );
                         test->setScaleX ( 2.5f );
                         test->setScaleY ( 1.9f );
 
-                        // É¾³ýÔªËØ²¢¸üÐÂµü´úÆ÷
-                        it = Crop_information.erase ( it );  // erase ·µ»ØÐÂµÄµü´úÆ÷ 
+                        // É¾ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
+                        it = Crop_information.erase ( it );  // erase ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄµï¿½ï¿½ï¿½ï¿½ï¿½ 
 
-                        // ³õÊ¼ÉèÖÃ£ºÉèÖÃµÚÒ»¸öÍ¼Æ¬²¢·Å´ó
+                        // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ò»ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½Å´ï¿½
                         player1->setTexture ( "character1/player_plant1.png" );
                         player1->setScale ( 2.5f );
 
-                        // ÑÓ³Ù0.3ÃëºóÇÐ»»µ½µÚ¶þ¸öÍ¼Æ¬
+                        // ï¿½Ó³ï¿½0.3ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Í¼Æ¬
                         player1->scheduleOnce ( [=]( float dt ) {
-                            player1->setTexture ( "character1/player_plant2.png" );  // ¸ü»»Îªplayer_plant2
+                            player1->setTexture ( "character1/player_plant2.png" );  // ï¿½ï¿½ï¿½ï¿½Îªplayer_plant2
                             player1->setScale ( 2.7f );
                             } , 0.15f , "change_image1_key" );
 
-                        // ÑÓ³Ù0.6ÃëºóÇÐ»»µ½µÚÈý¸öÍ¼Æ¬
+                        // ï¿½Ó³ï¿½0.6ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
                         player1->scheduleOnce ( [=]( float dt ) {
-                            player1->setTexture ( "character1/player_left3.png" ); // ¸ü»»Îªplayer_left3
+                            player1->setTexture ( "character1/player_left3.png" ); // ï¿½ï¿½ï¿½ï¿½Îªplayer_left3
                             player1->setScale ( 1.5f );
                             } , 0.35f , "change_image2_key" );
 
@@ -720,7 +720,7 @@ void farm::checkPlayerPosition ()
                     }
                 }
                 else {
-                    ++it;  // ¼ÌÐø±éÀúÏÂÒ»¸öÔªËØ
+                    ++it;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½
                 }
             }
 
@@ -728,7 +728,7 @@ void farm::checkPlayerPosition ()
 
     }
 
-    // ÊÇ·ñ½øÈëÍæ¼ÒµÄ¼Ò
+    // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒµÄ¼ï¿½
     if (myhouse_area.containsPoint ( playerPos )) {
         if (isEnterKeyPressed) {
             for (auto& pair : F_lastplace) {
@@ -737,63 +737,59 @@ void farm::checkPlayerPosition ()
                 }
             }
             player1->removeFromParent ();
-            auto NextSence = Myhouse::create ();
-            Director::getInstance ()->replaceScene ( NextSence );
+            GameStateManager::getInstance().changeState(GameStateType::MYHOUSE, "fade", 1.0f);
         }
     }
 
-    // ÊÇ·ñÀë¿ªÅ©³¡
+    // ï¿½Ç·ï¿½ï¿½ë¿ªÅ©ï¿½ï¿½
     if (Out_Farm.containsPoint ( playerPos )) {
         if (isEnterKeyPressed) {
 
         }
     }
 
-    // ÊÇ·ñ½øÈëÐóÅï
+    // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if (barn_area.containsPoint ( playerPos )) {
         if (isEnterKeyPressed) {
             for (auto& pair : F_lastplace) {
-                if (pair.first.first == "barn") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+                if (pair.first.first == "barn") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                     pair.second = true;
                 }
             }
             player1->removeFromParent ();
-            auto NextSence = Barn::create ();
-            Director::getInstance ()->replaceScene ( NextSence );
+            GameStateManager::getInstance().changeState(GameStateType::BARN, "slide_right", 0.8f);
         }
     }
 
-    // ÊÇ·ñ½øÈëÉ½¶´
+    // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½É½ï¿½ï¿½
     if (cave_area.containsPoint ( playerPos )) {
         if (isEnterKeyPressed) {
             for (auto& pair : F_lastplace) {
-                if (pair.first.first == "cave") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+                if (pair.first.first == "cave") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                     pair.second = true;
                 }
             }
             player1->removeFromParent ();
-            auto NextSence = Cave::create ();
-            Director::getInstance ()->replaceScene ( NextSence );
+            GameStateManager::getInstance().changeState(GameStateType::CAVE, "fade", 0.8f);
         }
     }
 
-    // ÊÇ·ñ½øÈëÉ­ÁÖ
+    // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½É­ï¿½ï¿½
     if (forest_area.containsPoint ( playerPos )) {
         if (isEnterKeyPressed) {
             for (auto& pair : F_lastplace) {
-                if (pair.first.first == "forest") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+                if (pair.first.first == "forest") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                     pair.second = true;
                 }
             }
             player1->removeFromParent ();
-            auto NextSence = Forest::create ();
-            Director::getInstance ()->replaceScene ( NextSence );
+            GameStateManager::getInstance().changeState(GameStateType::FOREST, "slide_left", 0.8f);
         }
     }
 
     for (const auto& point : nonTransparentPixels)
     {
-        // ¼ÆËãÍæ¼ÒÓëÂÖÀªµãÖ®¼äµÄ¾àÀë
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
         float distance = 0;
 
         Vec2 temp;
@@ -852,29 +848,29 @@ void farm::checkPlayerPosition ()
 
 int farm::getRegionNumber ( Vec2 pos ) {
 
-    // ¶¨Òå¾ØÐÎÇøÓòµÄ²ÎÊý
-    int left_bottom_x = 496;  // ×óÏÂ½Çx×ø±ê
-    int left_bottom_y = 467;  // ×óÏÂ½Çy×ø±ê
-    int width = 912;          // ¾ØÐÎ¿í¶È
-    int height = 480;         // ¾ØÐÎ¸ß¶È
-    int block_size = 48;      // Ã¿¿éµÄ´óÐ¡
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
+    int left_bottom_x = 496;  // ï¿½ï¿½ï¿½Â½ï¿½xï¿½ï¿½ï¿½ï¿½
+    int left_bottom_y = 467;  // ï¿½ï¿½ï¿½Â½ï¿½yï¿½ï¿½ï¿½ï¿½
+    int width = 912;          // ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
+    int height = 480;         // ï¿½ï¿½ï¿½Î¸ß¶ï¿½
+    int block_size = 48;      // Ã¿ï¿½ï¿½Ä´ï¿½Ð¡
 
-    // ¼ÆËã×ÜµÄÐÐÊýºÍÁÐÊý
-    int rows = height / block_size;  // ÐÐÊý
-    int cols = width / block_size;   // ÁÐÊý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    int rows = height / block_size;  // ï¿½ï¿½ï¿½ï¿½
+    int cols = width / block_size;   // ï¿½ï¿½ï¿½ï¿½
 
-    // ¼ÆËã¸ø¶¨×ø±êµÄÁÐºÍÐÐ±àºÅ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½Ð±ï¿½ï¿½
     int col = (pos.x - left_bottom_x) / block_size;
     int row = (left_bottom_y + height - pos.y) / block_size;
-    // ·ÀÖ¹Ô½½ç
+    // ï¿½ï¿½Ö¹Ô½ï¿½ï¿½
     if (col < 0) {
         col = 0;
     }
     if (row < 0) {
         row = 0;
     }
-    // ¼ÆËãÇøÓò±àºÅ£ºÏÈÐÐºóÁÐ
-    int region_number = (row)*cols + col + 1;  // ±àºÅ´Ó1¿ªÊ¼
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½ï¿½
+    int region_number = (row)*cols + col + 1;  // ï¿½ï¿½Å´ï¿½1ï¿½ï¿½Ê¼
 
     return region_number;
 }
@@ -889,7 +885,7 @@ void farm::createRainEffect () {
 
     addChild ( emitter , 10 );
 
-    // Ã¿Ö¡¸üÐÂÁ£×ÓÉúÃüÖÜÆÚ
+    // Ã¿Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     schedule ( [this]( float dt ) {
         updaterain ( dt );
         } , "update_rain_key" );
@@ -899,10 +895,10 @@ void farm::createRainEffect () {
 
 void farm::updaterain ( float deltaTime ) {
     if (emitter) {
-        // Ëæ»úÉú³ÉÒ»¸öÉúÃüÖÜÆÚ£¨·¶Î§ 1 µ½ 1.5 ÃëÖ®¼ä£©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Î§ 1 ï¿½ï¿½ 1.5 ï¿½ï¿½Ö®ï¿½ä£©
         float newLife = cocos2d::rand_0_1 () * 1.5f;
 
-        // ÉèÖÃÐÂµÄÉúÃüÖÜÆÚ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         emitter->setLife ( newLife );
 
         emitter->setEmissionRate ( emitter->getTotalParticles () / emitter->getLife () * 1.3 );

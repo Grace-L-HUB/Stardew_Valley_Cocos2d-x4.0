@@ -5,6 +5,7 @@
 #include "supermarket.h"
 #include "Player.h"
 #include "ui/CocosGUI.h"
+#include "GameStateManager.h"
 
 USING_NS_CC;
 
@@ -24,18 +25,18 @@ bool Town::init()
     this->addChild(button, 11);
 
 
-    // ÉèÖÃ¼ÆÊ±Æ÷±êÇ©
+    // ï¿½ï¿½ï¿½Ã¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ç©
     TimeUI = Timesystem::create("Town");
     
     this->addChild(TimeUI, 13);
 
 
     if (Weather == "Rainy") {
-        // ÏÂÓê
+        // ï¿½ï¿½ï¿½ï¿½
         createRainEffect();
     }
 
-    // ÉèÖÃ±³¾°Í¼Æ¬
+    // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Í¼Æ¬
     auto background_real = Sprite::create("Town/Town.png");
     background_real->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     this->addChild(background_real, 1);
@@ -52,14 +53,14 @@ bool Town::init()
     background->setScale(1.7f);
 
 
-    Vec2 spritePosition = background->getPosition();   // »ñÈ¡¾«ÁéµÄÎ»ÖÃ£¨ÖÐÐÄµã£©
-    Size spriteSize = background->getContentSize();    // »ñÈ¡¾«ÁéµÄ³ß´ç£¨¿í¶ÈºÍ¸ß¶È£©
+    Vec2 spritePosition = background->getPosition();   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Äµã£©
+    Size spriteSize = background->getContentSize();    // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä³ß´ç£¨ï¿½ï¿½ï¿½ÈºÍ¸ß¶È£ï¿½
 
 
-    // ¼ÆËã×óÏÂ½ÇµÄ×ø±ê
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½Çµï¿½ï¿½ï¿½ï¿½ï¿½
     Vec2 leftBottomPosition = Vec2(
-        spritePosition.x - background->getScaleX() * spriteSize.width / 2,   // ÖÐÐÄµã x ×ø±ê¼õÈ¥¿í¶ÈµÄÒ»°ë
-        spritePosition.y - background->getScaleY() * spriteSize.height / 2   // ÖÐÐÄµã y ×ø±ê¼õÈ¥¸ß¶ÈµÄÒ»°ë
+        spritePosition.x - background->getScaleX() * spriteSize.width / 2,   // ï¿½ï¿½ï¿½Äµï¿½ x ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Èµï¿½Ò»ï¿½ï¿½
+        spritePosition.y - background->getScaleY() * spriteSize.height / 2   // ï¿½ï¿½ï¿½Äµï¿½ y ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ß¶Èµï¿½Ò»ï¿½ï¿½
     );
 
 
@@ -69,49 +70,49 @@ bool Town::init()
         int width = img.getWidth();
         int height = img.getHeight();
 
-        // »ñÈ¡ÏñËØÊý¾Ý
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         unsigned char* data = img.getData();
 
-        // ±éÀúËùÓÐÏñËØ£¬¼ì²éÊÇ·ñÓÐÄÚÈÝ£¨Í¸Ã÷¶È´óÓÚ0£©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Í¸ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½0ï¿½ï¿½
         for (int y = 0; y < height; y = y + 8)
         {
             for (int x = 0; x < width; x = x + 8)
             {
-                // »ñÈ¡µ±Ç°ÏñËØµÄ RGBA Öµ
-                int index = (y * width + x) * 4;  // Ã¿¸öÏñËØÕ¼ÓÃ 4 ¸ö×Ö½Ú (RGBA)
-                unsigned char a = data[index + 3];  // Í¸Ã÷¶È
+                // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Øµï¿½ RGBA Öµ
+                int index = (y * width + x) * 4;  // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ 4 ï¿½ï¿½ï¿½Ö½ï¿½ (RGBA)
+                unsigned char a = data[index + 3];  // Í¸ï¿½ï¿½ï¿½ï¿½
 
-                // Èç¹ûÍ¸Ã÷¶È (alpha) ´óÓÚ 0£¬±íÊ¾´ËÏñËØÓÐÄÚÈÝ
+                // ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ (alpha) ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (a > 0)
                 {
                     float screenX = leftBottomPosition.x + x * background->getScaleX();
-                    float screenY = leftBottomPosition.y + (height - y - 1) * background->getScaleY();  // ×¢Òâ Y Öá·´Ïò
-                    nonTransparentPixels.push_back(Vec2(screenX, screenY));  // ¼ÇÂ¼ÆÁÄ»×ø±ê
+                    float screenY = leftBottomPosition.y + (height - y - 1) * background->getScaleY();  // ×¢ï¿½ï¿½ Y ï¿½á·´ï¿½ï¿½
+                    nonTransparentPixels.push_back(Vec2(screenX, screenY));  // ï¿½ï¿½Â¼ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
     }
 
 
-    // ³õÊ¼»¯¿ªÃÅ¼ü
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Å¼ï¿½
     opendoor = Sprite::create("opendoor.png");
     this->addChild(opendoor, 11);
 
-    // »Ö¸´Íæ¼ÒµÄ×´Ì¬
+    // ï¿½Ö¸ï¿½ï¿½ï¿½Òµï¿½×´Ì¬
     if (player1)
     {
         for (auto& pair : T_lastplace) {
-            if (pair.second == true) {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+            if (pair.second == true) {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                 player1->setPosition(pair.first.second);
                 pair.second = false;
             }
         }
         player1->speed = 3.7f;
-        //½öÎª·½±ã²âÊÔ
+        //ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
        /* player1->speed = 20.0f;*/
     }
 
-    //½çÃæÏÂµÄ±³°üÏÔÊ¾
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
     miniBag = mini_bag::create(inventory);
     miniBag->setScale(1.0f);
     Vec2 pos = miniBag->getPosition();
@@ -123,7 +124,7 @@ bool Town::init()
     }
 
 
-    // ¸üÐÂÎïÆ·À¸
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
     schedule([=](float deltaTime) {
         if (inventory->is_updated == true) {
             miniBag->updateDisplay();
@@ -131,7 +132,7 @@ bool Town::init()
         }
         }, 0.1f, "item_update_key");
 
-    //Ïä×ÓÌí¼Ó£¬ÓÃÀ´Íê³ÉÈÎÎñ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     Box = Sprite::create ( "UIresource/xiangzi/xiangzi.png" );
     CCLOG ( "boxhavecreate" );
     Box->setPosition ( Vec2 ( -260 , 710 ) );
@@ -139,7 +140,7 @@ bool Town::init()
     Box->setScale ( 0.7f );
     this->addChild ( Box , 11 );
 
-    // ³õÊ¼»¯½ÇÉ«²¢½«ÆäÌí¼Óµ½³¡¾°
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
     if (player1->getParent() == NULL) {
         cocos2d::log("player1->get");
         this->addChild(player1, 6);
@@ -154,52 +155,52 @@ bool Town::init()
         player1->player_change();
         }, 0.3f, "player_change");
 
-    // ¼ÆËã±³¾°¾«ÁéµÄËõ·Åºó·¶Î§
+    // ï¿½ï¿½ï¿½ã±³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½Î§
     float scaledWidth = background->getContentSize().width * background->getScaleX();
     float scaledHeight = background->getContentSize().height * background->getScaleY();
 
-    // ¹¹Ôì Follow µÄ±ß½ç Rect
+    // ï¿½ï¿½ï¿½ï¿½ Follow ï¿½Ä±ß½ï¿½ Rect
     auto followRect = cocos2d::Rect(leftBottomPosition.x, leftBottomPosition.y, scaledWidth, scaledHeight);
 
-    // ´´½¨ Follow ¶¯×÷²¢ÏÞÖÆÍæ¼ÒÔÚ±³¾°·¶Î§ÄÚÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ Follow ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½Æ¶ï¿½
     auto followAction = Follow::create(player1, followRect);
     this->runAction(followAction);
 
-    // ¶¨ÆÚ¸üÐÂÍæ¼Ò×´Ì¬
+    // ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
     this->schedule([this](float dt) {
-        this->checkPlayerPosition();  // ¼ì²éÍæ¼ÒÊÇ·ñ½Ó½üÂÖÀªµã
+        this->checkPlayerPosition();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }, 0.01f, "check_position_key");
 
     if (Festival == "Fishing Festival") {}
     else {
-        // ÔÊÐíµÄ½»»¥°ë¾¶  
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ë¾¶  
         const float interactionRadius = 300.0f;
 
 
-        // Ê¹ÓÃ getAlexAnimations() »ñÈ¡ NPC ¶¯»­Ö¡  
+        // Ê¹ï¿½ï¿½ getAlexAnimations() ï¿½ï¿½È¡ NPC ï¿½ï¿½ï¿½ï¿½Ö¡  
         auto alexAnimations = getAlexAnimations ( Season );
-        // ´´½¨ NPC Ê¾Àý  
+        // ï¿½ï¿½ï¿½ï¿½ NPC Ê¾ï¿½ï¿½  
         auto alex = NPCreate::CreateNPC ( "Alex" , cocos2d::Vec2 ( -550 , 1450 ) , alexAnimations , nonTransparentPixels );
         if (alex) {
             // CCLOG ( "NPC Alex created successfully." );  
             auto alexSprite = alex->GetSprite ();
             if (alexSprite) {
                 // CCLOG ( "Alex sprite created successfully at position: (%f, %f)" , alexSprite->getPositionX () , alexSprite->getPositionY () );  
-                this->addChild ( alexSprite , 5 ); // È·±£Ìí¼Óµ½³¡¾°ÖÐ  
+                this->addChild ( alexSprite , 5 ); // È·ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
-                // Ê¹ÓÃµ÷¶ÈÆ÷Ã¿ 1.0 Ãëµ÷ÓÃ RandomMove  
+                // Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ RandomMove  
                 this->schedule ( [alex]( float dt ) {
                     alex->RandomMove ();
 
-                    // »ñÈ¡ Alex µÄµ±Ç°Î»ÖÃ  
-                    auto alexSprite = alex->GetSprite (); // »ñÈ¡¾«Áé  
+                    // ï¿½ï¿½È¡ Alex ï¿½Äµï¿½Ç°Î»ï¿½ï¿½  
+                    auto alexSprite = alex->GetSprite (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½  
                     if (alexSprite) {
-                        // »ñÈ¡µ±Ç°¾«ÁéµÄÎ»ÖÃºÍ´óÐ¡  
+                        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡  
                         Vec2 position = alexSprite->getPosition ();
                         Size size = alexSprite->getContentSize ();
-                        // CCLOG ( "Alex's current position: (%f, %f)" , position.x , position.y ); // ´òÓ¡Î»ÖÃ  
+                        // CCLOG ( "Alex's current position: (%f, %f)" , position.x , position.y ); // ï¿½ï¿½Ó¡Î»ï¿½ï¿½  
                     }
-                    } , 1.0f , "random_move_key_alex" ); // Ã¿ 1.0 ÃëËæ»úÒÆ¶¯Ò»´Î  
+                    } , 1.0f , "random_move_key_alex" ); // Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ò»ï¿½ï¿½  
             }
             else {
                 CCLOG ( "Alex sprite is nullptr." );
@@ -209,30 +210,30 @@ bool Town::init()
             CCLOG ( "Failed to create NPC Alex." );
         }
 
-        // Ê¹ÓÃ getElliottAnimations() »ñÈ¡ NPC ¶¯»­Ö¡  
+        // Ê¹ï¿½ï¿½ getElliottAnimations() ï¿½ï¿½È¡ NPC ï¿½ï¿½ï¿½ï¿½Ö¡  
         auto elliottAnimations = getElliottAnimations ( Season );
-        // ´´½¨ NPC Ê¾Àý  
+        // ï¿½ï¿½ï¿½ï¿½ NPC Ê¾ï¿½ï¿½  
         auto elliott = NPCreate::CreateNPC ( "Elliott" , cocos2d::Vec2 ( 1550 , 600 ) , elliottAnimations , nonTransparentPixels );
         if (elliott) {
             // CCLOG ( "NPC Elliott created successfully." );
             auto elliottSprite = elliott->GetSprite ();
             if (elliottSprite) {
                 // CCLOG ( "Elliott sprite created successfully at position: (%f, %f)" , elliottSprite->getPositionX () , elliottSprite->getPositionY () );
-                this->addChild ( elliottSprite , 5 ); // È·±£Ìí¼Óµ½³¡¾°ÖÐ  
+                this->addChild ( elliottSprite , 5 ); // È·ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
-                // Ê¹ÓÃµ÷¶ÈÆ÷Ã¿ 1.0 Ãëµ÷ÓÃ RandomMove  
+                // Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ RandomMove  
                 this->schedule ( [elliott]( float dt ) {
                     elliott->RandomMove ();
 
-                    // »ñÈ¡ Elliott µÄµ±Ç°Î»ÖÃ  
-                    auto elliottSprite = elliott->GetSprite (); // »ñÈ¡¾«Áé  
+                    // ï¿½ï¿½È¡ Elliott ï¿½Äµï¿½Ç°Î»ï¿½ï¿½  
+                    auto elliottSprite = elliott->GetSprite (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½  
                     if (elliottSprite) {
-                        // »ñÈ¡µ±Ç°¾«ÁéµÄÎ»ÖÃºÍ´óÐ¡  
+                        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡  
                         Vec2 position = elliottSprite->getPosition ();
                         Size size = elliottSprite->getContentSize ();
-                        // CCLOG ( "Elliott's current position: (%f, %f)" , position.x , position.y ); // ´òÓ¡Î»ÖÃ  
+                        // CCLOG ( "Elliott's current position: (%f, %f)" , position.x , position.y ); // ï¿½ï¿½Ó¡Î»ï¿½ï¿½  
                     }
-                    } , 1.0f , "random_move_key_elliott" ); // Ã¿ 1.0 ÃëËæ»úÒÆ¶¯Ò»´Î  
+                    } , 1.0f , "random_move_key_elliott" ); // Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ò»ï¿½ï¿½  
             }
             else {
                 CCLOG ( "Elliott sprite is nullptr." );
@@ -242,30 +243,30 @@ bool Town::init()
             CCLOG ( "Failed to create NPC Elliott." );
         }
 
-        // Ê¹ÓÃ getCarolineAnimations() »ñÈ¡ NPC ¶¯»­Ö¡  
+        // Ê¹ï¿½ï¿½ getCarolineAnimations() ï¿½ï¿½È¡ NPC ï¿½ï¿½ï¿½ï¿½Ö¡  
         auto carolineAnimations = getCarolineAnimations ( Season );
-        // ´´½¨ NPC Ê¾Àý  
+        // ï¿½ï¿½ï¿½ï¿½ NPC Ê¾ï¿½ï¿½  
         auto caroline = NPCreate::CreateNPC ( "Caroline" , cocos2d::Vec2 ( 700 , 1400 ) , carolineAnimations , nonTransparentPixels );
         if (caroline) {
             // CCLOG ( "NPC Caroline created successfully." );  
             auto carolineSprite = caroline->GetSprite ();
             if (carolineSprite) {
                 // CCLOG ( "Caroline sprite created successfully at position: (%f, %f)" , carolineSprite->getPositionX () , carolineSprite->getPositionY () );  
-                this->addChild ( carolineSprite , 5 ); // È·±£Ìí¼Óµ½³¡¾°ÖÐ  
+                this->addChild ( carolineSprite , 5 ); // È·ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
-                // Ê¹ÓÃµ÷¶ÈÆ÷Ã¿ 1.0 Ãëµ÷ÓÃ RandomMove  
+                // Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ RandomMove  
                 this->schedule ( [caroline]( float dt ) {
                     caroline->RandomMove ();
 
-                    // »ñÈ¡ Caroline µÄµ±Ç°Î»ÖÃ  
-                    auto carolineSprite = caroline->GetSprite (); // »ñÈ¡¾«Áé  
+                    // ï¿½ï¿½È¡ Caroline ï¿½Äµï¿½Ç°Î»ï¿½ï¿½  
+                    auto carolineSprite = caroline->GetSprite (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½  
                     if (carolineSprite) {
-                        // »ñÈ¡µ±Ç°¾«ÁéµÄÎ»ÖÃºÍ´óÐ¡  
+                        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡  
                         Vec2 position = carolineSprite->getPosition ();
                         Size size = carolineSprite->getContentSize ();
-                        // CCLOG ( "Caroline's current position: (%f, %f)" , position.x , position.y ); // ´òÓ¡Î»ÖÃ  
+                        // CCLOG ( "Caroline's current position: (%f, %f)" , position.x , position.y ); // ï¿½ï¿½Ó¡Î»ï¿½ï¿½  
                     }
-                    } , 1.0f , "random_move_key_caroline" ); // Ã¿ 1.0 ÃëËæ»úÒÆ¶¯Ò»´Î  
+                    } , 1.0f , "random_move_key_caroline" ); // Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ò»ï¿½ï¿½  
             }
             else {
                 CCLOG ( "Caroline sprite is nullptr." );
@@ -275,30 +276,30 @@ bool Town::init()
             CCLOG ( "Failed to create NPC Caroline." );
         }
 
-        // Ê¹ÓÃ getAbigailAnimations() »ñÈ¡ NPC ¶¯»­Ö¡  
+        // Ê¹ï¿½ï¿½ getAbigailAnimations() ï¿½ï¿½È¡ NPC ï¿½ï¿½ï¿½ï¿½Ö¡  
         auto abigailAnimations = getAbigailAnimations ( Season );
-        // ´´½¨ NPC Ê¾Àý  
+        // ï¿½ï¿½ï¿½ï¿½ NPC Ê¾ï¿½ï¿½  
         auto abigail = NPCreate::CreateNPC ( "Abigail" , cocos2d::Vec2 ( 60 , 100 ) , abigailAnimations , nonTransparentPixels );
         if (abigail) {
             // CCLOG ( "NPC Abigail created successfully." );  
             auto abigailSprite = abigail->GetSprite ();
             if (abigailSprite) {
                 // CCLOG ( "Abigail sprite created successfully at position: (%f, %f)" , abigailSprite->getPositionX () , abigailSprite->getPositionY () );  
-                this->addChild ( abigailSprite , 5 ); // È·±£Ìí¼Óµ½³¡¾°ÖÐ  
+                this->addChild ( abigailSprite , 5 ); // È·ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
-                // Ê¹ÓÃµ÷¶ÈÆ÷Ã¿ 1.0 Ãëµ÷ÓÃ RandomMove  
+                // Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ RandomMove  
                 this->schedule ( [abigail]( float dt ) {
                     abigail->RandomMove ();
 
-                    // »ñÈ¡ Abigail µÄµ±Ç°Î»ÖÃ  
-                    auto abigailSprite = abigail->GetSprite (); // »ñÈ¡¾«Áé  
+                    // ï¿½ï¿½È¡ Abigail ï¿½Äµï¿½Ç°Î»ï¿½ï¿½  
+                    auto abigailSprite = abigail->GetSprite (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½  
                     if (abigailSprite) {
-                        // »ñÈ¡µ±Ç°¾«ÁéµÄÎ»ÖÃºÍ´óÐ¡  
+                        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡  
                         Vec2 position = abigailSprite->getPosition ();
                         Size size = abigailSprite->getContentSize ();
-                        // CCLOG ( "Abigail's current position: (%f, %f)" , position.x , position.y ); // ´òÓ¡Î»ÖÃ  
+                        // CCLOG ( "Abigail's current position: (%f, %f)" , position.x , position.y ); // ï¿½ï¿½Ó¡Î»ï¿½ï¿½  
                     }
-                    } , 1.0f , "random_move_key_abigail" ); // Ã¿ 1.0 ÃëËæ»úÒÆ¶¯Ò»´Î  
+                    } , 1.0f , "random_move_key_abigail" ); // Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ò»ï¿½ï¿½  
             }
             else {
                 CCLOG ( "Abigail sprite is nullptr." );
@@ -308,30 +309,30 @@ bool Town::init()
             CCLOG ( "Failed to create NPC Abigail." );
         }
 
-        // Ê¹ÓÃ getEmilyAnimations() »ñÈ¡ NPC ¶¯»­Ö¡  
+        // Ê¹ï¿½ï¿½ getEmilyAnimations() ï¿½ï¿½È¡ NPC ï¿½ï¿½ï¿½ï¿½Ö¡  
         auto emilyAnimations = getEmilyAnimations ( Season );
-        // ´´½¨ NPC Ê¾Àý  
+        // ï¿½ï¿½ï¿½ï¿½ NPC Ê¾ï¿½ï¿½  
         auto emily = NPCreate::CreateNPC ( "Emily" , cocos2d::Vec2 ( 180 , 1550 ) , emilyAnimations , nonTransparentPixels );
         if (emily) {
             // CCLOG ( "NPC Emily created successfully." );  
             auto emilySprite = emily->GetSprite ();
             if (emilySprite) {
                 // CCLOG ( "Emily sprite created successfully at position: (%f, %f)" , emilySprite->getPositionX () , emilySprite->getPositionY () );  
-                this->addChild ( emilySprite , 5 ); // È·±£Ìí¼Óµ½³¡¾°ÖÐ  
+                this->addChild ( emilySprite , 5 ); // È·ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 
-                // Ê¹ÓÃµ÷¶ÈÆ÷Ã¿ 1.0 Ãëµ÷ÓÃ RandomMove  
+                // Ê¹ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ RandomMove  
                 this->schedule ( [emily]( float dt ) {
                     emily->RandomMove ();
 
-                    // »ñÈ¡ Emily µÄµ±Ç°Î»ÖÃ  
-                    auto emilySprite = emily->GetSprite (); // »ñÈ¡¾«Áé  
+                    // ï¿½ï¿½È¡ Emily ï¿½Äµï¿½Ç°Î»ï¿½ï¿½  
+                    auto emilySprite = emily->GetSprite (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½  
                     if (emilySprite) {
-                        // »ñÈ¡µ±Ç°¾«ÁéµÄÎ»ÖÃºÍ´óÐ¡  
+                        // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ÃºÍ´ï¿½Ð¡  
                         Vec2 position = emilySprite->getPosition ();
                         Size size = emilySprite->getContentSize ();
-                        // CCLOG ( "Emily's current position: (%f, %f)" , position.x , position.y ); // ´òÓ¡Î»ÖÃ  
+                        // CCLOG ( "Emily's current position: (%f, %f)" , position.x , position.y ); // ï¿½ï¿½Ó¡Î»ï¿½ï¿½  
                     }
-                    } , 1.0f , "random_move_key_emily" ); // Ã¿ 1.0 ÃëËæ»úÒÆ¶¯Ò»´Î  
+                    } , 1.0f , "random_move_key_emily" ); // Ã¿ 1.0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ò»ï¿½ï¿½  
             }
             else {
                 CCLOG ( "Emily sprite is nullptr." );
@@ -341,31 +342,31 @@ bool Town::init()
             CCLOG ( "Failed to create NPC Abigail." );
         }
 
-        // Êó±êÊÂ¼þ¼àÌýÆ÷
+        // ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         auto listener = EventListenerMouse::create ();
         listener->onMouseDown = [this , abigail , alex , caroline , elliott , emily , interactionRadius]( Event* event ) {
 
-            // »ñÈ¡Êó±êµã»÷µÄÎ»ÖÃ
+            // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
             auto mouseEvent = static_cast<EventMouse*>(event);
             Vec2 clickPos ( mouseEvent->getCursorX () , mouseEvent->getCursorY () );
             clickPos = this->convertToNodeSpace ( clickPos );
 
             if (Box->getBoundingBox ().containsPoint ( clickPos )) {              
-                // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ  
+                // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½  
                 Vec2 playerPos = player1->getPosition ();
 
                 Vec2 BoxPos = Box->getPosition ();
 
-                // ¼ÆËãÍæ¼ÒÓëNPCÖ®¼äµÄ¾àÀë  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCÖ®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½  
                 float distance = playerPos.distance ( BoxPos );
 
-                // ¼ì²é¾àÀëÊÇ·ñÔÚÔÊÐíµÄ·¶Î§ÄÚ  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½  
                 if (distance <= interactionRadius) {
                     if (miniBag->getSelectedSlot ()) {
                         std::string taskName = taskManager->findTaskByRequiredItems ( inventory->GetItemAt ( miniBag->getSelectedSlot () )->GetName () );
                         // CCLOG ( "%s" , inventory->GetItemAt ( miniBag->getSelectedSlot () )->GetName () );
                         if (taskName.empty ()) {
-                            // ´¦ÀíÈÎÎñÎ´ÕÒµ½µÄÇé¿ö
+                            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                         }
                         else {
                             // CCLOG ( "CLICK ON BOX" );
@@ -375,7 +376,7 @@ bool Town::init()
                 }
             }
 
-            // ¼ì²éÊÇ·ñµã»÷ÁËNPC²¢´ò¿ª¶Ô»°¿ò  
+            // ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½NPCï¿½ï¿½ï¿½ò¿ª¶Ô»ï¿½ï¿½ï¿½  
             std::vector<std::pair<NPC* , std::string>> npcs = {
                 {abigail, "Abigail"},
                 {alex, "Alex"},
@@ -391,19 +392,19 @@ bool Town::init()
                 if (npc) {
                     auto npcSprite = npc->GetSprite ();
                     if (npcSprite && npcSprite->getBoundingBox ().containsPoint ( clickPos )) {
-                        // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ  
+                        // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½  
                         Vec2 playerPos = player1->getPosition ();
 
-                        // ¼ÆËãÍæ¼ÒÓëNPCÖ®¼äµÄ¾àÀë  
+                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½NPCÖ®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½  
                         float distance = playerPos.distance ( npcSprite->getPosition () );
 
-                        // ¼ì²é¾àÀëÊÇ·ñÔÚÔÊÐíµÄ·¶Î§ÄÚ  
+                        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½  
                         if (distance <= interactionRadius) {
                             if (!miniBag->getSelectedSlot () || npc_relationship->NpcGiftTIme ( npc->GetName () ) == 2) {
-                                // ´ò¿ª¶Ô»°¿ò£¬È·±£¶Ô»°¿òÃ¿´Î¶¼ÊÇÐÂµÄÊµÀý  
+                                // ï¿½ò¿ª¶Ô»ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Ã¿ï¿½Î¶ï¿½ï¿½ï¿½ï¿½Âµï¿½Êµï¿½ï¿½  
                                 NPCtalkUI* currentNPCtalkUI = NPCtalkUI::create ( npc , "Town" );
-                                this->addChild ( currentNPCtalkUI , 12 ); // ½«µ±Ç°NPC¶Ô»°¿òÌí¼Óµ½³¡¾°ÖÐ  
-                                return; // ´¦ÀíÍêÒ»¸öNPCºóÖ±½Ó·µ»Ø  
+                                this->addChild ( currentNPCtalkUI , 12 ); // ï¿½ï¿½ï¿½ï¿½Ç°NPCï¿½Ô»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+                                return; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½NPCï¿½ï¿½Ö±ï¿½Ó·ï¿½ï¿½ï¿½  
                             }
                             else if (miniBag->getSelectedSlot ()) {
                                 Vec2 playerPos = player1->getPosition ();
@@ -411,15 +412,15 @@ bool Town::init()
                                 inventory->RemoveItem ( miniBag->getSelectedSlot () );
                                 inventory->is_updated = true;
                                 npc_relationship->AddGiftTime ( npc->GetName () );
-                                // ÕâÀï¸Ä³ÉÀñÎïµÄÍ¼
+                                // ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼
                                 auto ItemClickByminiBag = Sprite::create ( "npc/gift.png" );
                                 ItemClickByminiBag->setPosition ( playerPos );
                                 this->addChild ( ItemClickByminiBag , 6 );
-                                // Ò»¸öÑÓ³Ù£¬2ÃëºóÒÆ³ý ItemClickByminiBag  
+                                // Ò»ï¿½ï¿½ï¿½Ó³Ù£ï¿½2ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ ItemClickByminiBag  
                                 this->runAction ( Sequence::create (
-                                    DelayTime::create ( 1.5f ) , // µÈ´ý2Ãë  
+                                    DelayTime::create ( 1.5f ) , // ï¿½È´ï¿½2ï¿½ï¿½  
                                     CallFunc::create ( [=]() {
-                                        this->removeChild ( ItemClickByminiBag ); // ÒÆ³ý ItemClickByminiBag  
+                                        this->removeChild ( ItemClickByminiBag ); // ï¿½Æ³ï¿½ ItemClickByminiBag  
                                         } ) ,
                                     nullptr
                                 ) );
@@ -437,11 +438,11 @@ bool Town::init()
         _eventDispatcher->addEventListenerWithSceneGraphPriority ( listener , this );
     }
 
-    // ÉèÖÃ¼üÅÌ¼àÌýÆ÷
+    // ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½
     auto listenerWithPlayer = EventListenerKeyboard::create();
     listenerWithPlayer->onKeyPressed = [this]( EventKeyboard::KeyCode keyCode , Event* event )
         {
-            // ¼ÇÂ¼ Enter ¼ü±»°´ÏÂ
+            // ï¿½ï¿½Â¼ Enter ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER) {
                 isEnterKeyPressed = true;
 
@@ -450,20 +451,20 @@ bool Town::init()
             else if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
                 CCLOG ( "%d" , GoldAmount );
                 static int isOpen = 0;
-                static InventoryUI* currentInventoryUI = nullptr;  // ±£´æµ±Ç°ÏÔÊ¾µÄ InventoryUI  
-                // Èç¹ûµ±Ç°Ã»ÓÐ´ò¿ª InventoryUI£¬Ôò´ò¿ªËü  
+                static InventoryUI* currentInventoryUI = nullptr;  // ï¿½ï¿½ï¿½æµ±Ç°ï¿½ï¿½Ê¾ï¿½ï¿½ InventoryUI  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ã»ï¿½Ð´ï¿½ InventoryUIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
                 if (currentInventoryUI == nullptr || isOpen == 0) {
                     isOpen = 1;
                     CCLOG ( "Opening inventory." );
                     currentInventoryUI = InventoryUI::create ( inventory , "Town" );
-                    this->addChild ( currentInventoryUI , 20 );  // ½« InventoryUI Ìí¼Óµ½ Town µÄÉÏ²ã  
+                    this->addChild ( currentInventoryUI , 20 );  // ï¿½ï¿½ InventoryUI ï¿½ï¿½ï¿½Óµï¿½ Town ï¿½ï¿½ï¿½Ï²ï¿½  
                 }
-                // Èç¹ûÒÑ¾­´ò¿ª InventoryUI£¬Ôò¹Ø±ÕËü  
+                // ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ InventoryUIï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½  
                 else {
                     isOpen = 0;
                     CCLOG ( "Closing inventory." );
-                    this->removeChild ( currentInventoryUI , true );  // ´Óµ±Ç°³¡¾°ÖÐÒÆ³ý InventoryUI  
-                    currentInventoryUI = nullptr;  // ÖØÖÃÖ¸Õë  
+                    this->removeChild ( currentInventoryUI , true );  // ï¿½Óµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ InventoryUI  
+                    currentInventoryUI = nullptr;  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½  
                 }
             }
 
@@ -471,14 +472,14 @@ bool Town::init()
 
     listenerWithPlayer->onKeyReleased = [this](EventKeyboard::KeyCode keyCode, Event* event)
         {
-            // ÊÍ·Å Enter ¼üÊ±£¬ÉèÖÃÎª false
+            // ï¿½Í·ï¿½ Enter ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª false
             if (keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER || keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER) {
                 isEnterKeyPressed = false;
                 CCLOG("Enter key released. ");
             }
         };
 
-    // ½«¼àÌýÆ÷Ìí¼Óµ½ÊÂ¼þ·Ö·¢Æ÷ÖÐ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Â¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerWithPlayer, this);
 
     return true;
@@ -496,17 +497,17 @@ Town* Town::create()
     return nullptr;
 }
 
-// ¼ì²éÍæ¼ÒÊÇ·ñ½Ó½ü±³¾°µÄÂÖÀªµã
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Town::checkPlayerPosition ()
 {
 
-    // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ
+    // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½
     Vec2 playerPos = player1->getPosition ();
 
 
-    // ¼ÆËãÍæ¼ÒÓëÏä×ÓÖ®¼äµÄ¾àÀë  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½  
     float distance = playerPos.distance(Box->getPosition());
-    // ¼ì²é¾àÀëÊÇ·ñÔÚÔÊÐíµÄ·¶Î§ÄÚ  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½Î§ï¿½ï¿½  
     if (distance <= 200.0f) {
         Box->setTexture("UIresource/xiangzi/Open.png");
     }
@@ -514,7 +515,7 @@ void Town::checkPlayerPosition ()
         Box->setTexture("UIresource/xiangzi/xiangzi.png");
     }
 
-    // ¸üÐÂ¼ÆÊ±Æ÷ÏÔÊ¾
+    // ï¿½ï¿½ï¿½Â¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾
     remainingTime++;
     if (remainingTime == 43200) {
 
@@ -552,7 +553,7 @@ void Town::checkPlayerPosition ()
 
         for (auto it = Crop_information.begin (); it != Crop_information.end ();) {
 
-            auto crop = *it;  // ½âÒýÓÃµü´úÆ÷ÒÔ·ÃÎÊ Crop ¶ÔÏó
+            auto crop = *it;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ Crop ï¿½ï¿½ï¿½ï¿½
 
             if (day == 1) {
                 crop->watered = true;
@@ -561,22 +562,22 @@ void Town::checkPlayerPosition ()
                 crop->watered = true;
             }
 
-            // ÅÐ¶ÏÇ°Ò»ÌìÊÇ·ñ½½Ë®
+            // ï¿½Ð¶ï¿½Ç°Ò»ï¿½ï¿½ï¿½Ç·ï¿½Ë®
             if ((crop->watered == false) && (crop->GetPhase () != Phase::MATURE)) {
-                // ÅÐ¶ÏÊÇ·ñÒÑ¾­½øÈë¿ÝÎ®×´Ì¬
+                // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î®×´Ì¬
                 if (crop->GetPhase () != Phase::SAPLESS) {
                     crop->ChangePhase ( Phase::SAPLESS );
-                    crop->ChangMatureNeeded ( 2 ); // ÑÓ³ÙÁ½ÌìÊÕ»ñ
+                    crop->ChangMatureNeeded ( 2 ); // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½
                     it++;
                 }
                 else {
-                    // É¾³ýÔªËØ²¢¸üÐÂµü´úÆ÷
+                    // É¾ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
                     it = Crop_information.erase ( it );
                 }
 
             }
             else {
-                // ¸üÐÂ×´Ì¬
+                // ï¿½ï¿½ï¿½ï¿½×´Ì¬
                 crop->UpdateGrowth ();
                 it++;
             }
@@ -587,7 +588,7 @@ void Town::checkPlayerPosition ()
             if (pair.second) {
                 pair.second = false;
             }
-            if (pair.first.first == "myhouse") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+            if (pair.first.first == "myhouse") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                 pair.second = true;
             }
         }
@@ -610,7 +611,7 @@ void Town::checkPlayerPosition ()
             }
         }
 
-        //»Ö¸´ÎªÄÜ¹»Éú²ú²úÆ·
+        //ï¿½Ö¸ï¿½Îªï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
         for (auto livestock : livestocks) {
             livestock->SetCanProduce ( true );
         }
@@ -619,12 +620,11 @@ void Town::checkPlayerPosition ()
         frombed = true;
         remainingTime = 10800;
         player1->removeFromParent ();
-        auto nextday = Myhouse::create ();
-        Director::getInstance ()->replaceScene ( nextday );
+        GameStateManager::getInstance().changeState(GameStateType::MYHOUSE, "fade", 1.0f);
 
     }
 
-    // ¸üÐÂ±êÇ©Î»ÖÃ
+    // ï¿½ï¿½ï¿½Â±ï¿½Ç©Î»ï¿½ï¿½
     float currentx = 0 , currenty = 0;
     if (playerPos.x <= -170) {
         currentx = -170;
@@ -652,28 +652,27 @@ void Town::checkPlayerPosition ()
     if (Weather == "Rainy") {
         emitter->setPositionY ( currenty + 350 );
     }
-    // ¼ì²éÍæ¼ÒÊÇ·ñ½øÈëÄ¿±êÇøÓò£¬²¢ÇÒ°´ÏÂ Enter ¼ü
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ò£¬²ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ Enter ï¿½ï¿½
     if (Region_supermarket.containsPoint ( playerPos )) {
-        // Íæ¼Ò½øÈëÄ¿±êÇøÓò
+        // ï¿½ï¿½Ò½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         opendoor->setVisible ( true );
         opendoor->setPosition ( playerPos.x + 110 , playerPos.y + 30 );
         CCLOG ( "Player in target area" );
 
         if (isEnterKeyPressed) {
             for (auto& pair : T_lastplace) {
-                if (pair.first.first == "seedshop") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+                if (pair.first.first == "seedshop") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                     pair.second = true;
                 }
             }
-            // ´òÓ¡µ÷ÊÔÐÅÏ¢£¬¼ì²é Enter ¼üµÄ×´Ì¬
+            // ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ Enter ï¿½ï¿½ï¿½ï¿½×´Ì¬
             CCLOG ( "Player in target area, isEnterKeyPressed: %d" , isEnterKeyPressed );
-            // µ÷ÓÃ³¡¾°ÇÐ»»Âß¼­
+            // ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ß¼ï¿½
             player1->removeFromParent ();
             AudioEngine::pauseAll ();
             auto backgroundAudioID = AudioEngine::play2d ( "MUSIC/MayYouBeHappyAndProsperous.mp3" , true );
-            auto seedshop = supermarket::create ();
             // miniBag->removeFromParent();
-            Director::getInstance ()->replaceScene ( seedshop );
+            GameStateManager::getInstance().changeState(GameStateType::SHOP, "door_open", 1.0f);
         }
 
     }
@@ -688,10 +687,9 @@ void Town::checkPlayerPosition ()
                     pair.second = true;
                 }
             }
-            // µ÷ÓÃ³¡¾°ÇÐ»»Âß¼­
+            // ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ß¼ï¿½
             player1->removeFromParent ();
-            auto nextscene = Forest::create ();
-            Director::getInstance ()->replaceScene ( nextscene );
+            GameStateManager::getInstance().changeState(GameStateType::FOREST, "slide_left", 0.8f);
         }
 
     }
@@ -703,16 +701,15 @@ void Town::checkPlayerPosition ()
                     pair.second = true;
                 }
             }
-            // µ÷ÓÃ³¡¾°ÇÐ»»Âß¼­
+            // ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ß¼ï¿½
             player1->removeFromParent ();
-            auto nextscene = Beach::create ();
-            Director::getInstance ()->replaceScene ( nextscene );
+            GameStateManager::getInstance().changeState(GameStateType::BEACH, "slide_right", 0.8f);
         }
     }
 
     for (const auto& point : nonTransparentPixels)
     {
-        // ¼ÆËãÍæ¼ÒÓëÂÖÀªµãÖ®¼äµÄ¾àÀë
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
         float distance = 0;
 
         Vec2 temp;
@@ -777,7 +774,7 @@ void Town::createRainEffect() {
 
     addChild(emitter, 10);
 
-    // Ã¿Ö¡¸üÐÂÁ£×ÓÉúÃüÖÜÆÚ
+    // Ã¿Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     schedule([this](float dt) {
         updaterain(dt);
         }, "update_rain_key");
@@ -786,10 +783,10 @@ void Town::createRainEffect() {
 
 void Town::updaterain(float deltaTime) {
     if (emitter) {
-        // Ëæ»úÉú³ÉÒ»¸öÉúÃüÖÜÆÚ£¨·¶Î§ 1 µ½ 1.5 ÃëÖ®¼ä£©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Î§ 1 ï¿½ï¿½ 1.5 ï¿½ï¿½Ö®ï¿½ä£©
         float newLife = cocos2d::rand_0_1() * 1.5f;
 
-        // ÉèÖÃÐÂµÄÉúÃüÖÜÆÚ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         emitter->setLife(newLife);
 
         emitter->setEmissionRate(emitter->getTotalParticles() / emitter->getLife() * 1.3);
