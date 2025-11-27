@@ -1,4 +1,5 @@
-#include"Inventory.h"
+#include "Inventory.h"
+#include "EventManager.h"
 
 Inventory::Inventory ( const int& size )
 	:capacity ( size ) , selected_position ( -1 ) {};
@@ -12,6 +13,7 @@ bool Inventory::AddItem ( const Item& item ) {
 			&& pair.second.second < item.max_count_in_one_grid) {
 			++pair.second.second;
 			is_updated = true;
+            EventManager::getInstance().publishItemAdded(item.GetName(), 1, pair.first);
 			return true;
 		}
 	}
@@ -27,6 +29,7 @@ bool Inventory::AddItem ( const Item& item ) {
 		}
 		package[index] = std::make_pair ( item.GetCopy () , 1 );
 		is_updated = true;
+        EventManager::getInstance().publishItemAdded(item.GetName(), 1, index);
 		return true;
 	}
 
@@ -44,6 +47,7 @@ bool Inventory::AddItem ( const Item& item , const int& add_num ) {
 			remaining -= to_add;
 			if (remaining <= 0) {
 				is_updated = true;
+                EventManager::getInstance().publishItemAdded(item.GetName(), to_add, pair.first);
 				return true;
 			}
 		}
@@ -63,10 +67,11 @@ bool Inventory::AddItem ( const Item& item , const int& add_num ) {
 		remaining -= to_add;
 		if (remaining <= 0) {
 			is_updated = true;
+            EventManager::getInstance().publishItemAdded(item.GetName(), to_add, index);
 			return true;
 		}
 	}
-	is_updated = remaining < add_num ? true : false;
+    is_updated = remaining < add_num ? true : false;
 	return remaining <= 0;
 }
 
@@ -74,11 +79,15 @@ int Inventory::RemoveItem ( const int& position , const int& remove_num ) {
 	auto it = package.find ( position );
 	if (it != package.end ()) {
 		is_updated = true;
+        const std::string itemName = it->second.first ? it->second.first->GetName() : "";
+        const int removedCount = std::min(remove_num, it->second.second);
 		if (it->second.second > remove_num) {
 			it->second.second -= remove_num;
+            EventManager::getInstance().publishItemRemoved(itemName, removedCount, position);
 			return 0;
 		}
 		package.erase ( it );
+        EventManager::getInstance().publishItemRemoved(itemName, removedCount, position);
 		return 1;
 	}
 	return -1;
@@ -120,15 +129,15 @@ int Inventory::SetSelectedItem (const int new_position) {
 		return 0;
 	}
 	auto it_previous = package.find ( selected_position );
-	//ÈôÔ­À´`selected_position`Î»ÖÃ´¦ÓÐÎïÆ·£¬½«Æä¸ÄÎªunusable
+	//ï¿½ï¿½Ô­ï¿½ï¿½`selected_position`Î»ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªunusable
 	if (it_previous != package.end ()) {
 		it_previous->second.first->SetUnusable ();
 	}
-	//Ö»ÄÜÉèÖÃÎïÆ·À¸×î¶¥²ãÖÐµÄItemÎªµ±Ç°Ñ¡ÖÐÎïÆ·
+	//Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½î¶¥ï¿½ï¿½ï¿½Ðµï¿½ItemÎªï¿½ï¿½Ç°Ñ¡ï¿½ï¿½ï¿½ï¿½Æ·
 	if (new_position >= 1 && new_position <= kRowSize) {
 		selected_position = new_position;
 		auto it_new = package.find ( new_position );
-		//ÈôÐÂÎ»ÖÃÓÐItem,ÉèÖÃÆäÎªusable
+		//ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½Item,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªusable
 		if (it_new != package.end () && it_new->second.first != nullptr) {
 			it_new->second.first->SetUsable ();
 			return 0;

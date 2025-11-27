@@ -1,37 +1,42 @@
 #include "EconomicSystem.h"  
-#include "cocos2d.h"  // È·±£°üº¬ cocos2d.h À´Ê¹ÓÃ CCLOG  
+#include "EventManager.h"
+#include "cocos2d.h"  // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cocos2d.h ï¿½ï¿½Ê¹ï¿½ï¿½ CCLOG  
 #include <iostream>  
 
 extern int GoldAmount;
 
-// ¹¹Ôìº¯Êý³õÊ¼»¯½ð±ÒÊýÁ¿Îª4000  
+// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª4000  
 EconomicSystem::EconomicSystem ( Inventory* mybag , Inventory* goods)
     : goldAmount (GoldAmount) , _mybag ( mybag ) , _goods ( goods ) {
-    // ³õÊ¼»¯´úÂë¿ÉÒÔÔÚÕâÀïÖ´ÐÐ  
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½  
 }
 
-// Îö¹¹º¯Êý  
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 EconomicSystem::~EconomicSystem () {
-    // ÇåÀí´úÂë  
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
     GoldAmount = goldAmount;
 }
 
-// Ôö¼Ó½ð±ÒµÄº¯Êý  
+// ï¿½ï¿½ï¿½Ó½ï¿½ÒµÄºï¿½ï¿½ï¿½  
 void EconomicSystem::addGold ( int amount ) {
     if (amount > 0) {
+        int oldAmount = goldAmount;
         goldAmount += amount;
         CCLOG ( "Added %d gold. Total: %d gold." , amount , goldAmount );
+        EventManager::getInstance().publishGoldChanged(oldAmount, goldAmount, "economic_add");
     }
     else {
         CCLOG ( "Amount to add must be positive." );
     }
 }
 
-// ¼õÉÙ½ð±ÒµÄº¯Êý  
+// ï¿½ï¿½ï¿½Ù½ï¿½ÒµÄºï¿½ï¿½ï¿½  
 void EconomicSystem::subtractGold ( int amount ) {
     if (amount > 0 && amount <= goldAmount) {
+        int oldAmount = goldAmount;
         goldAmount -= amount;
         CCLOG ( "Subtracted %d gold. Total: %d gold." , amount , goldAmount );
+        EventManager::getInstance().publishGoldChanged(oldAmount, goldAmount, "economic_subtract");
     }
     else {
         if (amount > goldAmount) {
@@ -43,12 +48,12 @@ void EconomicSystem::subtractGold ( int amount ) {
     }
 }
 
-// ¶ÁÈ¡ÓµÓÐ½ð±ÒÊýÁ¿µÄº¯Êý  
+// ï¿½ï¿½È¡Óµï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½  
 int EconomicSystem::getGoldAmount () const {
     return goldAmount;
 }
 
-// ¹ºÂòº¯Êý  
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
 void EconomicSystem::buyItem ( const string& itemName ) {
     Item item = _goods->GetItemByName ( itemName );
 
@@ -56,18 +61,20 @@ void EconomicSystem::buyItem ( const string& itemName ) {
         subtractGold ( item.GetValue () );
         _mybag->AddItem ( item );
         CCLOG ( "Purchased item: %s" , itemName.c_str () );
+        EventManager::getInstance().publishItemBought(itemName, item.GetValue());
     }
     else {
         CCLOG ( "Not enough gold to buy %s." , itemName.c_str () );
     }
 }
 
-// ³öÊÛº¯Êý  
+// ï¿½ï¿½ï¿½Ûºï¿½ï¿½ï¿½  
 void EconomicSystem::sellItem ( const string& itemName , int count) {
-    Item item = _mybag->GetItemByName ( itemName ); // ´Ó±³°üÖÐ»ñÈ¡ÎïÆ·  
+    Item item = _mybag->GetItemByName ( itemName ); // ï¿½Ó±ï¿½ï¿½ï¿½ï¿½Ð»ï¿½È¡ï¿½ï¿½Æ·  
 
-    int itemValue = item.GetValue (); // »ñÈ¡Âô³ö¼Û¸ñ  
+    int itemValue = item.GetValue (); // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Û¸ï¿½  
     addGold ( itemValue * count );
     _mybag->RemoveItem ( item , count );
     CCLOG ( "Sold item: %s for %d gold." , itemName.c_str () , itemValue * count );
+    EventManager::getInstance().publishItemSold(itemName, itemValue * count);
 }
