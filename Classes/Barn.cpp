@@ -2,6 +2,7 @@
 #include "Barn.h"
 #include "farm.h"
 #include "Player.h"
+#include "GameStateManager.h"
 
 
 
@@ -26,13 +27,13 @@ bool Barn::init ()
     //button = cocos2d::Sprite::create("CloseNormal.png");
     //this->addChild(button, 11);
 
-    // ÉèÖÃ¼ÆÊ±Æ÷±êÇ©
-    // ÉèÖÃ¼ÆÊ±Æ÷±êÇ©
+    // ï¿½ï¿½ï¿½Ã¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ç©
+    // ï¿½ï¿½ï¿½Ã¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ç©
    
     TimeUI = Timesystem::create("Barn");
     this->addChild(TimeUI, 17);
 
-    // ÉèÖÃ±³¾°Í¼Æ¬
+    // ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½Í¼Æ¬
     auto background_real = Sprite::create("Barn/Barn.png");
     background_real->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     this->addChild(background_real, 1);
@@ -44,14 +45,14 @@ bool Barn::init ()
     background->setScale(5.1f);
 
 
-    Vec2 spritePosition = background->getPosition();   // »ñÈ¡¾«ÁéµÄÎ»ÖÃ£¨ÖÐÐÄµã£©
-    Size spriteSize = background->getContentSize();    // »ñÈ¡¾«ÁéµÄ³ß´ç£¨¿í¶ÈºÍ¸ß¶È£©
+    Vec2 spritePosition = background->getPosition();   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Äµã£©
+    Size spriteSize = background->getContentSize();    // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä³ß´ç£¨ï¿½ï¿½ï¿½ÈºÍ¸ß¶È£ï¿½
 
 
-    // ¼ÆËã×óÏÂ½ÇµÄ×ø±ê
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½Çµï¿½ï¿½ï¿½ï¿½ï¿½
     Vec2 leftBottomPosition = Vec2(
-        spritePosition.x - background->getScaleX() * spriteSize.width / 2,   // ÖÐÐÄµã x ×ø±ê¼õÈ¥¿í¶ÈµÄÒ»°ë
-        spritePosition.y - background->getScaleY() * spriteSize.height / 2   // ÖÐÐÄµã y ×ø±ê¼õÈ¥¸ß¶ÈµÄÒ»°ë
+        spritePosition.x - background->getScaleX() * spriteSize.width / 2,   // ï¿½ï¿½ï¿½Äµï¿½ x ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½Èµï¿½Ò»ï¿½ï¿½
+        spritePosition.y - background->getScaleY() * spriteSize.height / 2   // ï¿½ï¿½ï¿½Äµï¿½ y ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ß¶Èµï¿½Ò»ï¿½ï¿½
     );
 
 
@@ -61,31 +62,31 @@ bool Barn::init ()
         int width = img.getWidth();
         int height = img.getHeight();
 
-        // »ñÈ¡ÏñËØÊý¾Ý
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         unsigned char* data = img.getData();
 
-        // ±éÀúËùÓÐÏñËØ£¬¼ì²éÊÇ·ñÓÐÄÚÈÝ£¨Í¸Ã÷¶È´óÓÚ0£©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Í¸ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½0ï¿½ï¿½
         for (int y = 0; y < height; y = y + 2)
         {
             for (int x = 0; x < width; x = x + 2)
             {
-                // »ñÈ¡µ±Ç°ÏñËØµÄ RGBA Öµ
-                int index = (y * width + x) * 4;  // Ã¿¸öÏñËØÕ¼ÓÃ 4 ¸ö×Ö½Ú (RGBA)
-                unsigned char a = data[index + 3];  // Í¸Ã÷¶È
+                // ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Øµï¿½ RGBA Öµ
+                int index = (y * width + x) * 4;  // Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ 4 ï¿½ï¿½ï¿½Ö½ï¿½ (RGBA)
+                unsigned char a = data[index + 3];  // Í¸ï¿½ï¿½ï¿½ï¿½
 
-                // Èç¹ûÍ¸Ã÷¶È (alpha) ´óÓÚ 0£¬±íÊ¾´ËÏñËØÓÐÄÚÈÝ
+                // ï¿½ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ (alpha) ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (a > 0)
                 {
                     float screenX = leftBottomPosition.x + x * background->getScaleX();
-                    float screenY = leftBottomPosition.y + (height - y - 1) * background->getScaleY();  // ×¢Òâ Y Öá·´Ïò
-                    nonTransparentPixels.push_back(Vec2(screenX, screenY));  // ¼ÇÂ¼ÆÁÄ»×ø±ê
+                    float screenY = leftBottomPosition.y + (height - y - 1) * background->getScaleY();  // ×¢ï¿½ï¿½ Y ï¿½á·´ï¿½ï¿½
+                    nonTransparentPixels.push_back(Vec2(screenX, screenY));  // ï¿½ï¿½Â¼ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
     }
 
 
-    // ³õÊ¼»¯½ÇÉ«²¢½«ÆäÌí¼Óµ½³¡¾°
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
     if (player1->getParent() == NULL) {
         this->addChild(player1, 11);
         player1->setScale(2.7f);
@@ -96,7 +97,7 @@ bool Barn::init ()
 
     }
 
-    // Æô¶¯ÈËÎïµÄ¶¨Ê±Æ÷
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½Ê±ï¿½ï¿½
     player1->schedule([=](float dt) {
         player1->player1_move();
         }, 0.05f, "player1_move");
@@ -106,31 +107,31 @@ bool Barn::init ()
         }, 0.3f, "player_change");
 
 
-    // ¼ÆËã±³¾°¾«ÁéµÄËõ·Åºó·¶Î§
+    // ï¿½ï¿½ï¿½ã±³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½Î§
     float scaledWidth = background->getContentSize().width * background->getScaleX();
     float scaledHeight = background->getContentSize().height * background->getScaleY();
 
-    // ¹¹Ôì Follow µÄ±ß½ç Rect
+    // ï¿½ï¿½ï¿½ï¿½ Follow ï¿½Ä±ß½ï¿½ Rect
     auto followRect = cocos2d::Rect(leftBottomPosition.x, leftBottomPosition.y, scaledWidth, scaledHeight);
 
-    // ´´½¨ Follow ¶¯×÷²¢ÏÞÖÆÍæ¼ÒÔÚ±³¾°·¶Î§ÄÚÒÆ¶¯
+    // ï¿½ï¿½ï¿½ï¿½ Follow ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½Æ¶ï¿½
     auto followAction = Follow::create(player1, followRect);
     this->runAction(followAction);
 
-    // ¶¨ÆÚ¸üÐÂÍæ¼Ò×´Ì¬
+    // ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬
     this->schedule([this](float dt) {
-        this->checkPlayerPosition();  // ¼ì²éÍæ¼ÒÊÇ·ñ½Ó½üÂÖÀªµã
+        this->checkPlayerPosition();  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }, 0.01f, "check_position_key");
 
     auto listener = EventListenerMouse::create();
     listener->onMouseDown = [this](Event* event) {
 
-        // »ñÈ¡Êó±êµã»÷µÄÎ»ÖÃ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         auto mouseEvent = static_cast<EventMouse*>(event);
         Vec2 clickPos(mouseEvent->getCursorX(), mouseEvent->getCursorY());
         clickPos = this->convertToNodeSpace(clickPos);
 
-        //// ÅÐ¶Ïµã»÷Î»ÖÃÊÇ·ñÔÚ¾«Áé·¶Î§ÄÚ
+        //// ï¿½Ð¶Ïµï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ú¾ï¿½ï¿½é·¶Î§ï¿½ï¿½
         //if (button != nullptr && button->getBoundingBox().containsPoint(clickPos)) {
         //    Director::getInstance()->end();
         //}
@@ -138,7 +139,7 @@ bool Barn::init ()
 
     //_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, button);
 
-    // ÉèÖÃ¼üÅÌ¼àÌýÆ÷
+    // ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ï¿½ï¿½
     auto listenerWithPlayer = EventListenerKeyboard::create();
     listenerWithPlayer->onKeyPressed = [this](EventKeyboard::KeyCode keyCode, Event* event)
         {
@@ -148,45 +149,45 @@ bool Barn::init ()
             }
             else if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE) {
                 static int isOpen = 0;
-                static InventoryUI* currentInventoryUI = nullptr;  // ±£´æµ±Ç°ÏÔÊ¾µÄ InventoryUI  
-                // Èç¹ûµ±Ç°Ã»ÓÐ´ò¿ª InventoryUI£¬Ôò´ò¿ªËü  
+                static InventoryUI* currentInventoryUI = nullptr;  // ï¿½ï¿½ï¿½æµ±Ç°ï¿½ï¿½Ê¾ï¿½ï¿½ InventoryUI  
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ã»ï¿½Ð´ï¿½ InventoryUIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
                 if (currentInventoryUI == nullptr || isOpen == 0) {
                     isOpen = 1;
                     CCLOG ( "Opening inventory." );
                     currentInventoryUI = InventoryUI::create ( inventory , "Barn" );
-                    this->addChild ( currentInventoryUI , 20 );  // ½« InventoryUI Ìí¼Óµ½ÉÏ²ã  
+                    this->addChild ( currentInventoryUI , 20 );  // ï¿½ï¿½ InventoryUI ï¿½ï¿½ï¿½Óµï¿½ï¿½Ï²ï¿½  
                 }
-                // Èç¹ûÒÑ¾­´ò¿ª InventoryUI£¬Ôò¹Ø±ÕËü  
+                // ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ InventoryUIï¿½ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½  
                 else {
                     isOpen = 0;
                     CCLOG ( "Closing inventory." );
-                    this->removeChild ( currentInventoryUI , true );  // ´Óµ±Ç°³¡¾°ÖÐÒÆ³ý InventoryUI  
-                    currentInventoryUI = nullptr;  // ÖØÖÃÖ¸Õë  
+                    this->removeChild ( currentInventoryUI , true );  // ï¿½Óµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½ InventoryUI  
+                    currentInventoryUI = nullptr;  // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½  
                 }
             }
         };
 
     listenerWithPlayer->onKeyReleased = [this](EventKeyboard::KeyCode keyCode, Event* event)
         {
-            // ÊÍ·Å Enter ¼üÊ±£¬ÉèÖÃÎª false
+            // ï¿½Í·ï¿½ Enter ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª false
             if (keyCode == EventKeyboard::KeyCode::KEY_ENTER || keyCode == EventKeyboard::KeyCode::KEY_KP_ENTER) {
                 isEnterKeyPressed = false;
             }
         };
 
-    // ½«¼àÌýÆ÷Ìí¼Óµ½ÊÂ¼þ·Ö·¢Æ÷ÖÐ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Â¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listenerWithPlayer, this);
 
-    // ÉèÖÃÊó±ê¼àÌýÆ÷
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     auto mouse_listener = cocos2d::EventListenerMouse::create ();
 
-    // Êó±êµã»÷ÊÂ¼þµÄ»Øµ÷º¯Êý
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½Ä»Øµï¿½ï¿½ï¿½ï¿½ï¿½
     mouse_listener->onMouseDown = CC_CALLBACK_1 ( Barn::GetProduction , this );
 
-    // ½«¼àÌýÆ÷Ìí¼Óµ½ÊÂ¼þ·Ö·¢Æ÷
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Â¼ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
     _eventDispatcher->addEventListenerWithSceneGraphPriority ( mouse_listener , this );
 
-    //½çÃæÏÂµÄ±³°üÏÔÊ¾
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ÂµÄ±ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾
     std::string scenename = "town";
     miniBag = mini_bag::create ( inventory);
     miniBag->setScale ( 1.0f );
@@ -199,7 +200,7 @@ bool Barn::init ()
     }
 
 
-    // ¸üÐÂÎïÆ·À¸
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½
     schedule ( [=]( float deltaTime ) {
         if (inventory->is_updated == true) {
             miniBag->updateDisplay ();
@@ -224,16 +225,16 @@ Barn* Barn::create()
 }
 
 
-// ¼ì²éÍæ¼ÒÊÇ·ñ½Ó½ü±³¾°µÄÂÖÀªµã
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Barn::checkPlayerPosition()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     TimeUI->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 
-    // »ñÈ¡Íæ¼ÒµÄÎ»ÖÃ
+    // ï¿½ï¿½È¡ï¿½ï¿½Òµï¿½Î»ï¿½ï¿½
     Vec2 playerPos = player1->getPosition();
 
-    // ¸üÐÂ¼ÆÊ±Æ÷ÏÔÊ¾
+    // ï¿½ï¿½ï¿½Â¼ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¾
     remainingTime++;
     if (remainingTime == 43200) {
 
@@ -271,7 +272,7 @@ void Barn::checkPlayerPosition()
 
         for (auto it = Crop_information.begin(); it != Crop_information.end();) {
 
-            auto crop = *it;  // ½âÒýÓÃµü´úÆ÷ÒÔ·ÃÎÊ Crop ¶ÔÏó
+            auto crop = *it;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ Crop ï¿½ï¿½ï¿½ï¿½
 
             if (day == 1) {
                 crop->watered = true;
@@ -280,22 +281,22 @@ void Barn::checkPlayerPosition()
                 crop->watered = true;
             }
 
-            // ÅÐ¶ÏÇ°Ò»ÌìÊÇ·ñ½½Ë®
+            // ï¿½Ð¶ï¿½Ç°Ò»ï¿½ï¿½ï¿½Ç·ï¿½Ë®
             if ((crop->watered == false) && (crop->GetPhase() != Phase::MATURE)) {
-                // ÅÐ¶ÏÊÇ·ñÒÑ¾­½øÈë¿ÝÎ®×´Ì¬
+                // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î®×´Ì¬
                 if (crop->GetPhase() != Phase::SAPLESS) {
                     crop->ChangePhase(Phase::SAPLESS);
-                    crop->ChangMatureNeeded(2); // ÑÓ³ÙÁ½ÌìÊÕ»ñ
+                    crop->ChangMatureNeeded(2); // ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½
                     it++;
                 }
                 else {
-                    // É¾³ýÔªËØ²¢¸üÐÂµü´úÆ÷
+                    // É¾ï¿½ï¿½Ôªï¿½Ø²ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
                     it = Crop_information.erase(it);
                 }
 
             }
             else {
-                // ¸üÐÂ×´Ì¬
+                // ï¿½ï¿½ï¿½ï¿½×´Ì¬
                 crop->UpdateGrowth();
                 it++;
             }
@@ -303,12 +304,12 @@ void Barn::checkPlayerPosition()
         }
 
         for (auto& pair : F_lastplace) {
-            if (pair.first.first == "myhouse") {  // ¼ì²é bool ÖµÊÇ·ñÎª true
+            if (pair.first.first == "myhouse") {  // ï¿½ï¿½ï¿½ bool Öµï¿½Ç·ï¿½Îª true
                 pair.second = true;
             }
         }
 
-        //»Ö¸´ÎªÄÜ¹»Éú²ú²úÆ·
+        //ï¿½Ö¸ï¿½Îªï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·
         for (auto livestock : livestocks) {
             livestock->SetCanProduce ( true );
         }
@@ -317,24 +318,22 @@ void Barn::checkPlayerPosition()
         frombed = true;
         remainingTime = 10800;
         player1->removeFromParent();
-        auto nextday = Myhouse::create();
-        Director::getInstance()->replaceScene(nextday);
+        GameStateManager::getInstance().changeState(GameStateType::MYHOUSE, "fade", 1.0f);
 
     }
 
-    // ÊÇ·ñ½øÈëÅ©³¡
+    // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½
     if (Out_Barn.containsPoint(playerPos)) {
         if (isEnterKeyPressed) {
             player1->removeFromParent();
-            auto NextSence = farm::create();
-            Director::getInstance()->replaceScene(NextSence);
+            GameStateManager::getInstance().changeState(GameStateType::FARM, "slide_right", 0.8f);
         }
     }
 
 
     for (const auto& point : nonTransparentPixels)
     {
-        // ¼ÆËãÍæ¼ÒÓëÂÖÀªµãÖ®¼äµÄ¾àÀë
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
         float distance = 0;
 
         Vec2 temp;
@@ -392,16 +391,16 @@ void Barn::checkPlayerPosition()
 }
 
 void Barn::GetProduction ( cocos2d::EventMouse* event ) {
-    // ÅÐ¶ÏÊÇ·ñÊÇÊó±êÓÒ¼üµã»÷
+    // ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½
     if (event->getMouseButton () == cocos2d::EventMouse::MouseButton::BUTTON_RIGHT)
     {
-        // »ñÈ¡Êó±êµã»÷Î»ÖÃ
+        // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         cocos2d::Vec2 click_pos = this->convertToNodeSpace ( event->getLocationInView () );
 
-        //±éÀúlivestocks
+        //ï¿½ï¿½ï¿½ï¿½livestocks
         for (auto& livestock : livestocks) {
             if (livestock->IsCanProduce ()) {
-                // ÅÐ¶Ïµã»÷Î»ÖÃÊÇ·ñÔÚ Sprite ÄÚ²¿
+                // ï¿½Ð¶Ïµï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ Sprite ï¿½Ú²ï¿½
                 if (livestock->getBoundingBox ().containsPoint ( click_pos )) {
                     CCLOG ( "Right-clicked on the produce_enabled livestock!" );
                     auto product = livestock->ProduceProduct ();
@@ -409,7 +408,7 @@ void Barn::GetProduction ( cocos2d::EventMouse* event ) {
                     int experience_to_add = 10;
                     skill_tree->AddExperience ( farming_skill , experience_to_add );
                     inventory->DisplayPackageInCCLOG ();
-                    //¸üÐÂ¶ÔÓ¦livestockµÄcan_produce×´Ì¬Îªfalse
+                    //ï¿½ï¿½ï¿½Â¶ï¿½Ó¦livestockï¿½ï¿½can_produce×´Ì¬Îªfalse
                     livestock->SetCanProduce ( false );
                 }
             }
